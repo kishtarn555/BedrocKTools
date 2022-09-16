@@ -64,9 +64,6 @@ namespace MinecraftBedrockStructureBlock.structure {
         NbtCompound parsePaletteNBT() {
             NbtCompound palette = new NbtCompound("palette");
             NbtCompound defaultPalette = new NbtCompound("default");
-
-            
-
             palette.Add(defaultPalette);
             return palette;
         }
@@ -75,6 +72,7 @@ namespace MinecraftBedrockStructureBlock.structure {
             NbtCompound structure = new NbtCompound("structure");
             structure.Add(parseBlockIndicesNBT());
             structure.Add(parseEntitiesNBT());
+            structure.Add(parsePaletteNBT());
             return structure;
         }
 

@@ -16,6 +16,9 @@ namespace MinecraftBedrockStructureBlock.types {
             writer.Write(value);
         }
 
-       
+        public override string ToString() {
+            return value.ToString();
+        }
+
     }
 }

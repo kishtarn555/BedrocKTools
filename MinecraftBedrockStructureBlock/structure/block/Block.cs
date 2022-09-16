@@ -23,14 +23,18 @@ namespace MinecraftBedrockStructureBlock.structure.block {
             return block;
         }
 
-        /*public override bool Equals(object obj) {
+        public override bool Equals(object obj) {
             return obj is Block block &&
                    identifier == block.identifier &&
-                   EqualityComparer<NbtCompound>.Default.Equals(blockStates, block.blockStates);
+                   blockStates.ToString() == obj.ToString();
         }
 
         public override int GetHashCode() {
-            return HashCode.Combine(identifier, blockStates);
-        }*/
+            return ToString().GetHashCode();
+        }
+
+        public override string ToString() {
+            return String.Format("[Block] {0} {1}", identifier, blockStates);
+        }
     }
 }

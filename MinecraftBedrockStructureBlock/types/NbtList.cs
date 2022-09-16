@@ -29,5 +29,20 @@ namespace MinecraftBedrockStructureBlock.types {
                 element.print(writer, false);
             }
         }
+
+        public override string ToString() {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.Append("[");
+            bool first = true;
+            foreach (NbtBase element in elements) {
+                if (!first) {
+                    stringBuilder.Append(",");
+                }
+                first = false;
+                stringBuilder.Append(element);
+            }
+            stringBuilder.Append("]");
+            return stringBuilder.ToString();
+        }
     }
 }
