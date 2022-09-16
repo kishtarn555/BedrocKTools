@@ -27,6 +27,7 @@ namespace MinecraftBedrockStructureBlock.types {
         public override string ToString() {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append("{");
+            bool first = true;
             foreach (NbtBase element in elements.Values) {
                 if (!first) stringBuilder.Append(',');
                 first = false;

@@ -26,7 +26,7 @@ namespace MinecraftBedrockStructureBlock.structure.block {
         public override bool Equals(object obj) {
             return obj is Block block &&
                    identifier == block.identifier &&
-                   blockStates.ToString() == obj.ToString();
+                   this.ToString() == block.ToString();
         }
 
         public override int GetHashCode() {

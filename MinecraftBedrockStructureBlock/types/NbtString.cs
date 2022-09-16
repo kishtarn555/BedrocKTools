@@ -17,5 +17,9 @@ namespace MinecraftBedrockStructureBlock.types {
                 writer.Write(c);
             }
         }
+
+        public override string ToString() {
+            return String.Format("\"{0}\"", value);
+        }
     }
 }
