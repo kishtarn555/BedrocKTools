@@ -13,6 +13,7 @@ namespace MinecraftBedrockStructureBlock.types {
 
         public override void print(BinaryWriter writer, bool named = true) {
             printNameData(writer, named);
+            writer.Write((short)value.Length) ;
             foreach (char c in value) {
                 writer.Write(c);
             }

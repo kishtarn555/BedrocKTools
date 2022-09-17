@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using MinecraftBedrockStructureBlock.types;
-
+using MinecraftBedrockStructureBlock.types.util;
 namespace MinecraftBedrockStructureBlock.structure.block {
     public class Block: NbtRepresentableObject {
         public string identifier;
@@ -13,6 +13,12 @@ namespace MinecraftBedrockStructureBlock.structure.block {
             this.identifier = identifier;
             this.blockStates = blockStates;
             blockStates.name = "states";
+        }
+
+        public Block(string identifier, string blockStates) {
+            this.identifier  = identifier;
+            this.blockStates = new NbtSortedCompound(NbtStringParser.Get<NbtCompound>(blockStates));
+            this.blockStates.name = "states";
         }
 
         public override NbtBase GetNBT() {

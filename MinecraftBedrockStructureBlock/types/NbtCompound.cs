@@ -23,6 +23,9 @@ namespace MinecraftBedrockStructureBlock.types {
             writer.Write((byte)NbtTypes.TAG_End);
         }
 
+        public List<NbtBase> getList() {
+            return elementList;
+        }
         public override string ToString() {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append("{");

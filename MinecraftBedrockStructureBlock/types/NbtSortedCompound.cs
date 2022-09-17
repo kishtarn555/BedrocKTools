@@ -10,6 +10,14 @@ namespace MinecraftBedrockStructureBlock.types {
         public NbtSortedCompound(string name) : base(name, NbtTypes.TAG_Compound) {
             elements = new SortedList<string, NbtBase>();
         }
+
+        public NbtSortedCompound(NbtCompound compound): base(compound.name, NbtTypes.TAG_Compound) {
+            elements = new SortedList<string, NbtBase>();
+            List<NbtBase> l = compound.getList();
+            foreach (NbtBase element in l) {
+                elements.Add(element.name, element);
+            }
+        }
         public void Add(NbtBase newElement) {
             elements.Add(newElement.name,newElement);
         }
