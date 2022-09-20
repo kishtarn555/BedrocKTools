@@ -10,6 +10,16 @@ namespace MinecraftBedrockStructureBlock.types {
         public NbtCompound(string name): base(name, NbtTypes.TAG_Compound)  {
             elementList = new List<NbtBase>();
         }
+           
+        public NbtBase this[string key] {
+            get {
+                foreach (NbtBase element in elementList) {
+                    if (element.name == key)
+                        return element;
+                }
+                return null;
+            }
+        }
 
         public void Add(NbtBase newElement) {
             elementList.Add(newElement);

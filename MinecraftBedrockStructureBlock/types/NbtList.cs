@@ -12,6 +12,11 @@ namespace MinecraftBedrockStructureBlock.types {
             elements = new List<NbtBase>();
             this.dataType = dataType;
         }
+        public NbtBase this[int index] {
+            get {
+                return elements[index];
+            }
+        }
 
         public void Add(NbtBase newElement) {
             if (newElement.NType != dataType) {
@@ -43,6 +48,10 @@ namespace MinecraftBedrockStructureBlock.types {
             }
             stringBuilder.Append("]");
             return stringBuilder.ToString();
+        }
+
+        public List<NbtBase> GetList() {
+            return elements;
         }
     }
 }
