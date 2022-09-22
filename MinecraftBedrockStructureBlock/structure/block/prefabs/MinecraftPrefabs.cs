@@ -50,6 +50,11 @@ namespace MinecraftBedrockStructureBlock.structure.block.prefabs {
             public static Block Crimson => new Block("minecraft:crimson_planks", "{}");
             public static Block Warped => new Block("minecraft:warped_planks", "{}");
         }
+        public static class Prismarine {
+            public static Block Bricks => new Block("minecraft:prismarine", "{prismarine_block_type:\"bricks\"}");
+            public static Block Dark => new Block("minecraft:prismarine", "{prismarine_block_type:\"dark\"}");
+            public static Block Default => new Block("minecraft:prismarine", "{prismarine_block_type:\"default\"}");
+        }
         public static Block RawIronBlock => new Block("minecraft:raw_iron_block", "{}");
         public static Block RedstoneBlock => new Block("minecraft:redstone_block", "{}");
         public static class Stone {

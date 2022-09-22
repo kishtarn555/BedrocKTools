@@ -82,6 +82,7 @@ namespace MinecraftBedrockStructureBlock.image {
             colorMap[ColorTranslator.FromHtml("#747782")] = MinecraftPrefabs.Clay;
             colorMap[ColorTranslator.FromHtml("#7272B5")] = MinecraftPrefabs.Ice.Packed;
             colorMap[ColorTranslator.FromHtml("#B50000")] = MinecraftPrefabs.RedstoneBlock;
+            colorMap[ColorTranslator.FromHtml("#419B97")] = MinecraftPrefabs.Prismarine.Bricks;
         }
         
     }

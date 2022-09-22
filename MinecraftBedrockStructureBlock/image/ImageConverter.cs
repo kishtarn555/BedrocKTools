@@ -57,32 +57,39 @@ namespace MinecraftBedrockStructureBlock.image {
             
         }
 
+        static double ContrastFactor(Color a, Color b) {
+            if (new LabColorDistanceCalculator().calcDistance(a, b) > 37)
+                return 0.05;
+            return 1.0;
+        } 
         public static McStructure DiffDithering(string path, DistanceMode mode=DistanceMode.LabSolid, int ditherSize=2) {
             Bitmap image = new Bitmap(path);
             int width = image.Width;
             int height = image.Height;
             Color3D[,] img = new Color3D[width, height];
+            Color[,] orig = new Color[width, height];
             for (int i =0; i < width; i++) {
                 for (int j = 0; j < height; j++) {
                     img[i, j] = new Color3D(image.GetPixel(i, j));
+                    orig[i, j] = image.GetPixel(i, j);
                 }
             }
             McStructure mc = new McStructure(width, 1, height);
             for (int i =0; i < width; i++) {
                 for (int j=0; j < height; j++) {
-                    img[i, j].normalize();
+                    img[i, j].Clamp();  // FIXME: This is a fix, but it probably should be fixed by Garnut clamping.
                     (double distance, Block block) info= MapColorPalette.GetColorDistanceVector(img[i, j].getColor(), GetCalculator(mode)).GetSortedList()[0];
                     mc.setBlock(i, 0, j, info.block);
                     Color3D c = new Color3D(MapColorPalette.GetColor(info.block));
                     Color3D diff = img[i, j] - c;
                     if (j + 1 < width)
-                        img[i, j + 1] = img[i, j + 1] + (diff * 7.0 / 16.0);
+                        img[i, j + 1] = img[i, j + 1] + (diff * 7.0 / 16.0) * ContrastFactor(orig[i, j], orig[i, j + 1]);
                     if (i + 1 < height) {
                         if (j -1 >=0)
-                            img[i + 1, j-1] = img[i + 1, j-1] + (diff * 3.0 / 16.0);
-                        img[i + 1, j ] = img[i + 1, j ] + (diff * 5.0 / 16.0);
+                            img[i + 1, j-1] = img[i + 1, j-1] + (diff * 3.0 / 16.0) * ContrastFactor(orig[i, j], orig[i+1, j - 1]);
+                        img[i + 1, j ] = img[i + 1, j ] + (diff * 5.0 / 16.0) * ContrastFactor(orig[i, j], orig[i+1, j ]);
                         if (j + 1 < width)
-                            img[i+1, j + 1] = img[i+1, j + 1] + (diff * 1.0 / 16.0);
+                            img[i+1, j + 1] = img[i+1, j + 1] + (diff * 1.0 / 16.0) * ContrastFactor(orig[i, j], orig[i+1, j + 1]);
                     }
 
                 }

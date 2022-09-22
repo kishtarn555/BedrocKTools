@@ -37,7 +37,7 @@ namespace MinecraftBedrockStructureBlock.image.util {
             return System.Drawing.Color.FromArgb(255,(int)R, (int)G, (int)B);
         }
 
-        public void normalize() {
+        public void Clamp() {
             if (R < 0) R = 0;
             if (R > 255) R = 255;
             if (G < 0) G = 0;
