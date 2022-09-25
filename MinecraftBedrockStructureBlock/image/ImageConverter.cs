@@ -58,6 +58,7 @@ namespace MinecraftBedrockStructureBlock.image {
         }
 
         static double ContrastFactor(Color a, Color b) {
+            return 1.0;
             if (new LabColorDistanceCalculator().calcDistance(a, b) > 37)
                 return 0.05;
             return 1.0;
