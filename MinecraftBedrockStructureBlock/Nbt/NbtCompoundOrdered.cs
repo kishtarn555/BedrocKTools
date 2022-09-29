@@ -7,7 +7,7 @@ namespace BedrockTools.Nbt {
     /// <summary>
     /// This is a NbtCompound that keeps insertion order, however operations are O(N)
     /// </summary>
-    class NbtCompoundOrdered : NbtCompoundBase {
+    public class NbtCompoundOrdered : NbtCompoundBase {
         List<KeyValuePair<string, NbtElement>> elements;
         public NbtCompoundOrdered() {
             elements = new List<KeyValuePair<string, NbtElement>>();

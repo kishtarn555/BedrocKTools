@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 
 namespace BedrockTools.Nbt {
-    class NbtList : NbtElement, IList<NbtElement> {
+    public class NbtList : NbtElement, IList<NbtElement> {
         public override NbtTag Tag => NbtTag.TAG_List;
         public NbtTag ElementsType { get; protected set; }
         List<NbtElement> elements;
@@ -15,6 +15,7 @@ namespace BedrockTools.Nbt {
 
         public NbtList(NbtTag elementsType) {
             this.ElementsType = elementsType;
+            elements = new List<NbtElement>();
         }
 
         public override void WriteValue(BinaryWriter writer) {
