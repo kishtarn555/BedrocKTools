@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace BedrockTools.Nbt {
+namespace BedrockTools.Nbt.Elements {
     public abstract class NbtElement {
         public abstract NbtTag Tag { get; }
         public void WriteTag(BinaryWriter writer) {

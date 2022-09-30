@@ -1,6 +1,7 @@
 ﻿using System.IO;
 
-namespace BedrockTools.Nbt {
+
+namespace BedrockTools.Nbt.Elements {
     public class NbtByte : NbtPrimitive<sbyte> {
         public override sbyte Value { get; protected set; }
         public override NbtTag Tag => NbtTag.TAG_Byte;

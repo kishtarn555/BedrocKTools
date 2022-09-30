@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace BedrockTools.Nbt {
+namespace BedrockTools.Nbt.Elements {
     public class NbtInt : NbtPrimitive<int> {
         public override NbtTag Tag => NbtTag.TAG_Int;
         public override int Value { get; protected set; }

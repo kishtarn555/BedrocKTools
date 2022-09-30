@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace BedrockTools.Nbt {
+namespace BedrockTools.Nbt.Elements {
     /// <summary>
     /// This is an NbtCompound based on C# dictionary, recomended for performance when you dont care about order.
     /// </summary>

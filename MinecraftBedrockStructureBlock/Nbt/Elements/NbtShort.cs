@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace BedrockTools.Nbt {
+namespace BedrockTools.Nbt.Elements {
     public class NbtShort : NbtPrimitive<short> {
         public override short Value { get; protected set; }
 

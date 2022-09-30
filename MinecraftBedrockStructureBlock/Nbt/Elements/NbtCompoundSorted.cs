@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace BedrockTools.Nbt {
+namespace BedrockTools.Nbt.Elements {
     /// <summary>
     /// This is an NbtCompound based on SortedDictionary, it will order based on names.
     /// </summary>

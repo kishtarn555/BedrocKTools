@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 
-namespace BedrockTools.Nbt {
+namespace BedrockTools.Nbt.Elements {
     public class NbtList : NbtElement, IList<NbtElement> {
         public override NbtTag Tag => NbtTag.TAG_List;
         public NbtTag ElementsType { get; protected set; }

@@ -5,7 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using BedrockTools.Nbt.Util;
 
-namespace BedrockTools.Nbt {
+namespace BedrockTools.Nbt.Elements {
     public abstract class NbtCompoundBase : NbtElement, IDictionary<string, NbtElement> {
         public override void WriteValue(BinaryWriter writer) {
             foreach (KeyValuePair<string, NbtElement> kvp in this) {

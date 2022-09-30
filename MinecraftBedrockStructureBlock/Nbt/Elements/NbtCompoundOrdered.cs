@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
-namespace BedrockTools.Nbt {
+namespace BedrockTools.Nbt.Elements {
     /// <summary>
     /// This is a NbtCompound that keeps insertion order, however operations are O(N)
     /// </summary>

@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BedrockTools.Nbt;
 using BedrockTools.Nbt.Util;
+using BedrockTools.Nbt.Elements;
 using System.IO;
 
 namespace BedrockToolsMSTest {
