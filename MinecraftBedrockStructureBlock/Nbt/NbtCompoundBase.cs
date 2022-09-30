@@ -34,9 +34,20 @@ namespace BedrockTools.Nbt {
         public abstract bool Remove(string key);
         public abstract bool Remove(KeyValuePair<string, NbtElement> item);
         public abstract bool TryGetValue(string key, [MaybeNullWhen(false)] out NbtElement value);
-
         IEnumerator IEnumerable.GetEnumerator() {
             return GetEnumerator();
+        }
+
+        public override string ToString() {
+            string answer = "{";
+            bool first = true;
+            foreach (KeyValuePair<string, NbtElement> kvp in this) {
+                if (!first) answer += ",";
+                answer += kvp.Key + ":" + kvp.Value.ToString();
+                first = false;
+            }
+            answer += "}";
+            return answer;
         }
     }
 }

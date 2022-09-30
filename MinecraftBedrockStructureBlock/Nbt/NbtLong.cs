@@ -11,5 +11,8 @@ namespace BedrockTools.Nbt {
         public override void WriteValue(BinaryWriter writer) {
             writer.Write(Value);
         }
+        public override string ToString() {
+            return $"{Value}L";
+        }
     }
 }

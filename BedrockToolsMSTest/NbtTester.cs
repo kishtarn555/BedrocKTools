@@ -65,5 +65,22 @@ namespace BedrockToolsMSTest {
             Assert.AreEqual(0x00, reader.ReadByte());//Compound end
             Assert.AreEqual(reader.BaseStream.Length, reader.BaseStream.Position, "there was more data than expected");
         }
+        [TestMethod]
+        public void TestSNBT() {
+            NbtCompoundOrdered root = new NbtCompoundOrdered();
+            NbtCompoundOrdered dummy = new NbtCompoundOrdered();
+            root.Add("dummy", dummy);
+            root.Add("index", new NbtLong(123));
+            NbtList version = new NbtList(NbtTag.TAG_Int);
+            version.Add(new NbtInt(1));
+            version.Add(new NbtInt(19));
+            version.Add(new NbtInt(3));
+            version.Add(new NbtInt(0));
+            dummy.Add("version", version);
+            dummy.Add("name", new NbtString("string"));
+            root.Add("short", new NbtShort(-10));
+            root.Add("byte", new NbtByte(-1));
+            Assert.AreEqual("{dummy:{version:[1,19,3,0],name:\"string\"},index:123L,short:-10S,byte:-1B}",root.ToString());
+        }
     }
 }

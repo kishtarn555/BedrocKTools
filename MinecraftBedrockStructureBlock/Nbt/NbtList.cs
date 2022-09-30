@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 
@@ -11,7 +12,11 @@ namespace BedrockTools.Nbt {
 
         public bool IsReadOnly => false;
 
-        public NbtElement this[int index] { get => elements[index]; set => elements[index] = value; }
+        public NbtElement this[int index] { get => elements[index]; set {
+                Validate(value);
+                elements[index] = value;
+            }
+        }
 
         public NbtList(NbtTag elementsType) {
             this.ElementsType = elementsType;
@@ -26,13 +31,26 @@ namespace BedrockTools.Nbt {
             }
         }
 
+        void Validate(NbtElement element) {
+            if (element == null)
+                throw new ArgumentNullException("NbtList cannot contain null NbtElements");
+            if (element.Tag != ElementsType)
+                throw new ArgumentException($"Cannot use NBT of type '{element.Tag}' for a NbtList of type '{ElementsType}'");
+        }
+
         public int IndexOf(NbtElement item) => elements.IndexOf(item);
 
-        public void Insert(int index, NbtElement item) => elements.Insert(index, item);
+        public void Insert(int index, NbtElement item) {
+            Validate(item);
+            elements.Insert(index, item);
+        }
 
         public void RemoveAt(int index) => elements.RemoveAt(index);
 
-        public void Add(NbtElement item) => elements.Add(item);
+        public void Add(NbtElement item)  {
+            Validate(item);
+            elements.Add(item);
+        }
 
         public void Clear() => elements.Clear();
 
@@ -45,5 +63,17 @@ namespace BedrockTools.Nbt {
         public IEnumerator<NbtElement> GetEnumerator() => elements.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+        public override string ToString() {
+            string answer = "[";
+            bool first = true;
+            foreach (NbtElement element in this) {
+                if (!first) answer += ",";
+                answer += element.ToString();
+                first = false;
+            }
+            answer += "]";
+            return answer;
+        }
     }
 }

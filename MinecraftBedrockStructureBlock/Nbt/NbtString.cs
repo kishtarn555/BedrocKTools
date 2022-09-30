@@ -9,5 +9,8 @@ namespace BedrockTools.Nbt {
         public override void WriteValue(BinaryWriter writer) {
             WriterUtil.WriteString(writer, Value);
         }
+        public override string ToString() {
+            return $"\"{Value}\"";
+        }
     }
 }
