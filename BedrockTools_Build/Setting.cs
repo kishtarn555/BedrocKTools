@@ -4,6 +4,6 @@ using System.Text;
 
 namespace BedrockTools_Build {
     static class Setting {
-        public static string ProjectPath = "../BedrockTools";
+        public static string ProjectPath = "../../../../BedrockTools";
     }
 }
