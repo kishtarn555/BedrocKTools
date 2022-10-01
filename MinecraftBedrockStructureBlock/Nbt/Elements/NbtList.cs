@@ -86,12 +86,14 @@ namespace BedrockTools.Nbt.Elements {
             return answer;
         }
 
-        public static NbtList Byte() => new NbtList(NbtTag.TAG_Byte);
-        public static NbtList Short() => new NbtList(NbtTag.TAG_Int);
-        public static NbtList Int() => new NbtList(NbtTag.TAG_Int);
-        public static NbtList Long() => new NbtList(NbtTag.TAG_Int);
-        public static NbtList Compound() => new NbtList(NbtTag.TAG_Compound);
-        public static NbtList End() => new NbtList(NbtTag.TAG_End);
+        public static NbtList Bytes() => new NbtList(NbtTag.TAG_Byte);
+        public static NbtList Shorts() => new NbtList(NbtTag.TAG_Int);
+        public static NbtList Ints() => new NbtList(NbtTag.TAG_Int);
+        public static NbtList Longs() => new NbtList(NbtTag.TAG_Int);
+        public static NbtList Floats() => new NbtList(NbtTag.TAG_Float);
+        public static NbtList Doubles() => new NbtList(NbtTag.TAG_Double);
+        public static NbtList Lists() => new NbtList(NbtTag.TAG_Double);
+        public static NbtList Compounds() => new NbtList(NbtTag.TAG_Compound);
         public static NbtList Empty() => new NbtList(NbtTag.TAG_End);
 
         public static NbtList Byte(IEnumerable<sbyte> collection) => new NbtList(NbtTag.TAG_Byte, collection.Select(number => new NbtByte(number)));
