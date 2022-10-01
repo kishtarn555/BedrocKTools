@@ -19,7 +19,7 @@ namespace BedrockTools_Build.Generator.MinecraftBlocks {
 using System;
 using System.Collections.Generic;
 
-namespace BedrockTools.Objects {{
+namespace BedrockTools.Objects.Minecraft {{
 
     public sealed class MinecraftBlockPrefabs {{
         static MinecraftBlockPrefabs _instance = null;

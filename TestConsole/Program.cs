@@ -20,6 +20,7 @@ namespace TestConsole {
                 }
             };
             Console.WriteLine(root);
+            Console.Write(MinecraftBlockPrefabs.Instance.GetPrefabByName("Air"));
             return;
             /*
             string MojangCom =
