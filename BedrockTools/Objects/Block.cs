@@ -1,7 +1,7 @@
 ﻿using System;
 using BedrockTools.Nbt.Extension;
 using BedrockTools.Nbt.Elements;
-using System.Collections.Generic;
+using BedrockTools.Nbt.Util;
 
 namespace BedrockTools.Objects {
     public class Block : INbtParsable<NbtCompoundOrdered> {
@@ -16,6 +16,10 @@ namespace BedrockTools.Objects {
         public Block (string identifier, NbtCompoundSorted blockstates) {
             this.Identifier = identifier;
             this.BlockStates = blockstates;
+        }
+        public Block(string identifier, string blockstates) {
+            this.Identifier = identifier;
+            this.BlockStates = (NbtCompoundSorted)(new SNbtParser<NbtCompoundSorted>(blockstates).Parse());
         }
         public NbtCompoundOrdered ToNbt() {
             return new NbtCompoundOrdered() {

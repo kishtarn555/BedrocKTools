@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BedrockTools.Objects.Minecraft.Blocks {
+namespace BedrockTools.Objects.Minecraft {
     public sealed class MinecraftBlockPrefabs {
 
         static MinecraftBlockPrefabs _instance = null;
+        Dictionary<string, Block> blockDictionary;
         public static MinecraftBlockPrefabs Instance {
             get {
                 if (_instance == null)
@@ -15,8 +16,13 @@ namespace BedrockTools.Objects.Minecraft.Blocks {
         }
 
         public Block GetPrefabByName(string name) {
-            return Instance.GetType().GetField(name).GetValue(null) as Block;
+            return blockDictionary[name];
         }
         public static readonly Block TestBlock = new Block("lol");
+
+        private MinecraftBlockPrefabs() {
+            this.blockDictionary = new Dictionary<string, Block>();
+           /// blockDictionary.Add("name", )
+        }
     }
 }

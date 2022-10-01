@@ -5,7 +5,7 @@ using System.Drawing;
 //using MinecraftBedrockStructureBlock.types;
 //using MinecraftBedrockStructureBlock.image;
 using BedrockTools.Nbt.Elements;
-using BedrockTools.Objects.Minecraft.Blocks;
+using BedrockTools.Objects.Minecraft;
 namespace TestConsole {
     class Program {
         static void Main(string[] args) {
