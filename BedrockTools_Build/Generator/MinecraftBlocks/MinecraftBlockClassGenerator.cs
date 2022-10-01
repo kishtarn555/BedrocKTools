@@ -9,7 +9,7 @@ namespace BedrockTools_Build.Generator.MinecraftBlocks {
         string classname;
         string blockstates;
 
-        public MinecraftBlockClassGenerator(string target, string identifier, string classname, string blockstates="{}") :base(target){
+        public MinecraftBlockClassGenerator(string target, string classname, string identifier, string blockstates="{}") :base(target){
             this.identifier = identifier;
             this.classname = classname;
             this.blockstates = blockstates;
@@ -23,7 +23,9 @@ namespace BedrockTools_Build.Generator.MinecraftBlocks {
             return
 $@"{base.GetCode()}
 
-namespace BlockTools.Objects.Minecraft.Blocks.{nspace} {{    
+using BedrockTools.Objects.Minecraft.Blocks;
+
+namespace BedrockTools.Objects.Minecraft.Blocks{(nspace!=""?"."+nspace:"")} {{    
     public class {singlename} : VanillaBlock {{
         public {singlename} () : base(""{identifier}"", ""{blockstates}"") {{}}
     }}

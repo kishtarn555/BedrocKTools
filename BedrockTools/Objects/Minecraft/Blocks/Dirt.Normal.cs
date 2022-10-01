@@ -7,8 +7,8 @@
 
 using BedrockTools.Objects.Minecraft.Blocks;
 
-namespace BedrockTools.Objects.Minecraft.Blocks {    
-    public class Air : VanillaBlock {
-        public Air () : base("minecraft:air", "{}") {}
+namespace BedrockTools.Objects.Minecraft.Blocks.Dirt {    
+    public class Normal : VanillaBlock {
+        public Normal () : base("minecraft:dirt", "{dirt_type:\"normal\"}") {}
     }
 }

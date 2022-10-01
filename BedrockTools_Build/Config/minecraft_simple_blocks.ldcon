@@ -1,3 +1,4 @@
 ﻿//Keep sorted
 //Format class identifier blockstates
-Air minecraft:air
+Air					minecraft:air
+Dirt.Normal			minecraft:dirt				{dirt_type:\"normal\"}

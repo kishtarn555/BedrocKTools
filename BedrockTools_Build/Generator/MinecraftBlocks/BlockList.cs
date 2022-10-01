@@ -33,11 +33,11 @@ namespace BedrockTools_Build.Generator.MinecraftBlocks {
                     continue;
                 if (Regex.IsMatch(tline, "//.*"))
                     continue;
-                string[] components = Regex.Split(tline, @"\s");
+                string[] components = Regex.Split(tline, @"\s+");
                 if (components.Length==2) {
                     b.blocks.Add(new BlockItem(components[0], components[1], "{}"));
                 } else if (components.Length==3){
-                    b.blocks.Add(new BlockItem(components[0], components[1], "{}"));
+                    b.blocks.Add(new BlockItem(components[0], components[1], components[2]));
                 } else {
                     throw new Exception($"Wrong format at line {lcode}:{line}.");
                 }
