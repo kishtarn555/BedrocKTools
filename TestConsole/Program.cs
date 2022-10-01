@@ -9,30 +9,17 @@ using BedrockTools.Objects.Minecraft.Blocks;
 namespace TestConsole {
     class Program {
         static void Main(string[] args) {
-            NbtCompound t = new NbtCompoundOrdered() {
-                { "name", (NbtString)"Hey" },
-                { "b", (NbtByte)3 },
-                { "yo", 
-                    new NbtCompoundSorted(){
-                        {"version", NbtList.FromInts(1,19,3,0) }
+            NbtCompound root = new NbtCompoundOrdered() {
+                {"name", (NbtString)"NbtExample"},
+                {"version", NbtList.FromInts(1,19,3,0)},
+                {
+                    "nested",
+                    new NbtCompoundOrdered() {
+                        {"data", (NbtShort)10}
                     }
-                },
+                }
             };
-            MinecraftBlockPrefabs p = MinecraftBlockPrefabs.Instance;
-            var properties = p.GetType().GetProperties();
-            var fields = p.GetType().GetFields();
-            var members = p.GetType().GetMembers();
-
-            Console.WriteLine("====Properties====");
-            foreach ( var prop in properties)
-                Console.WriteLine(prop);
-            Console.WriteLine("====Fields====");
-            foreach (var field in fields)
-                Console.WriteLine(field);
-
-            Console.WriteLine("====Members====");
-            foreach (var mem in members)
-                Console.WriteLine(mem);
+            Console.WriteLine(root);
             return;
             /*
             string MojangCom =

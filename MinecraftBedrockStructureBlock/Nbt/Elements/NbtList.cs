@@ -126,24 +126,24 @@ namespace BedrockTools.Nbt.Elements {
         public static NbtList Compounds(IEnumerable<NbtCompound> collection)
             => new NbtList(NbtTag.TAG_Compound, collection);
 
-        public static NbtList FromBytes(params sbyte[] input) 
-            => NbtList.Bytes(input);
-        public static NbtList FromShorts(params short[] input) 
-            => NbtList.Shorts(input);
-        public static NbtList FromInts(params int[] input) 
-            => NbtList.Ints(input);
-        public static NbtList FromLongs(params long[] input) 
-            => NbtList.Longs(input);
-        public static NbtList FromFloats(params float[] input) 
-            => NbtList.Floats(input);
-        public static NbtList FromDoubles(params double[] input) 
-            => NbtList.Doubles(input);
-        public static NbtList FromStrings(params string[] input)
-            => NbtList.Strings(input);
-        public static NbtList FromLists(params NbtList[] input)
-            => NbtList.Lists(input);
-        public static NbtList FromCompounds(params NbtCompound[] input)
-            => NbtList.Compounds(input);
+        public static NbtList FromBytes(params sbyte[] values) 
+            => NbtList.Bytes(values);
+        public static NbtList FromShorts(params short[] values) 
+            => NbtList.Shorts(values);
+        public static NbtList FromInts(params int[] values) 
+            => NbtList.Ints(values);
+        public static NbtList FromLongs(params long[] values) 
+            => NbtList.Longs(values);
+        public static NbtList FromFloats(params float[] values) 
+            => NbtList.Floats(values);
+        public static NbtList FromDoubles(params double[] values) 
+            => NbtList.Doubles(values);
+        public static NbtList FromStrings(params string[] values)
+            => NbtList.Strings(values);
+        public static NbtList FromLists(params NbtList[] values)
+            => NbtList.Lists(values);
+        public static NbtList FromCompounds(params NbtCompound[] values)
+            => NbtList.Compounds(values);
     }
 
 }
