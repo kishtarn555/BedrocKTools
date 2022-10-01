@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MinecraftBedrockStructureBlock\BedrockTools.csproj" />
+    <ProjectReference Include="..\BedrockTools\BedrockTools.csproj" />
   </ItemGroup>
 
 </Project>
