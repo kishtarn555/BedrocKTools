@@ -6,7 +6,7 @@ using System.IO;
 using BedrockTools.Nbt.Util;
 
 namespace BedrockTools.Nbt.Elements {
-    public abstract class NbtCompoundBase : NbtElement, IDictionary<string, NbtElement> {
+    public abstract class NbtCompound : NbtElement, IDictionary<string, NbtElement> {
         public override void WriteValue(BinaryWriter writer) {
             foreach (KeyValuePair<string, NbtElement> kvp in this) {
                 kvp.Value.WriteTag(writer);

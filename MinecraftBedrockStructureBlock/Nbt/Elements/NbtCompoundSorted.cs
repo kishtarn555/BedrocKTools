@@ -5,7 +5,7 @@ namespace BedrockTools.Nbt.Elements {
     /// <summary>
     /// This is an NbtCompound based on SortedDictionary, it will order based on names.
     /// </summary>
-    public class NbtCompoundSorted : NbtCompoundBase {
+    public class NbtCompoundSorted : NbtCompound {
         protected SortedDictionary<string, NbtElement> elements;
         public NbtCompoundSorted() {
             elements = new SortedDictionary<string, NbtElement>();

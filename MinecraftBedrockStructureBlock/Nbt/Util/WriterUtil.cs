@@ -9,7 +9,7 @@ namespace BedrockTools.Nbt.Util {
             }
         }
 
-        public static void WriteRootCompound(BinaryWriter writer, NbtCompoundBase rootCompound) {
+        public static void WriteRootCompound(BinaryWriter writer, NbtCompound rootCompound) {
             rootCompound.WriteTag(writer);
             WriteString(writer, "");
             rootCompound.WriteValue(writer);

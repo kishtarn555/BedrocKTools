@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using BedrockTools.Nbt.Elements;
 
 namespace BedrockTools.Nbt.Util {
-    public class SNbtParser<T>  where T : NbtCompoundBase, new() {
+    public class SNbtParser<T>  where T : NbtCompound, new() {
         struct Token {
             public string value;
             public string tokentype;

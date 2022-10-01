@@ -5,9 +5,9 @@ namespace BedrockTools.Nbt.Elements {
     /// <summary>
     /// This is an NbtCompound based on C# dictionary, recomended for performance when you dont care about order.
     /// </summary>
-    public class NbtCompoundHashTable : NbtCompoundBase {
+    public class NbtCompoundUnordered : NbtCompound {
         protected Dictionary<string, NbtElement> elements;
-        public NbtCompoundHashTable() {
+        public NbtCompoundUnordered() {
             elements = new Dictionary<string, NbtElement>();
         }
 

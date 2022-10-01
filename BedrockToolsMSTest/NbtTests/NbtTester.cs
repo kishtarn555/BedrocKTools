@@ -4,7 +4,7 @@ using BedrockTools.Nbt.Util;
 using BedrockTools.Nbt.Elements;
 using System.IO;
 
-namespace BedrockToolsMSTest {
+namespace BedrockToolsMSTest.NbtTests {
     [TestClass]
     public class NbtTester {
         [TestMethod]
@@ -68,20 +68,16 @@ namespace BedrockToolsMSTest {
         }
         [TestMethod]
         public void TestSNBT() {
-            NbtCompoundOrdered root = new NbtCompoundOrdered();
-            NbtCompoundOrdered dummy = new NbtCompoundOrdered();
-            root.Add("dummy", dummy);
-            root.Add("index", new NbtLong(123));
-            NbtList version = new NbtList(NbtTag.TAG_Int);
-            version.Add(new NbtInt(1));
-            version.Add(new NbtInt(19));
-            version.Add(new NbtInt(3));
-            version.Add(new NbtInt(0));
-            dummy.Add("version", version);
-            dummy.Add("name", new NbtString("string"));
-            root.Add("short", new NbtShort(-10));
-            root.Add("byte", new NbtByte(-1));
-            Assert.AreEqual("{dummy:{version:[1,19,3,0],name:\"string\"},index:123L,short:-10S,byte:-1B}",root.ToString());
+            NbtCompound root = new NbtCompoundOrdered() {
+                {"byte", (NbtByte)(-10)},
+                {"short", (NbtShort)(123)},
+                {"int", (NbtInt)(100050)},
+                {"long", (NbtLong)(1000000000000000L)},
+                {"string", (NbtString)"teststring" },
+                {"list", NbtList.FromInts(1,3,2) },
+            };
+            Assert.AreEqual("{byte:-10B,short:123S,int:100050,long:1000000000000000L,string:\"teststring\",list:[1,3,2]}", root.ToString());
         }
+
     }
 }
