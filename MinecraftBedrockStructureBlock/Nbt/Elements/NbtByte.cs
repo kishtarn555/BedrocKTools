@@ -12,5 +12,8 @@ namespace BedrockTools.Nbt.Elements {
         public override string ToString() {
             return $"{Value}B";
         }
+
+        public static explicit operator NbtByte(sbyte val)
+            => new NbtByte(val);
     }
 }

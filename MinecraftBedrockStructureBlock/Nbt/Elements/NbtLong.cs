@@ -14,5 +14,7 @@ namespace BedrockTools.Nbt.Elements {
         public override string ToString() {
             return $"{Value}L";
         }
+        public static explicit operator NbtLong(long val)
+            => new NbtLong(val);
     }
 }
