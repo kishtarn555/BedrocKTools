@@ -86,25 +86,64 @@ namespace BedrockTools.Nbt.Elements {
             return answer;
         }
 
-        public static NbtList Bytes() => new NbtList(NbtTag.TAG_Byte);
-        public static NbtList Shorts() => new NbtList(NbtTag.TAG_Int);
-        public static NbtList Ints() => new NbtList(NbtTag.TAG_Int);
-        public static NbtList Longs() => new NbtList(NbtTag.TAG_Int);
-        public static NbtList Floats() => new NbtList(NbtTag.TAG_Float);
-        public static NbtList Doubles() => new NbtList(NbtTag.TAG_Double);
-        public static NbtList Lists() => new NbtList(NbtTag.TAG_Double);
-        public static NbtList Compounds() => new NbtList(NbtTag.TAG_Compound);
-        public static NbtList Empty() => new NbtList(NbtTag.TAG_End);
+        public static NbtList Bytes() 
+            => new NbtList(NbtTag.TAG_Byte);
+        public static NbtList Shorts() 
+            => new NbtList(NbtTag.TAG_Int);
+        public static NbtList Ints() 
+            => new NbtList(NbtTag.TAG_Int);
+        public static NbtList Longs() 
+            => new NbtList(NbtTag.TAG_Int);
+        public static NbtList Floats() 
+            => new NbtList(NbtTag.TAG_Float);
+        public static NbtList Doubles() 
+            => new NbtList(NbtTag.TAG_Double);
+        public static NbtList Strings() 
+            => new NbtList(NbtTag.TAG_String);
+        public static NbtList Lists() 
+            => new NbtList(NbtTag.TAG_Double);
+        public static NbtList Compounds() 
+            => new NbtList(NbtTag.TAG_Compound);
+        public static NbtList Empty() 
+            => new NbtList(NbtTag.TAG_End);
 
-        public static NbtList Byte(IEnumerable<sbyte> collection) => new NbtList(NbtTag.TAG_Byte, collection.Select(number => new NbtByte(number)));
-        public static NbtList Short(IEnumerable<short> collection) => new NbtList(NbtTag.TAG_Short, collection.Select(number => new NbtShort(number)));
-        public static NbtList Int(IEnumerable<int> collection) => new NbtList(NbtTag.TAG_Int, collection.Select(number => new NbtInt(number)));
-        public static NbtList Long(IEnumerable<long> collection) => new NbtList(NbtTag.TAG_Long, collection.Select(number => new NbtLong(number)));
+        public static NbtList Bytes(IEnumerable<sbyte> collection) 
+            => new NbtList(NbtTag.TAG_Byte, collection.Select(number => new NbtByte(number)));
+        public static NbtList Shorts(IEnumerable<short> collection) 
+            => new NbtList(NbtTag.TAG_Short, collection.Select(number => new NbtShort(number)));
+        public static NbtList Ints(IEnumerable<int> collection)     
+            => new NbtList(NbtTag.TAG_Int, collection.Select(number => new NbtInt(number)));
+        public static NbtList Longs(IEnumerable<long> collection) 
+            => new NbtList(NbtTag.TAG_Long, collection.Select(number => new NbtLong(number)));
+        public static NbtList Floats(IEnumerable<float> collection) 
+            => new NbtList(NbtTag.TAG_Float, collection.Select(number => new NbtFloat(number)));
+        public static NbtList Doubles(IEnumerable<double> collection) 
+            => new NbtList(NbtTag.TAG_Double, collection.Select(number => new NbtDouble(number)));
+        public static NbtList Strings(IEnumerable<string> collection)
+            => new NbtList(NbtTag.TAG_String, collection.Select(str => new NbtString(str)));
+        public static NbtList Lists(IEnumerable<NbtList> collection)
+            => new NbtList(NbtTag.TAG_Compound, collection);
+        public static NbtList Compounds(IEnumerable<NbtCompound> collection)
+            => new NbtList(NbtTag.TAG_Compound, collection);
 
-        public static NbtList FromBytes(params sbyte[] input) => NbtList.Byte(input);
-        public static NbtList FromShorts(params short[] input) => NbtList.Short(input);
-        public static NbtList FromInts(params int[] input) => NbtList.Int(input);
-        public static NbtList FromLongs(params long[] input) => NbtList.Long(input);
+        public static NbtList FromBytes(params sbyte[] input) 
+            => NbtList.Bytes(input);
+        public static NbtList FromShorts(params short[] input) 
+            => NbtList.Shorts(input);
+        public static NbtList FromInts(params int[] input) 
+            => NbtList.Ints(input);
+        public static NbtList FromLongs(params long[] input) 
+            => NbtList.Longs(input);
+        public static NbtList FromFloats(params float[] input) 
+            => NbtList.Floats(input);
+        public static NbtList FromDoubles(params double[] input) 
+            => NbtList.Doubles(input);
+        public static NbtList FromStrings(params string[] input)
+            => NbtList.Strings(input);
+        public static NbtList FromLists(params NbtList[] input)
+            => NbtList.Lists(input);
+        public static NbtList FromCompounds(params NbtCompound[] input)
+            => NbtList.Compounds(input);
     }
 
 }
