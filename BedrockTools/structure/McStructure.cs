@@ -1,25 +1,23 @@
-﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Text;
-using MinecraftBedrockStructureBlock.enums;
-using MinecraftBedrockStructureBlock.types;
-using MinecraftBedrockStructureBlock.structure.block;
+﻿using System.Collections.Generic;
+using BedrockTools.Nbt;
+using BedrockTools.Nbt.Elements;
+using BedrockTools.Nbt.Extension;
+using BedrockTools.Objects;
 
-namespace MinecraftBedrockStructureBlock.structure {
-    public class McStructure : NbtRepresentableObject {
+namespace BedrockTools.Structure {
+    public class McStructure : INbtParsable<NbtCompoundOrdered> {
         public int sizeX;
         public int sizeY;
         public int sizeZ;
 
         Block[,,] blocks;
-        Palette palette;
+        BlockPalette palette;
         Dictionary<int, NbtCompound> entityData;
         public McStructure(int sizeX, int sizeY, int sizeZ) {
             this.sizeX = sizeX;
             this.sizeY = sizeY;
             this.sizeZ = sizeZ;
-            blocks = new Block[sizeX,sizeY,sizeZ];
+            blocks = new Block[sizeX, sizeY, sizeZ];
             palette = null;
         }
 
@@ -28,50 +26,43 @@ namespace MinecraftBedrockStructureBlock.structure {
         }
 
         void buildPalette() {
-            palette = new Palette();
+            palette = new BlockPalette();
             entityData = new Dictionary<int, NbtCompound>();
             int index = 0;
-            for (int i =0;i < sizeX; i++) {
-                for (int j =0; j <sizeY; j++) {
-                    for (int k =0; k <sizeZ; k++) {
+            for (int i = 0; i < sizeX; i++) {
+                for (int j = 0; j < sizeY; j++) {
+                    for (int k = 0; k < sizeZ; k++) {
                         palette.getIndex(blocks[i, j, k]);
-                        if (blocks[i,j,k] is BlockEntity) {
-                            entityData[index] =(blocks[i, j, k] as BlockEntity).entityData;
+                        if (blocks[i, j, k] is BlockEntity) {
+                            entityData[index] = (blocks[i, j, k] as BlockEntity).EntityData;
                         }
                         index++;
                     }
                 }
             }
         }
-    
-        
+
+
         int getBaseBlock(int x, int y, int z) {
-            return palette.getIndex(blocks[x,y,z]);
-        }
-        NbtList parseSizeNBT() {
-            NbtList size = new NbtList("size", NbtTypes.TAG_Int);
-            size.Add(new NbtInt("", sizeX));
-            size.Add(new NbtInt("", sizeY));
-            size.Add(new NbtInt("", sizeZ));            
-            return size;
+            return palette.getIndex(blocks[x, y, z]);
         }
 
 
         NbtList parseBlockIndicesNBT() {
-            NbtList block_indices = new NbtList("block_indices", NbtTypes.TAG_List);
-            NbtList baseLayer = new NbtList("", NbtTypes.TAG_Int);
+            NbtList block_indices = new NbtList(NbtTag.TAG_List);
+            NbtList baseLayer = new NbtList(NbtTag.TAG_Int);
             for (int i = 0; i < sizeX; i++) {
                 for (int j = 0; j < sizeY; j++) {
                     for (int k = 0; k < sizeZ; k++) {
-                        baseLayer.Add(new NbtInt("", getBaseBlock(i, j, k)));
+                        baseLayer.Add((NbtInt)getBaseBlock(i, j, k));
                     }
                 }
             }
-            NbtList upperLayer = new NbtList("", NbtTypes.TAG_Int);
+            NbtList upperLayer = new NbtList(NbtTag.TAG_Int);
             for (int i = 0; i < sizeX; i++) {
                 for (int j = 0; j < sizeY; j++) {
                     for (int k = 0; k < sizeZ; k++) {
-                        upperLayer.Add(new NbtInt("", -1));
+                        upperLayer.Add((NbtInt)(-1));
                     }
                 }
             }
@@ -82,52 +73,32 @@ namespace MinecraftBedrockStructureBlock.structure {
         }
         //TODO: Support entities
         NbtList parseEntitiesNBT() {
-            NbtList entities = new NbtList("entities", NbtTypes.TAG_End);
-            return entities;
+            return NbtList.Empty();
         }
         NbtCompound parsePaletteNBT() {
-            buildPalette();
-            NbtCompound paletteNbt = new NbtCompound("palette");
-            NbtCompound defaultPalette = new NbtCompound("default");
-            paletteNbt.Add(defaultPalette);
-            List<NbtCompound> paletteList = this.palette.GetNbtCompounds();
-            NbtList blockPalette = new NbtList("block_palette", NbtTypes.TAG_Compound);
-            foreach (NbtCompound pl in paletteList) {
-                blockPalette.Add(pl);
-            }
-            defaultPalette.Add(blockPalette);
-            NbtCompound blockPositionData = new NbtCompound("block_position_data");
-            defaultPalette.Add(blockPositionData);
-
-            return paletteNbt;
+            return new NbtCompoundOrdered(){
+                { "default",palette.ToNbt() }
+            };
         }
 
         NbtCompound parseStructureNBT() {
-            NbtCompound structure = new NbtCompound("structure");
-            structure.Add(parseBlockIndicesNBT());
-            structure.Add(parseEntitiesNBT());
-            structure.Add(parsePaletteNBT());
+            NbtCompound structure = new NbtCompoundOrdered() {
+                {"block_indices", parseBlockIndicesNBT()},
+                {"entities", parseEntitiesNBT()},
+                {"palette", parsePaletteNBT()}
+            };
             return structure;
         }
 
-        public override NbtBase GetNBT() {
+        public NbtCompoundOrdered ToNbt() {
             buildPalette();
-            NbtCompound root = new NbtCompound("");
-            {
-            NbtInt format_version = new NbtInt("format_version", 1);
-            root.Add(format_version);            
-            root.Add(parseSizeNBT());
-            root.Add(parseStructureNBT());
 
-                // TODO: Add entitiy support
-            }
-            NbtList origin = new NbtList("structure_world_origin", NbtTypes.TAG_Int);
-            origin.Add(new NbtInt("", 0));
-            origin.Add(new NbtInt("", 0));
-            origin.Add(new NbtInt("", 0));
-            root.Add(origin);
-            return root;
-           
+            return new NbtCompoundOrdered() {
+                { "format_version", (NbtInt) 1},
+                { "size", NbtList.FromInts(sizeX, sizeY, sizeZ)},
+                { "structure", parseStructureNBT()},
+                { "structure_world_origin", NbtList.FromInts(0, 0, 0)}
+            };
         }
     }
 }

@@ -1,4 +1,13 @@
 ﻿//Keep sorted
 //Format class identifier blockstates
-Air					minecraft:air
-Dirt.Normal			minecraft:dirt				{dirt_type:\"normal\"}
+Air	minecraft:air
+DirtNormal minecraft:dirt {dirt_type:\"normal\"}
+DirtCoarse minecraft:dirt {dirt_type:\"coarse\"}
+PlanksAcacia minecraft:planks {wood_type:\"acacia\"}
+PlanksBirch minecraft:planks {wood_type:\"birch\"}
+PlanksCrimson minecraft:crimson_planks
+PlanksDarkOak minecraft:planks {wood_type:\"dark_oak\"}
+PlanksJungle minecraft:planks {wood_type:\"jungle\"}
+PlanksOak minecraft:planks {wood_type:\"oak\"}
+PlanksSpruce minecraft:planks {wood_type:\"spruce\"}
+PlanksWarped minecraft:warped_planks

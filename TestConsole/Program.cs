@@ -5,22 +5,33 @@ using System.Drawing;
 //using MinecraftBedrockStructureBlock.types;
 //using MinecraftBedrockStructureBlock.image;
 using BedrockTools.Nbt.Elements;
+using BedrockTools.Nbt.Util;
 using BedrockTools.Objects.Minecraft;
+using BedrockTools.Structure;
 namespace TestConsole {
     class Program {
         static void Main(string[] args) {
-            NbtCompound root = new NbtCompoundOrdered() {
-                {"name", (NbtString)"NbtExample"},
-                {"version", NbtList.FromInts(1,19,3,0)},
-                {
-                    "nested",
-                    new NbtCompoundOrdered() {
-                        {"data", (NbtShort)10}
+            McStructure mcstructure = new McStructure(10, 1, 10);
+            for (int i =0; i < 10; i++) {
+                for (int j=0; j <10; j++) {
+                    if ((i+j)%2==0) {
+                        mcstructure.setBlock(i, 0, j, MinecraftBlockPrefabs.Instance.GetPrefabByName("PlanksOak"));
+                    } else {
+                        mcstructure.setBlock(i, 0, j, MinecraftBlockPrefabs.Instance.GetPrefabByName("DirtNormal"));
+
                     }
                 }
-            };
-            Console.WriteLine(root);
-            Console.Write(MinecraftBlockPrefabs.Instance.GetPrefabByName("Air"));
+            }
+            string MojangCom =
+                Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                    @"Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\LocalState\games\com.mojang"
+                    );
+            BinaryWriter bw = new BinaryWriter(new FileStream(
+               Path.Combine(MojangCom, @"development_behavior_packs\moveit\structures\moveit\delta.mcstructure"), FileMode.Create));
+            
+            WriterUtil.WriteRootCompound(bw, mcstructure.ToNbt());
+            bw.Close();
             return;
             /*
             string MojangCom =

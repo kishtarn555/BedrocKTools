@@ -8,7 +8,7 @@
 using BedrockTools.Objects.Minecraft.Blocks;
 
 namespace BedrockTools.Objects.Minecraft.Blocks {    
-    public class Air : VanillaBlock {
-        public Air () : base("minecraft:air", "{}") {}
+    public class PlanksAcacia : VanillaBlock {
+        public PlanksAcacia () : base("minecraft:planks", "{wood_type:\"acacia\"}") {}
     }
 }

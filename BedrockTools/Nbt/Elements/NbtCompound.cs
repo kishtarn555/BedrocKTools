@@ -14,6 +14,7 @@ namespace BedrockTools.Nbt.Elements {
                 kvp.Value.WriteValue(writer);
             }
             writer.Write((byte)NbtTag.TAG_End);
+            //writer.Write((byte)NbtTag.TAG_End);
         }
         public abstract NbtElement this[string key] { get; set; }
 
