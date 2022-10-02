@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 using BedrockTools_Build.Generator.MinecraftBlocks;
 namespace BedrockTools_Build {
@@ -10,7 +11,7 @@ namespace BedrockTools_Build {
             ) ;
             foreach (var el in blockList.blocks) {
                 MinecraftBlockClassGenerator gen = new MinecraftBlockClassGenerator(
-                    $"Objects/Minecraft/Blocks/{el.nameclass}.cs",
+                    $"Objects/Minecraft/Blocks/{Regex.Replace(el.nameclass,@"\.", "")}.cs",
                     el.nameclass,
                     el.identifier,
                     el.nbt

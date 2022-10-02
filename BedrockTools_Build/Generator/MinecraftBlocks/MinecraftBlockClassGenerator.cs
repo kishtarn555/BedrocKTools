@@ -18,14 +18,13 @@ namespace BedrockTools_Build.Generator.MinecraftBlocks {
      
 
         public override string GetCode() {
-            string nspace = Regex.Match(classname, @".*(?=\.)").Value;
-            string singlename= Regex.Match(classname, @"\w+$").Value;
+            string singlename = Regex.Replace(classname, @"\.", "");
             return
 $@"{base.GetCode()}
 
 using BedrockTools.Objects.Minecraft.Blocks;
 
-namespace BedrockTools.Objects.Minecraft.Blocks{(nspace!=""?"."+nspace:"")} {{    
+namespace BedrockTools.Objects.Minecraft.Blocks {{    
     public class {singlename} : VanillaBlock {{
         public {singlename} () : base(""{identifier}"", ""{blockstates}"") {{}}
     }}
