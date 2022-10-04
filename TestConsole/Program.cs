@@ -7,15 +7,13 @@ using System.Drawing;
 using BedrockTools.Nbt.Util;
 using BedrockTools.Objects.Blocks.Util;
 using BedrockTools.Objects.Blocks;
+using BedrockTools.Objects;
 using BedrockTools.Structure;
 namespace TestConsole {
     class Program {
         static void Main(string[] args) {
-            McStructure mcstructure = new McStructure(5, 8, 7);
-            for (int i = 0; i < mcstructure.sizeX; i++)
-                for (int j = 0; j < mcstructure.sizeY; j++)
-                    for (int k = 0; k < mcstructure.sizeZ; k++)
-                        mcstructure.SetBlock(i, j, k, VanillaBlockFactory.Air);
+            McStructure mcstructure = new McStructure(new Dimensions(5,8,7));
+            mcstructure.FillVoidWithAir();
                         for (int i =0; i < 5; i++) {
                 mcstructure.SetBlock(i, 0, 0, VanillaBlockFactory.Stairs.Planks.Oak(BlockOrientation.North));
                 mcstructure.SetBlock(i, 0, 2, VanillaBlockFactory.Stairs.Planks.Oak(BlockOrientation.East));

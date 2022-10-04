@@ -4,7 +4,7 @@ using BedrockTools_Build.Util.WordTrie;
 
 namespace BedrockTools_Build.Generator.MinecraftBlocks {
     public class MinecraftBlockFactoryGenerator : ICodeGenerator {
-        public const string VERSION = "0.1.0";
+        public const string VERSION = "0.2.0";
         private ObjectInitializerList InitializerList;
         WDir<ObjectInitializer> trie;
         public MinecraftBlockFactoryGenerator(ObjectInitializerList initializerList) {
@@ -48,7 +48,7 @@ namespace BedrockTools_Build.Generator.MinecraftBlocks {
             }
             foreach(KeyValuePair<string, ObjectInitializer> decs in cur.items) {
                 decs.Value.settings= OilSettings.GetSettings();
-                builder.WriteLine($"public static Block {decs.Key} => {decs.Value.GetCode()};");
+                builder.WriteLine($"public static Block {decs.Key} () => {decs.Value.GetCode()};");
             }
             builder.Deident();
                 
