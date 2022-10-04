@@ -44,7 +44,7 @@ namespace BedrockTools_Build.Generator.MinecraftBlocks {
             public override string getcode(string name, int ident) {                
 
                 return 
-                    $"{tab(ident)}public static {classname} Get{name}\r\n"
+                    $"{tab(ident)}public static {classname} {name}\r\n"
                         +$"{tab(ident+1)}=> ({classname})MinecraftBlockPrefabs.Instance.GetPrefabByName(\"{dictname}\");\r\n";
             }
         }
@@ -89,7 +89,7 @@ namespace BedrockTools.Objects.Minecraft {{
 
     public sealed class MinecraftBlockPrefabs {{
         static MinecraftBlockPrefabs _instance = null;
-        Dictionary<string, Block> blockDictionary;
+        Dictionary<string, VanillaBlock> blockDictionary;
 
         public static MinecraftBlockPrefabs Instance {{
             get {{
@@ -99,12 +99,12 @@ namespace BedrockTools.Objects.Minecraft {{
             }}
         }}
 
-        public Block GetPrefabByName(string name) {{
+        public VanillaBlock GetPrefabByName(string name) {{
             return blockDictionary[name];
         }}
 
         private MinecraftBlockPrefabs() {{
-            this.blockDictionary = new Dictionary<string, Block>();
+            this.blockDictionary = new Dictionary<string, VanillaBlock>();
 {GetDictionary()}
 
 

@@ -9,22 +9,22 @@ namespace MinecraftBedrockStructureBlock.structure.block.prefabs {
         public static Block AncientDebris => new Block("minecraft:ancient_debris", "{}");
         public static Block Clay => new Block("minecraft:clay", "{}");
         public static class Concrete {
-            public static Block White => new Block("minecraft:concrete", "{color:\"white\"}");
-            public static Block Orange => new Block("minecraft:concrete", "{color:\"orange\"}");
-            public static Block Magenta => new Block("minecraft:concrete", "{color:\"magenta\"}");
-            public static Block LightBlue => new Block("minecraft:concrete", "{color:\"light_blue\"}");
-            public static Block Yellow => new Block("minecraft:concrete", "{color:\"yellow\"}");
-            public static Block Lime => new Block("minecraft:concrete", "{color:\"lime\"}");
-            public static Block Pink => new Block("minecraft:concrete", "{color:\"pink\"}");
-            public static Block Gray => new Block("minecraft:concrete", "{color:\"gray\"}");
-            public static Block LightGray => new Block("minecraft:concrete", "{color:\"silver\"}");
-            public static Block Cyan => new Block("minecraft:concrete", "{color:\"cyan\"}");
-            public static Block Purple => new Block("minecraft:concrete", "{color:\"purple\"}");
+            public static Block Black => new Block("minecraft:concrete", "{color:\"black\"}");
             public static Block Blue => new Block("minecraft:concrete", "{color:\"blue\"}");
             public static Block Brown => new Block("minecraft:concrete", "{color:\"brown\"}");
+            public static Block Cyan => new Block("minecraft:concrete", "{color:\"cyan\"}");
+            public static Block Gray => new Block("minecraft:concrete", "{color:\"gray\"}");
             public static Block Green => new Block("minecraft:concrete", "{color:\"green\"}");
+            public static Block LightBlue => new Block("minecraft:concrete", "{color:\"light_blue\"}");
+            public static Block LightGray => new Block("minecraft:concrete", "{color:\"silver\"}");
+            public static Block Lime => new Block("minecraft:concrete", "{color:\"lime\"}");
+            public static Block Magenta => new Block("minecraft:concrete", "{color:\"magenta\"}");
+            public static Block Orange => new Block("minecraft:concrete", "{color:\"orange\"}");
+            public static Block Pink => new Block("minecraft:concrete", "{color:\"pink\"}");
+            public static Block Purple => new Block("minecraft:concrete", "{color:\"purple\"}");
             public static Block Red => new Block("minecraft:concrete", "{color:\"red\"}");
-            public static Block Black => new Block("minecraft:concrete", "{color:\"black\"}");
+            public static Block White => new Block("minecraft:concrete", "{color:\"white\"}");
+            public static Block Yellow => new Block("minecraft:concrete", "{color:\"yellow\"}");
         }
         public static class Dirt {
             public static Block Normal => new Block("minecraft:dirt", "{dirt_type:\"normal\"}");
