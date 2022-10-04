@@ -1,4 +1,24 @@
 ﻿//Minecraft stairs
 -ObjectType StairsBlock
-
-Stairs.Planks.Oak			identifier: "minecraft:oak_stairs"
+//TODO: Complete: https://minecraft.fandom.com/wiki/Stairs#ID
+Stairs.BrickBlock					identifier: "minecraft:brick_stairs"
+Stairs.Cobblestone					identifier: "minecraft:stone_stairs"
+Stairs.EndBricks					identifier: "minecraft:end_brick_stairs"
+Stairs.MossyCoblestone				identifier: "minecraft:mossy_cobblestone_stairs"
+Stairs.Planks.Acacia				identifier: "minecraft:acacia_stairs"
+Stairs.Planks.Birch					identifier: "minecraft:birch_stairs"
+Stairs.Planks.Crimson				identifier: "minecraft:crimson_stairs"
+Stairs.Planks.DarkOak				identifier: "minecraft:dark_oak_stairs"
+Stairs.Planks.Jungle				identifier: "minecraft:jungle_stairs"
+Stairs.Planks.Oak					identifier: "minecraft:oak_stairs"
+Stairs.Planks.Spruce				identifier: "minecraft:spruce_stairs"
+Stairs.Planks.Warped				identifier: "minecraft:warped_stairs"
+Stairs.Stone.Andesite				identifier: "minecraft:andesite_stairs"
+Stairs.Stone.Diorite				identifier: "minecraft:diorite_stairs"
+Stairs.Stone.Granite				identifier: "minecraft:granite_stairs"
+Stairs.Stone.Normal					identifier: "minecraft:normal_stone_stairs"
+Stairs.Stone.PolishedAndesite		identifier: "minecraft:polished_andesite_stairs"
+Stairs.Stone.PolishedDiorite		identifier: "minecraft:polished_diorite_stairs"
+Stairs.Stone.PolishedGranite		identifier: "minecraft:polished_granite_stairs"
+Stairs.StoneBricks.Normal			identifier: "minecraft:stone_brick_stairs"
+Stairs.StoneBricks.Mossy			identifier: "minecraft:mossy_stone_brick_stairs"

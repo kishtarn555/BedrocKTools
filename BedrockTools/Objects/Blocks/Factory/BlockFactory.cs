@@ -45,6 +45,11 @@ namespace BedrockTools.Objects.Blocks {
             public static Block Dark () => new Block(identifier:"minecraft:prismarine", blockStates:"{prismarine_block_type:\"dark\"}");
             public static Block Default () => new Block(identifier:"minecraft:prismarine", blockStates:"{prismarine_block_type:\"default\"}");
         }
+        public static class QuartzBlock {
+            public static Block Chiseled () => new Block(identifier:"minecraft:quartz_bricks", blockStates:"{chisel_type:\"chiseled\"}");
+            public static Block Smooth () => new Block(identifier:"minecraft:quartz_bricks", blockStates:"{chisel_type:\"smooth\"}");
+            public static Block Normal () => new Block(identifier:"minecraft:quartz_bricks", blockStates:"{chisel_type:\"default\"}");
+        }
         public static class StainedGlass {
             public static Block Black () => new Block(identifier:"minecraft:stained_glass", blockStates:"{color:\"black\"}");
             public static Block Blue () => new Block(identifier:"minecraft:stained_glass", blockStates:"{color:\"blue\"}");
@@ -72,6 +77,13 @@ namespace BedrockTools.Objects.Blocks {
             public static Block GraniteSmooth () => new Block(identifier:"minecraft:stone", blockStates:"{stone_type:\"granite_smooth\"}");
             public static Block Normal () => new Block(identifier:"minecraft:stone", blockStates:"{stone_type:\"stone\"}");
         }
+        public static class StoneBricks {
+            public static Block Chiseled () => new Block(identifier:"minecraft:stonebrick", blockStates:"{stone_brick_type:\"chiseled\"}");
+            public static Block Cracked () => new Block(identifier:"minecraft:stonebrick", blockStates:"{stone_brick_type:\"cracked\"}");
+            public static Block Mossy () => new Block(identifier:"minecraft:stonebrick", blockStates:"{stone_brick_type:\"mossy\"}");
+            public static Block Normal () => new Block(identifier:"minecraft:stonebrick", blockStates:"{stone_brick_type:\"default\"}");
+            public static Block Smooth () => new Block(identifier:"minecraft:stonebrick", blockStates:"{stone_brick_type:\"smooth\"}");
+        }
         public static class Wool {
             public static Block Black () => new Block(identifier:"minecraft:wool", blockStates:"{color:\"black\"}");
             public static Block Blue () => new Block(identifier:"minecraft:wool", blockStates:"{color:\"blue\"}");
@@ -93,11 +105,16 @@ namespace BedrockTools.Objects.Blocks {
         public static Block Air () => new Block(identifier:"minecraft:air");
         public static Block AncientDebris () => new Block(identifier:"minecraft:ancient_debris");
         public static Block BlueIce () => new Block(identifier:"minecraft:blue_ice");
+        public static Block BrickBlock () => new Block(identifier:"minecraft:brick_block");
         public static Block Clay () => new Block(identifier:"minecraft:clay");
+        public static Block ChiseledNetherBricks () => new Block(identifier:"minecraft:chiseled_nether_bricks");
+        public static Block CrackedNetherBricks () => new Block(identifier:"minecraft:cracked_nether_bricks");
         public static Block EndStone () => new Block(identifier:"minecraft:end_stone");
         public static Block Glass () => new Block(identifier:"minecraft:glass");
         public static Block Grass () => new Block(identifier:"minecraft:grass");
         public static Block Ice () => new Block(identifier:"minecraft:ice");
+        public static Block NetherBricks () => new Block(identifier:"minecraft:nether_brick");
         public static Block PackedIce () => new Block(identifier:"minecraft:packed_ice");
+        public static Block QuartzBricks () => new Block(identifier:"minecraft:quartz_bricks");
     }
 }

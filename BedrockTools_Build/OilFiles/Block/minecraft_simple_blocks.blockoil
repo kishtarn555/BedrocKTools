@@ -1,9 +1,12 @@
 ﻿//Keep sorted
-//Format RegistryKey identifier blocSttates
+//Format RegistryKey identifier blockStates
 Air							minecraft:air
 AncientDebris				minecraft:ancient_debris
 BlueIce						minecraft:blue_ice
+BrickBlock					minecraft:brick_block
 Clay						minecraft:clay
+ChiseledNetherBricks		minecraft:chiseled_nether_bricks
+CrackedNetherBricks			minecraft:cracked_nether_bricks
 Concrete.Black				minecraft:concrete {color:\"black\"}
 Concrete.Blue				minecraft:concrete {color:\"blue\"}
 Concrete.Brown				minecraft:concrete {color:\"brown\"}
@@ -26,6 +29,7 @@ EndStone					minecraft:end_stone
 Glass						minecraft:glass
 Grass						minecraft:grass
 Ice							minecraft:ice
+NetherBricks				minecraft:nether_brick
 PackedIce					minecraft:packed_ice
 Planks.Acacia				minecraft:planks {wood_type:\"acacia\"}
 Planks.Birch				minecraft:planks {wood_type:\"birch\"}
@@ -38,6 +42,11 @@ Planks.Warped				minecraft:warped_planks
 Prismarine.Bricks			minecraft:prismarine {prismarine_block_type:\"bricks\"}
 Prismarine.Dark				minecraft:prismarine {prismarine_block_type:\"dark\"}
 Prismarine.Default			minecraft:prismarine {prismarine_block_type:\"default\"}
+QuartzBlock.Chiseled		minecraft:quartz_bricks {chisel_type:\"chiseled\"}
+//Pilar Lines is in miencraft_log_like.oil
+QuartzBlock.Smooth			minecraft:quartz_bricks {chisel_type:\"smooth\"}
+QuartzBlock.Normal			minecraft:quartz_bricks {chisel_type:\"default\"}
+QuartzBricks				minecraft:quartz_bricks
 StainedGlass.Black			minecraft:stained_glass {color:\"black\"}
 StainedGlass.Blue			minecraft:stained_glass {color:\"blue\"}
 StainedGlass.Brown			minecraft:stained_glass {color:\"brown\"}
@@ -61,6 +70,11 @@ Stone.DioriteSmooth			minecraft:stone {stone_type:\"diorite_smooth\"}
 Stone.Granite				minecraft:stone {stone_type:\"granite\"}
 Stone.GraniteSmooth			minecraft:stone {stone_type:\"granite_smooth\"}
 Stone.Normal				minecraft:stone {stone_type:\"stone\"}
+StoneBricks.Chiseled		minecraft:stonebrick {stone_brick_type:\"chiseled\"}
+StoneBricks.Cracked			minecraft:stonebrick {stone_brick_type:\"cracked\"}
+StoneBricks.Mossy			minecraft:stonebrick {stone_brick_type:\"mossy\"}
+StoneBricks.Normal			minecraft:stonebrick {stone_brick_type:\"default\"}
+StoneBricks.Smooth			minecraft:stonebrick {stone_brick_type:\"smooth\"}
 Wool.Black					minecraft:wool {color:\"black\"}
 Wool.Blue					minecraft:wool {color:\"blue\"}
 Wool.Brown					minecraft:wool {color:\"brown\"}

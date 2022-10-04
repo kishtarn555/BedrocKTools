@@ -28,7 +28,7 @@ namespace BedrockTools.Objects.Blocks {
             }
             NbtCompoundSorted blockStates = new NbtCompoundSorted() {
                 { "weirdo_direction", (NbtInt)weirdo_direction },
-                { "upside_down_bit", (NbtInt)(isUpsideDown? 0:1) }
+                { "upside_down_bit", (NbtByte)(isUpsideDown? 1:0) }
             };
             BlockStates = blockStates;
         }
