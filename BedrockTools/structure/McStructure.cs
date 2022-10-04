@@ -2,7 +2,7 @@
 using BedrockTools.Nbt;
 using BedrockTools.Nbt.Elements;
 using BedrockTools.Nbt.Extension;
-using BedrockTools.Objects;
+using BedrockTools.Objects.Blocks;
 
 namespace BedrockTools.Structure {
     public class McStructure : INbtParsable<NbtCompoundOrdered> {

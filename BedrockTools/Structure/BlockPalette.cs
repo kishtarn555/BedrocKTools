@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using BedrockTools.Objects;
+using BedrockTools.Objects.Blocks;
 using BedrockTools.Nbt.Elements;
 using BedrockTools.Nbt.Extension;
 namespace BedrockTools.Structure {

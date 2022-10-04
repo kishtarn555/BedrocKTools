@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using BedrockTools.Nbt.Elements;
 
-namespace BedrockTools.Objects {
+namespace BedrockTools.Objects.Blocks {
     /// <summary>
     /// Represents a Block with Entity Data such as a chest
     /// You might read: https://minecraft.fandom.com/wiki/Bedrock_Edition_level_format/Block_entity_format

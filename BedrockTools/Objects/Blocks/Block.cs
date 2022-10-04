@@ -3,7 +3,7 @@ using BedrockTools.Nbt.Extension;
 using BedrockTools.Nbt.Elements;
 using BedrockTools.Nbt.Util;
 
-namespace BedrockTools.Objects {
+namespace BedrockTools.Objects.Blocks {
     public class Block : INbtParsable<NbtCompoundOrdered> {
         public const int STRUCTURE_VERSION = 17959425;
         public string Identifier { get; }
@@ -13,13 +13,13 @@ namespace BedrockTools.Objects {
             this.Identifier = identifier;
             this.BlockStates = new NbtCompoundSorted();
         }
-        public Block (string identifier, NbtCompoundSorted blockstates) {
+        public Block (string identifier, NbtCompoundSorted blockStates) {
             this.Identifier = identifier;
-            this.BlockStates = blockstates;
+            this.BlockStates = blockStates;
         }
-        public Block(string identifier, string blockstates) {
+        public Block(string identifier, string blockStates) {
             this.Identifier = identifier;
-            this.BlockStates = (NbtCompoundSorted)(new SNbtParser<NbtCompoundSorted>(blockstates).Parse());
+            this.BlockStates = (NbtCompoundSorted)(new SNbtParser<NbtCompoundSorted>(blockStates).Parse());
         }
         public NbtCompoundOrdered ToNbt() {
             return new NbtCompoundOrdered() {

@@ -1,21 +1,23 @@
 ﻿using System;
-using System.Text.RegularExpressions;
+using System.IO;
 
 using BedrockTools_Build.Generator.MinecraftBlocks;
 using BedrockTools_Build.Generator;
+using BedrockTools_Build.OilInit.Minecraft;
+using BedrockTools_Build.OilInit;
 namespace BedrockTools_Build {
     class Program {
         static void Main(string[] args) {
-            ObjectInitializer init = new ObjectInitializer("dummy", true, false);
-            init.AddConstructorParameter("identifier", "\"minecraft:air\"");
-            init.AddConstructorParameter("ido", "\"minecraft:air\"");
+            ObjectInitializerList lst =
+                new OilBlockParser(File.ReadAllText("OilFiles/minecraft_simple_blocks.blockoil"), "Block", OilSettings.GetSettings()).Parse();
 
-            init.AddObjectValue("keya", "3");
-            init.AddObjectValue("summy", "true");
-            Console.Write(init.GetCode(2));
+            MinecraftBlockRegistryGenerator registryGenerator = new MinecraftBlockRegistryGenerator(lst);
+            SourceGenerator generator = new SourceGenerator("Objects/Blocks/BlocksRegistry.cs", registryGenerator);
+            generator.WriteCode();
             return;
+            /*
             BlockList blockList = BlockList.FromFile("Config/minecraft_simple_blocks.ldcon");
-            MinecraftBlockPrefabsGenerator generator = new MinecraftBlockPrefabsGenerator(
+            MinecraftBlockRegistryGenerator generator = new MinecraftBlockPrefabsGenerator(
                 "Objects/Minecraft/MinecraftBlockPrefabs.cs", blockList
             ) ;
             foreach (var el in blockList.blocks) {
@@ -30,6 +32,7 @@ namespace BedrockTools_Build {
             }
             Console.WriteLine("Generating prefab");
             generator.Generate();
+            */
         }
     }
 }

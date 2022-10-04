@@ -6,7 +6,7 @@ using System.Drawing;
 //using MinecraftBedrockStructureBlock.image;
 using BedrockTools.Nbt.Elements;
 using BedrockTools.Nbt.Util;
-using BedrockTools.Objects.Minecraft;
+using BedrockTools.Objects.Blocks;
 using BedrockTools.Structure;
 namespace TestConsole {
     class Program {
@@ -15,9 +15,9 @@ namespace TestConsole {
             for (int i =0; i < 10; i++) {
                 for (int j=0; j <10; j++) {
                     if ((i+j)%2==0) {
-                        mcstructure.setBlock(i, 0, j, MinecraftBlockPrefabs.Instance.GetPrefabByName("Planks.Oak"));
+                        mcstructure.setBlock(i, 0, j, BlocksRegistry.Instance.GetPrefabByName("Planks.Oak"));
                     } else {
-                        mcstructure.setBlock(i, 0, j, MinecraftBlockPrefabs.Instance.GetPrefabByName("Dirt.Normal"));
+                        mcstructure.setBlock(i, 0, j, BlocksRegistry.Instance.GetPrefabByName("Dirt.Normal"));
 
                     }
                 }

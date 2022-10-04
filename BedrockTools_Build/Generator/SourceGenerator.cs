@@ -2,16 +2,18 @@
 using System.IO;
 
 namespace BedrockTools_Build.Generator {
-    abstract class Generator  {
+    public class SourceGenerator  {
         public string Target { get; set; }
         public ICodeGenerator CodeGenerator { get; set; }
         
 
-        protected Generator(string target) {
+        public SourceGenerator(string target, ICodeGenerator codeGenerator) {
             Target = target;
+            CodeGenerator = codeGenerator;
         }
 
         public virtual void WriteCode() {
+            Console.WriteLine("Writing file: "+Target);
             CodeBuilder builder = new CodeBuilder();
             builder
                 .WriteLine("//==============================================================================")
