@@ -8,12 +8,22 @@ using BedrockTools_Build.OilInit;
 namespace BedrockTools_Build {
     class Program {
         static void Main(string[] args) {
-            ObjectInitializerList lst =
-                new OilBlockParser(File.ReadAllText("OilFiles/minecraft_simple_blocks.blockoil"), "Block", OilSettings.GetSettings()).Parse();
-
-            MinecraftBlockRegistryGenerator registryGenerator = new MinecraftBlockRegistryGenerator(lst);
-            SourceGenerator generator = new SourceGenerator("Objects/Blocks/BlocksRegistry.cs", registryGenerator);
-            generator.WriteCode();
+            ObjectInitializerList simpleBlocks =
+                new OilBlockParser(
+                    code: File.ReadAllText("OilFiles/Block/minecraft_simple_blocks.blockoil"), 
+                    objectType: "Block", 
+                    settings: OilSettings.GetSettings()
+                ).Parse();
+            ObjectInitializerList stairsBlocks = new OilParser(
+                    code: File.ReadAllText("OilFiles/Block/minecraft_stairs_blocks.oil"),
+                    settings: OilSettings.GetSettings()
+                ).Parse();
+            MinecraftBlockFactoryGenerator blockCodeGenerator = new MinecraftBlockFactoryGenerator(simpleBlocks);
+            MinecraftStairsFactoryGenerator stairsFactoryGenerator = new MinecraftStairsFactoryGenerator(stairsBlocks);
+            SourceGenerator simpeBlockGenerator = new SourceGenerator("Objects/Blocks/Factory/BlockFactory.cs", blockCodeGenerator);
+            SourceGenerator stairsBlockGenerator = new SourceGenerator("Objects/Blocks/Factory/StairsFactory.cs", stairsFactoryGenerator);
+            simpeBlockGenerator.WriteCode();
+            stairsBlockGenerator.WriteCode();
             return;
             /*
             BlockList blockList = BlockList.FromFile("Config/minecraft_simple_blocks.ldcon");

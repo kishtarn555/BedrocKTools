@@ -15,9 +15,9 @@ namespace TestConsole {
             for (int i =0; i < 10; i++) {
                 for (int j=0; j <10; j++) {
                     if ((i+j)%2==0) {
-                        mcstructure.setBlock(i, 0, j, BlocksRegistry.Instance.GetPrefabByName("Planks.Oak"));
+                        mcstructure.setBlock(i, 0, j, BlockFactory.Planks.Acacia);
                     } else {
-                        mcstructure.setBlock(i, 0, j, BlocksRegistry.Instance.GetPrefabByName("Dirt.Normal"));
+                        mcstructure.setBlock(i, 0, j, BlockFactory.Concrete.Red);
 
                     }
                 }

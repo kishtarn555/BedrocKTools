@@ -11,6 +11,9 @@ namespace BedrockTools_Build.OilInit {
             objectInitializers = list;           
         }
 
+        public ObjectInitializer this [string key] {
+            get => objectInitializers[key];
+        }
         public string[] GetKeysNames () {
             return objectInitializers.Select(initializer => initializer.Key).ToArray();
         }

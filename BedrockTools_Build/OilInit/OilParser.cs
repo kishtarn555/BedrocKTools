@@ -7,7 +7,7 @@ namespace BedrockTools_Build.OilInit {
     public class OilParser {
 
         public string RawCode { get; protected set;}
-        public readonly string ObjectType;
+        public string ObjectType { get; set; }
         public OilSettings Settings { get; set; }
 
         public OilParser(string code,string objectType, OilSettings settings) {
@@ -15,6 +15,13 @@ namespace BedrockTools_Build.OilInit {
             Settings=settings;
             ObjectType=objectType;
         }
+
+        public OilParser(string code, OilSettings settings) {
+            RawCode=code;
+            Settings=settings;
+            ObjectType="NA";
+        }
+
 
         public virtual ObjectInitializerList  Parse() {
             string[] codeLines = RawCode.Split("\n");
@@ -33,13 +40,17 @@ namespace BedrockTools_Build.OilInit {
             if (Regex.IsMatch(line,@"^//.*")) {
                 return;
             }
-            if (line.Length <0) {
+            if (line.Length <= 0) {
                 return;
             }
             string[] components = Regex.Split(line, @"\s+");
             try {
                 int index = 0;
                 string key = components[index++];
+                if (key == "-ObjectType") {
+                    ObjectType = components[index++];
+                    return;
+                }
                 ObjectInitializer initializer = new ObjectInitializer(ObjectType, Settings);
                 while (index < components.Length) {
                     string name = components[index++];

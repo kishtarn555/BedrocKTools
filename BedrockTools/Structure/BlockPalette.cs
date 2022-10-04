@@ -12,10 +12,12 @@ namespace BedrockTools.Structure {
             blocks = new Dictionary<Block, int>();
         }
         public int getIndex(Block block) {
-            if (block == null)
+            if (block == null) {
                 return -1;
-            if (blocks.ContainsKey(block))
+            }
+            if (blocks.ContainsKey(block)) {
                 return blocks[block];
+            }
             int val = blocks.Count;
             blocks[block] = blocks.Count;
             return val;
@@ -24,7 +26,7 @@ namespace BedrockTools.Structure {
         public List<NbtCompound> GetNbtCompounds() {
             List<NbtCompound> list = new List<NbtCompound>();
             foreach (Block blockData in blocks.Keys) {
-                list.Add((NbtCompound)blockData.ToNbt());
+                list.Add(blockData.ToNbt());
             }
             return list;
         }
@@ -32,11 +34,9 @@ namespace BedrockTools.Structure {
         NbtCompound GetEntityData() {
             return new NbtCompoundSorted();
         }
-        public NbtCompoundOrdered ToNbt() {
-            return new NbtCompoundOrdered(){
+        public NbtCompoundOrdered ToNbt() => new NbtCompoundOrdered() {
                 {"block_palette", NbtList.Compounds(GetNbtCompounds())},
                 {"block_position_data", GetEntityData()}
             };
-        }
     }
 }

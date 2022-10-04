@@ -1,0 +1,4 @@
+﻿//Minecraft stairs
+-ObjectType StairsBlock
+
+Stairs.Planks.Oak			identifier: "minecraft:oak_stairs"

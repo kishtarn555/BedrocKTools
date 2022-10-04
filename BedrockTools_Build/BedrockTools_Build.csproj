@@ -6,8 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Update="OilFiles\minecraft_simple_blocks.blockoil">
+    <None Update="OilFiles\Block\minecraft_simple_blocks.blockoil">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="OilFiles\Block\minecraft_stairs_blocks.oil">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
