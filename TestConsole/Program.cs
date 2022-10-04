@@ -15,18 +15,18 @@ namespace TestConsole {
             for (int i = 0; i < mcstructure.sizeX; i++)
                 for (int j = 0; j < mcstructure.sizeY; j++)
                     for (int k = 0; k < mcstructure.sizeZ; k++)
-                        mcstructure.setBlock(i, j, k, VanillaBlockFactory.Air);
+                        mcstructure.SetBlock(i, j, k, VanillaBlockFactory.Air);
                         for (int i =0; i < 5; i++) {
-                mcstructure.setBlock(i, 0, 0, VanillaBlockFactory.Stairs.Planks.Oak(BlockOrientation.North));
-                mcstructure.setBlock(i, 0, 2, VanillaBlockFactory.Stairs.Planks.Oak(BlockOrientation.East));
-                mcstructure.setBlock(i, 0, 4, VanillaBlockFactory.Stairs.Planks.Oak(BlockOrientation.South));
-                mcstructure.setBlock(i, 0, 6, VanillaBlockFactory.Stairs.Planks.Oak(BlockOrientation.West));
+                mcstructure.SetBlock(i, 0, 0, VanillaBlockFactory.Stairs.Planks.Oak(BlockOrientation.North));
+                mcstructure.SetBlock(i, 0, 2, VanillaBlockFactory.Stairs.Planks.Oak(BlockOrientation.East));
+                mcstructure.SetBlock(i, 0, 4, VanillaBlockFactory.Stairs.Planks.Oak(BlockOrientation.South));
+                mcstructure.SetBlock(i, 0, 6, VanillaBlockFactory.Stairs.Planks.Oak(BlockOrientation.West));
 
 
-                mcstructure.setBlock(i, 7, 0, VanillaBlockFactory.Stairs.Planks.Oak(BlockOrientation.North, true));
-                mcstructure.setBlock(i, 7, 2, VanillaBlockFactory.Stairs.Planks.Oak(BlockOrientation.East, true));
-                mcstructure.setBlock(i, 7, 4, VanillaBlockFactory.Stairs.Planks.Oak(BlockOrientation.South, true));
-                mcstructure.setBlock(i, 7, 6, VanillaBlockFactory.Stairs.Planks.Oak(BlockOrientation.West, true));
+                mcstructure.SetBlock(i, 7, 0, VanillaBlockFactory.Stairs.Planks.Oak(BlockOrientation.North, true));
+                mcstructure.SetBlock(i, 7, 2, VanillaBlockFactory.Stairs.Planks.Oak(BlockOrientation.East, true));
+                mcstructure.SetBlock(i, 7, 4, VanillaBlockFactory.Stairs.Planks.Oak(BlockOrientation.South, true));
+                mcstructure.SetBlock(i, 7, 6, VanillaBlockFactory.Stairs.Planks.Oak(BlockOrientation.West, true));
             }
             string MojangCom =
                 Path.Combine(
