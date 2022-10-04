@@ -21,11 +21,11 @@ namespace BedrockTools.Structure {
             palette = null;
         }
 
-        public void setBlock(int x, int y, int z, Block block) {
+        public void SetBlock(int x, int y, int z, Block block) {
             blocks[x, y, z] = block;
         }
 
-        void buildPalette() {
+        void BuildPalette() {
             palette = new BlockPalette();
             entityData = new Dictionary<int, NbtCompound>();
             int index = 0;
@@ -43,18 +43,18 @@ namespace BedrockTools.Structure {
         }
 
 
-        int getBaseBlock(int x, int y, int z) {
+        int GetBaseBlock(int x, int y, int z) {
             return palette.getIndex(blocks[x, y, z]);
         }
 
 
-        NbtList parseBlockIndicesNBT() {
+        NbtList ParseBlockIndices() {
             NbtList block_indices = new NbtList(NbtTag.TAG_List);
             NbtList baseLayer = new NbtList(NbtTag.TAG_Int);
             for (int i = 0; i < sizeX; i++) {
                 for (int j = 0; j < sizeY; j++) {
                     for (int k = 0; k < sizeZ; k++) {
-                        baseLayer.Add((NbtInt)getBaseBlock(i, j, k));
+                        baseLayer.Add((NbtInt)GetBaseBlock(i, j, k));
                     }
                 }
             }
@@ -72,31 +72,31 @@ namespace BedrockTools.Structure {
 
         }
         //TODO: Support entities
-        NbtList parseEntitiesNBT() {
+        NbtList ParseEntities() {
             return NbtList.Empty();
         }
-        NbtCompound parsePaletteNBT() {
+        NbtCompound ParsePalette() {
             return new NbtCompoundOrdered(){
                 { "default",palette.ToNbt() }
             };
         }
 
-        NbtCompound parseStructureNBT() {
+        NbtCompound ParseStructure() {
             NbtCompound structure = new NbtCompoundOrdered() {
-                {"block_indices", parseBlockIndicesNBT()},
-                {"entities", parseEntitiesNBT()},
-                {"palette", parsePaletteNBT()}
+                {"block_indices", ParseBlockIndices()},
+                {"entities", ParseEntities()},
+                {"palette", ParsePalette()}
             };
             return structure;
         }
 
         public NbtCompoundOrdered ToNbt() {
-            buildPalette();
+            BuildPalette();
 
             return new NbtCompoundOrdered() {
                 { "format_version", (NbtInt) 1},
                 { "size", NbtList.FromInts(sizeX, sizeY, sizeZ)},
-                { "structure", parseStructureNBT()},
+                { "structure", ParseStructure()},
                 { "structure_world_origin", NbtList.FromInts(0, 0, 0)}
             };
         }

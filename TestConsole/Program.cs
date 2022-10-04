@@ -4,23 +4,29 @@ using System.Drawing;
 //using MinecraftBedrockStructureBlock.structure;
 //using MinecraftBedrockStructureBlock.types;
 //using MinecraftBedrockStructureBlock.image;
-using BedrockTools.Nbt.Elements;
 using BedrockTools.Nbt.Util;
+using BedrockTools.Objects.Blocks.Util;
 using BedrockTools.Objects.Blocks;
 using BedrockTools.Structure;
 namespace TestConsole {
     class Program {
         static void Main(string[] args) {
-            McStructure mcstructure = new McStructure(10, 1, 10);
-            for (int i =0; i < 10; i++) {
-                for (int j=0; j <10; j++) {
-                    if ((i+j)%2==0) {
-                        mcstructure.setBlock(i, 0, j, BlockFactory.Planks.Acacia);
-                    } else {
-                        mcstructure.setBlock(i, 0, j, BlockFactory.Concrete.Red);
+            McStructure mcstructure = new McStructure(5, 8, 7);
+            for (int i = 0; i < mcstructure.sizeX; i++)
+                for (int j = 0; j < mcstructure.sizeY; j++)
+                    for (int k = 0; k < mcstructure.sizeZ; k++)
+                        mcstructure.setBlock(i, j, k, VanillaBlockFactory.Air);
+                        for (int i =0; i < 5; i++) {
+                mcstructure.setBlock(i, 0, 0, VanillaBlockFactory.Stairs.Planks.Oak(BlockOrientation.North));
+                mcstructure.setBlock(i, 0, 2, VanillaBlockFactory.Stairs.Planks.Oak(BlockOrientation.East));
+                mcstructure.setBlock(i, 0, 4, VanillaBlockFactory.Stairs.Planks.Oak(BlockOrientation.South));
+                mcstructure.setBlock(i, 0, 6, VanillaBlockFactory.Stairs.Planks.Oak(BlockOrientation.West));
 
-                    }
-                }
+
+                mcstructure.setBlock(i, 7, 0, VanillaBlockFactory.Stairs.Planks.Oak(BlockOrientation.North, true));
+                mcstructure.setBlock(i, 7, 2, VanillaBlockFactory.Stairs.Planks.Oak(BlockOrientation.East, true));
+                mcstructure.setBlock(i, 7, 4, VanillaBlockFactory.Stairs.Planks.Oak(BlockOrientation.South, true));
+                mcstructure.setBlock(i, 7, 6, VanillaBlockFactory.Stairs.Planks.Oak(BlockOrientation.West, true));
             }
             string MojangCom =
                 Path.Combine(
