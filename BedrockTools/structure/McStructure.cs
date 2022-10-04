@@ -8,6 +8,7 @@ using BedrockTools.Objects;
 namespace BedrockTools.Structure {
     public class McStructure : INbtParsable<NbtCompoundOrdered> {
         public readonly Dimensions Size;
+        public readonly IntCoords Origin;
 
         Block[,,] blocks;
         BlockPalette palette;
@@ -16,6 +17,14 @@ namespace BedrockTools.Structure {
             Size = size;
             blocks = new Block[Size.X, Size.Y, Size.Z];
             palette = null;
+            Origin = new IntCoords(0, 0, 0);
+        }
+
+        public McStructure(Dimensions size, IntCoords origin) {
+            Size = size;
+            blocks = new Block[Size.X, Size.Y, Size.Z];
+            palette = null;
+            Origin = origin;
         }
 
         public void SetBlock(int x, int y, int z, Block block) {
@@ -43,7 +52,7 @@ namespace BedrockTools.Structure {
                 { "format_version", (NbtInt) 1},
                 { "size", NbtList.FromInts(Size.X, Size.Y, Size.Z)},
                 { "structure", ParseStructure()},
-                { "structure_world_origin", NbtList.FromInts(0, 0, 0)}
+                { "structure_world_origin", Origin.ToNbt()}
             };
         }
         private void BuildPalette() {
