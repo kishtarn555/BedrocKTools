@@ -4,6 +4,7 @@ using BedrockTools_Build.Util.WordTrie;
 
 namespace BedrockTools_Build.Generator.MinecraftBlocks {
     public class MinecraftBlockFactoryGenerator : ICodeGenerator {
+        public const string VERSION = "0.1.0";
         private ObjectInitializerList InitializerList;
         WDir<ObjectInitializer> trie;
         public MinecraftBlockFactoryGenerator(ObjectInitializerList initializerList) {
