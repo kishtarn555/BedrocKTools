@@ -11,7 +11,7 @@ namespace BedrockTools.Structure {
         public readonly IntCoords Origin;
 
         Block[,,] blocks;
-        BlockPalette palette;
+        BlockPalette palette; 
         Dictionary<int, NbtCompound> entityData;
         public McStructure(Dimensions size) {
             Size = size;
