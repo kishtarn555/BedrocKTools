@@ -2,11 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <PackageId>kishtarn.BedrockTools.basic</PackageId>
+    <Authors>Hector Fernando Ricardez Lara</Authors>
+    <Description>Library that provides support for creating minecraft content:</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/kishtarn555/BedrocKTools</RepositoryUrl>
+    <RepositoryType>github</RepositoryType>
+    <PackageTags>Minecraft, Nbt, bedrock, bedrock edition,</PackageTags>
+    <Version>1.0.0-alpha</Version>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
-  </ItemGroup>
 
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
