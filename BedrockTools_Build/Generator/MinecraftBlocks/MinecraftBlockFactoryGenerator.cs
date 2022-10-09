@@ -5,7 +5,7 @@ using BedrockTools_Build.OilInit;
 
 namespace BedrockTools_Build.Generator.MinecraftBlocks {
     public class MinecraftBlockFactoryGenerator : ICodeGenerator {
-        public const string VERSION = "1.0.0";
+        public const string VERSION = "1.0.1";
         private ObjectInitializerList InitializerList;
         
         public MinecraftBlockFactoryGenerator(ObjectInitializerList initializerList) {
@@ -17,7 +17,6 @@ namespace BedrockTools_Build.Generator.MinecraftBlocks {
         public string GetCode(int tabulation = 0) {
             CodeBuilder builder = new CodeBuilder(0);
             builder
-                .WriteLine("using System.Collections.Generic;")
                 .WriteLine("using BedrockTools.Objects.Blocks.Minecraft;")
                 .WriteLine("using BedrockTools.Objects.Blocks.Util;")
                 .EndLine()
