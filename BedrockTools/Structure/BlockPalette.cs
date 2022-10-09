@@ -26,7 +26,7 @@ namespace BedrockTools.Structure {
         public List<NbtCompound> GetNbtCompounds() {
             List<NbtCompound> list = new List<NbtCompound>();
             foreach (Block blockData in blocks.Keys) {
-                list.Add(blockData.ToNbt());
+                list.Add(blockData.GetStructureBlock());
             }
             return list;
         }

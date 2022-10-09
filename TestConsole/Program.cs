@@ -15,16 +15,17 @@ namespace TestConsole {
             McStructure mcstructure = new McStructure(new Dimensions(5,8,7));
             mcstructure.FillVoidWithAir();
                         for (int i =0; i < 5; i++) {
-                mcstructure.SetBlock(i, 0, 0, VanillaBlockFactory.Stairs.Planks.Oak(BlockOrientation.North));
-                mcstructure.SetBlock(i, 0, 2, VanillaBlockFactory.Stairs.Planks.Oak(BlockOrientation.East));
-                mcstructure.SetBlock(i, 0, 4, VanillaBlockFactory.Stairs.Planks.Oak(BlockOrientation.South));
-                mcstructure.SetBlock(i, 0, 6, VanillaBlockFactory.Stairs.Planks.Oak(BlockOrientation.West));
+                mcstructure.SetBlock(i, 0, 0, VanillaBlockFactory.StoneStairs(BlockOrientation.North));
+                mcstructure.SetBlock(i, 0, 2, VanillaBlockFactory.StoneStairs(BlockOrientation.East));
+                mcstructure.SetBlock(i, 0, 4, VanillaBlockFactory.StoneStairs(BlockOrientation.South));
+                mcstructure.SetBlock(i, 0, 6, VanillaBlockFactory.StoneStairs(BlockOrientation.West));
 
 
-                mcstructure.SetBlock(i, 7, 0, VanillaBlockFactory.Stairs.Planks.Oak(BlockOrientation.North, true));
-                mcstructure.SetBlock(i, 7, 2, VanillaBlockFactory.Stairs.Planks.Oak(BlockOrientation.East, true));
-                mcstructure.SetBlock(i, 7, 4, VanillaBlockFactory.Stairs.Planks.Oak(BlockOrientation.South, true));
-                mcstructure.SetBlock(i, 7, 6, VanillaBlockFactory.Stairs.Planks.Oak(BlockOrientation.West, true));
+                mcstructure.SetBlock(i, 7, 0, VanillaBlockFactory.StoneStairs(BlockOrientation.North, true));
+                mcstructure.SetBlock(i, 7, 2, VanillaBlockFactory.StoneStairs(BlockOrientation.East, true));
+                mcstructure.SetBlock(i, 7, 4, VanillaBlockFactory.StoneStairs(BlockOrientation.South, true));
+                mcstructure.SetBlock(i, 7, 6, VanillaBlockFactory.StoneStairs(BlockOrientation.West, true));
+                
             }
             string MojangCom =
                 Path.Combine(

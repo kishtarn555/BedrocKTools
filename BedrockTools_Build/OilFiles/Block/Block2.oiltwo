@@ -1,0 +1,57 @@
+﻿//Keep sorted
+//Format is:
+//RegistryKey					type			identifier extradata
+AcaciaStairs					StairsBlock		minecraft:acacia_stairs
+Air								UnitBlock		minecraft:air
+AncientDebris					UnitBlock		minecraft:ancient_debris
+AndesitesStairs					StairsBlock		minecraft:andesite_stairs
+BirchStairs						StairsBlock		minecraft:birch_stairs
+BlackStone						UnitBlock		minecraft:blackstone
+BlueIce							UnitBlock		minecraft:blue_ice
+BrickBlock						UnitBlock		minecraft:brick_block
+BrickStairs						StairsBlock		minecraft:brick_stairs
+Clay							UnitBlock		minecraft:clay
+ChiseledNetherBricks			UnitBlock		minecraft:chiseled_nether_bricks
+ChiseledPolishedBlackstone		UnitBlock		minecraft:chiseled_polished_blackstone
+CrackedNetherBricks				UnitBlock		minecraft:cracked_nether_bricks
+CrackePolishedBlackstoneBricks	UnitBlock		minecraft:cracked_polished_blackstone_bricks
+CrimsonPlanks					UnitBlock		minecraft:warped_planks
+CrimsonStairs					StairsBlock		minecraft:crimson_stairs
+Concrete						ColorBlock		minecraft:concrete
+DarkOakStairs					StairsBlock		minecraft:dark_oak_stairs
+DioriteStairs					StairsBlock		minecraft:diorite_stairs
+Dirt							Variant			minecraft:dirt		variant= dirt_type	values=	Normal,Coarse
+EndBricks						UnitBlock		minecraft:end_bricks
+EndBrickStairs					StairsBlock		minecraft:end_brick_stairs
+EndStone						UnitBlock		minecraft:end_stone
+Glass							UnitBlock		minecraft:glass
+Grass							UnitBlock		minecraft:grass
+GraniteStairs					StairsBlock		minecraft:granite_stairs
+Ice								UnitBlock		minecraft:ice
+JungleStairs					StairsBlock		minecraft:jungle_stairs
+MossyCobblestoneStairs			StairsBlock		minecraft:mossy_cobblestone_stairs
+MossyStoneBrickStaris			StairsBlock		minecraft:mossy_stone_brick_stairs
+NetherBricks					UnitBlock		minecraft:nether_brick
+NormalStoneStairs				StairsBlock		minecraft:normal_stone_stairs
+OakStairs						StairsBlock		minecraft:oak_stairs
+PackedIce						UnitBlock		minecraft:packed_ice
+Planks							Variant			minecraft:planks	variant= wood_type values= Oak,Acacia,Birch,Jungle,Dark_Oak,Spruce
+Prismarine						Variant			minecraft:prismarine variant= prismarine_block_type	values= Default,Dark,Bricks
+PolishedAndesiteStairs			StairsBlock		minecraft:polished_andesite_stairs
+PolishedBlackstoneBricks		UnitBlock		minecraft:polished_blackstone_bricks
+PolishedBlackstoneBricks		UnitBlock		minecraft:polished_blackstone_bricks
+PolishedDioriteStairs			StairsBlock		minecraft:polished_diorite_stairs
+PolishedGraniteStairs			StairsBlock		minecraft:polished_granite_stairs
+Quartz							Variant			minecraft:quartz_bricks variant= chisel_type values= Default,Smooth,Chiseled,
+// !!! QuartzBlock.Pilas			Is in log like file
+QuartzBricks					UnitBlock		minecraft:quartz_bricks
+StainedGlass					ColorBlock		minecraft:stained_glass
+SpruceStairs					StairsBlock		minecraft:spruce_stairs
+Stone							Variant			minecraft:stone	variant= stone_type values= Stone,Andesite,Andesite_Smooth,Diorite,Diorite_Smooth,Granite,Granite_Smooth
+StoneBricks						Variant			minecraft:stonebrick variant= stone_brick_type values= Default,Chiseled,Cracked,Mossy,Smooth
+StoneBrickStairs				StairsBlock		minecraft:stone_brick_stairs
+StoneStairs						StairsBlock		minecraft:stone_stairs
+WarpedPlanks					UnitBlock		minecraft:warped_planks
+WarpedStairs					StairsBlock		minecraft:warped_stairs
+Wool							ColorBlock		minecraft:wool
+

@@ -1,55 +1,79 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using BedrockTools_Build.OilInit;
-using BedrockTools_Build.Util.WordTrie;
+
 
 namespace BedrockTools_Build.Generator.MinecraftBlocks {
     public class MinecraftBlockFactoryGenerator : ICodeGenerator {
-        public const string VERSION = "0.2.0";
+        public const string VERSION = "1.0.0";
         private ObjectInitializerList InitializerList;
-        WDir<ObjectInitializer> trie;
+        
         public MinecraftBlockFactoryGenerator(ObjectInitializerList initializerList) {
             InitializerList=initializerList;
-            BuildTrie();
+        
         }
-        private void BuildTrie() {
-            trie = new WDir<ObjectInitializer>();
-            foreach (KeyValuePair<string, ObjectInitializer> kvp in InitializerList.GetInitializers()) {
-                string[] comps = kvp.Key.Split(".");
-                WDir<ObjectInitializer> cur = trie;
-                for (int i=0; i < comps.Length-1; i++) {
-                    cur = cur.MoveDir(comps[i]);
-                }
-                cur.AddItem(comps[comps.Length-1], kvp.Value);
-            }
-        }
+        
         
         public string GetCode(int tabulation = 0) {
             CodeBuilder builder = new CodeBuilder(0);
             builder
                 .WriteLine("using System.Collections.Generic;")
-                .NewLine()
+                .WriteLine("using BedrockTools.Objects.Blocks.Minecraft;")
+                .WriteLine("using BedrockTools.Objects.Blocks.Util;")
+                .EndLine()
                 .WriteLine("namespace BedrockTools.Objects.Blocks {")
                 .Ident()
                     .WriteLine("public static partial class VanillaBlockFactory {");
-                        BuildFactories(trie,builder);
+                        BuildFactories(builder);
                     builder.WriteLine("}")
                 .Deident()
                 .WriteLine("}");
                 
             return builder.ToString();
         }
-
-        private void BuildFactories(WDir<ObjectInitializer> cur,  CodeBuilder builder) {
+        private List<CodeCs.CsParameter> GetParameters(KeyValuePair<string, ObjectInitializer> oilObject) {
+            List<CodeCs.CsParameter> result = new List<CodeCs.CsParameter>();
+            switch(oilObject.Value.ObjectType) {
+                case "UnitBlock":
+                    break;
+                case "ColorBlock":
+                    result.Add(new CodeCs.CsParameter { Type="BlockColorValue", Name="color" });
+                    break;
+                case "StairsBlock":
+                    result.Add(new CodeCs.CsParameter { Type="BlockOrientation", Name="orientation" });
+                    result.Add(new CodeCs.CsParameter { Type="bool", Name="isUpsideDown", DefaultValue="false" });
+                    break;
+                case "Variant":
+                    result.Add(new CodeCs.CsParameter { 
+                        Type=oilObject.Key+"Block."+ oilObject.Key+"Type",
+                        Name="variation" 
+                    });
+                    break;
+            }
+            return result;
+        }
+        private void BuildFactories(CodeBuilder builder) {
             builder.Ident();
-            foreach(KeyValuePair<string, WDir<ObjectInitializer> > subdirs in cur.subDirs) {
-                builder.WriteLine($"public static class {subdirs.Key} {{");
-                BuildFactories(subdirs.Value, builder);
-                builder.WriteLine("}");
-            }
-            foreach(KeyValuePair<string, ObjectInitializer> decs in cur.items) {
+            foreach(KeyValuePair<string, ObjectInitializer> decs in InitializerList.GetInitializers()) {
+                string returnType = decs.Value.ObjectType;
+                if (returnType=="Variant") {
+                    returnType = decs.Key+"Block";
+                }
+                CodeCs.CsMethod method = new CodeCs.CsMethod {
+                    Access=CodeCs.AccessModifier.Public,
+                    IsStatic=true,
+                    Name = decs.Key,
+                    ReturnType = returnType,
+                    Parameters=GetParameters(decs)
+                };
+                List<string> callParameters = new List<string>() { $@"""{decs.Value.GetParameter("identifier")}""" };
+                callParameters.AddRange(method.Parameters.Select(parameter => parameter.Name));
+                string argList = string.Join(", ", callParameters);
+                method.MethodGenerator = new LineGenerator($"return new {method.ReturnType} ({argList});");
                 decs.Value.settings= OilSettings.GetSettings();
-                builder.WriteLine($"public static Block {decs.Key} () => {decs.Value.GetCode()};");
+                builder.Write(method.GetCode(builder.StateTab));
             }
+
             builder.Deident();
                 
         }

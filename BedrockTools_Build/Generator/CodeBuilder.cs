@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace BedrockTools_Build.Generator {
-    class CodeBuilder {
+    public class CodeBuilder {
         StringBuilder stringBuilder;
         public int StateTab { get; set; }
         public CodeBuilder(int tabulation=0) {
@@ -20,7 +20,7 @@ namespace BedrockTools_Build.Generator {
             stringBuilder.Append(code);
             return this;
         }
-        public CodeBuilder NewLine() {
+        public CodeBuilder EndLine() {
             stringBuilder.Append("\n");
             return this; 
         }

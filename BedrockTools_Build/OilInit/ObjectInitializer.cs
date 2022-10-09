@@ -15,12 +15,12 @@ namespace BedrockTools_Build.OilInit {
             this.settings=settings;
             ObjectType=objectType;
         }
-        public void AddConstructorParameter(string name, string value) {
-            parameters.Add(name, value);
-        }
-        public void AddObjectValue(string name, string value) {
-            values.Add(name, value);
-        }
+        public bool HasParameter(string name) => parameters.ContainsKey(name);
+        public bool HasObjectValue(string name) => values.ContainsKey(name);
+        public string GetParameter(string name) => parameters[name];
+        public string GetObjectValue(string name) => values[name];
+        public void AddConstructorParameter(string name, string value) => parameters.Add(name, value);
+        public void AddObjectValue(string name, string value) => values.Add(name, value);
         public string GetCode(int tabulation = 0) {
             CodeBuilder builder = new CodeBuilder(tabulation);
             if (!settings.Minify)
@@ -41,7 +41,7 @@ namespace BedrockTools_Build.OilInit {
             if (!settings.Minify) {
                 
                 builder
-                    .NewLine()
+                    .EndLine()
                     .Ident()
                     .StartLine();
                 builder.Write(
@@ -49,7 +49,7 @@ namespace BedrockTools_Build.OilInit {
                     );
 
                 builder
-                    .NewLine()
+                    .EndLine()
                     .Deident()
                     .StartLine()
                     .Write("}");

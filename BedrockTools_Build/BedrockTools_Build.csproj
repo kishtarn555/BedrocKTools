@@ -6,6 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Update="OilFiles\Block\Block2.oiltwo">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="OilFiles\Block\minecraft_simple_blocks.blockoil">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

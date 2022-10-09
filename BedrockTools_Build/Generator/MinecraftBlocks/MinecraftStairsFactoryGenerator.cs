@@ -32,7 +32,7 @@ namespace BedrockTools_Build.Generator.MinecraftBlocks {
             builder
                 .WriteLine("using System.Collections.Generic;")
                 .WriteLine("using BedrockTools.Objects.Blocks.Util;")
-                .NewLine()
+                .EndLine()
                 .WriteLine("namespace BedrockTools.Objects.Blocks {")
                 .Ident()
                     .WriteLine("public static partial class VanillaBlockFactory {");

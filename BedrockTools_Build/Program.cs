@@ -1,12 +1,11 @@
 ﻿using System;
-using System.IO;
+using System.Collections.Generic;
 using BedrockTools_Build.Operations.Objects.Blocks;
 namespace BedrockTools_Build {
-    class Program {
-        static void Main(string[] args) {
-
+    internal class Program {
+        private static void Main(string[] args) {
+            new BlockClassGeneration().Run();
             new BlockFactoryGeneration().Run();
-            new StairsBlockFactoryGeneration().Run();
             return;
         }
     }

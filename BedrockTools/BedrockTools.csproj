@@ -13,12 +13,20 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile></DocumentationFile>
+    <OutputPath></OutputPath>
+  </PropertyGroup>
+
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Objects\Blocks\Special\" />
+    <Folder Include="Objects\Blocks\Advanced\" />
+    <Folder Include="Objects\Blocks\Factory\" />
+    <Folder Include="Objects\Blocks\Minecraft\" />
+    <Folder Include="Registries\" />
     <Folder Include="Objects\Minecraft\" />
   </ItemGroup>
 

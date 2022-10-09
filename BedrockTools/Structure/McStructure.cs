@@ -63,8 +63,8 @@ namespace BedrockTools.Structure {
                 for (int j = 0; j < Size.Y; j++) {
                     for (int k = 0; k < Size.Z; k++) {
                         palette.getIndex(blocks[i, j, k]);
-                        if (blocks[i, j, k] is BlockEntity) {
-                            entityData[index] = (blocks[i, j, k] as BlockEntity).EntityData;
+                        if (blocks[i, j, k] is EntityBlock blockEntity) {
+                            entityData[index] = blockEntity.GetEntityData();
                         }
                         index++;
                     }

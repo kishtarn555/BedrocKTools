@@ -1,16 +1,20 @@
 ﻿using System;
-using BedrockTools.Objects.Blocks.Util;
 using BedrockTools.Nbt.Elements;
+using BedrockTools.Objects.Blocks.Util;
 
 namespace BedrockTools.Objects.Blocks {
     public class StairsBlock : Block {
-        public BlockOrientation Orientation { get; protected set; }
-        public bool IsUpsideDown { get; protected set; }
-        
-        public StairsBlock(string identifier, BlockOrientation orientation, bool isUpsideDown)  {
-            Identifier = identifier;
-            int weirdo_direction = -1;
-            switch (orientation) {
+        public readonly bool IsUpsideDown;
+        public readonly BlockOrientation Orientation;
+
+        public StairsBlock(string identifier, BlockOrientation orientation, bool isUpsideDown) : base(identifier) {
+            Orientation = orientation;
+            IsUpsideDown = isUpsideDown;
+        }
+
+        public override NbtCompoundSorted GetBlockState() {
+            int weirdo_direction;
+            switch (Orientation) {
                 case BlockOrientation.East:
                     weirdo_direction = 0;
                     break;
@@ -24,18 +28,12 @@ namespace BedrockTools.Objects.Blocks {
                     weirdo_direction = 3;
                     break;
                 default:
-                    throw new ArgumentException("Orientation for a stair can only be North, East, South or West. But got: " + orientation);
+                    throw new ArgumentException("Orientation for a stair can only be North, East, South or West. But got: " + Orientation);
             }
-            NbtCompoundSorted blockStates = new NbtCompoundSorted() {
+            return new NbtCompoundSorted() {
                 { "weirdo_direction", (NbtInt)weirdo_direction },
-                { "upside_down_bit", (NbtByte)(isUpsideDown? 1:0) }
+                { "upside_down_bit", (NbtByte)(IsUpsideDown? 1:0) }
             };
-            BlockStates = blockStates;
         }
-
-        
-
-
-
     }
 }

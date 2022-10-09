@@ -4,14 +4,14 @@ using System.IO;
 using BedrockTools_Build.Generator;
 using BedrockTools_Build.Generator.MinecraftBlocks;
 using BedrockTools_Build.OilInit;
+using BedrockTools_Build.Oil2;
 using BedrockTools_Build.OilInit.Minecraft;
 namespace BedrockTools_Build.Operations.Objects.Blocks {
     class BlockFactoryGeneration : Operation {        
         public override void Run() {
             ObjectInitializerList blockList =
-                new OilBlockParser(
-                    code: File.ReadAllText("OilFiles/Block/minecraft_simple_blocks.blockoil"),
-                    objectType: "Block",
+                new MinecraftOil2Parser(
+                    code: File.ReadAllText("OilFiles/Block/Block2.oiltwo"),
                     settings: OilSettings.GetSettings()
                 ).Parse();
             MinecraftBlockFactoryGenerator codeGenerator = new MinecraftBlockFactoryGenerator(blockList);
