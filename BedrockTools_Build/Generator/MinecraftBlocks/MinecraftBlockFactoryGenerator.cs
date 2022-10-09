@@ -5,7 +5,7 @@ using BedrockTools_Build.OilInit;
 
 namespace BedrockTools_Build.Generator.MinecraftBlocks {
     public class MinecraftBlockFactoryGenerator : ICodeGenerator {
-        public const string VERSION = "1.0.1";
+        public static readonly string VERSION = "1.0.1";
         private ObjectInitializerList InitializerList;
         
         public MinecraftBlockFactoryGenerator(ObjectInitializerList initializerList) {
