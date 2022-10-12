@@ -1,53 +1,41 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using BedrockTools.Nbt;
 using BedrockTools.Nbt.Elements;
-using BedrockTools.Nbt.Extension;
-using BedrockTools.Objects.Blocks;
 using BedrockTools.Objects;
+using BedrockTools.Objects.Blocks;
+using BedrockTools.Objects.Entities;
 
 namespace BedrockTools.Structure {
-    public class McStructure : INbtParsable<NbtCompoundOrdered> {
-        public readonly Dimensions Size;
-        public readonly IntCoords Origin;
+    public class McStructure : IMcStructure {
+        public Dimensions Size { get; }
+        public IntCoords Origin { get; }
+        protected Block[,,] blocks;
 
-        Block[,,] blocks;
-        BlockPalette palette; 
-        Dictionary<int, NbtCompound> entityData;
+
         public McStructure(Dimensions size) {
             Size = size;
             blocks = new Block[Size.X, Size.Y, Size.Z];
-            palette = null;
             Origin = new IntCoords(0, 0, 0);
         }
 
         public McStructure(Dimensions size, IntCoords origin) {
             Size = size;
             blocks = new Block[Size.X, Size.Y, Size.Z];
-            palette = null;
             Origin = origin;
         }
 
-        public void SetBlock(int x, int y, int z, Block block) {
-            blocks[x, y, z] = block;
-        }
-        public void FillVoidWithAir() {
-            FillVoid(VanillaBlockFactory.Air());
-        }
-        public void FillVoid(Block filler) {
-            for (int x = 0; x < Size.X; x++) {
-                for (int y = 0; y < Size.Y; y++) {
-                    for (int z = 0; z < Size.Z; z++) {
-                        if (blocks[x, y, z] == null) {
-                            blocks[x, y, z] = filler;
-                        }
-                    }
-                }
-            }
-        }
+        public void SetBlock(int x, int y, int z, Block block) => blocks[x, y, z] = block;
 
-        public NbtCompoundOrdered ToNbt() {
-            BuildPalette();
+        public void SetBlock(IntCoords coords, Block block) => SetBlock(coords.X, coords.Y, coords.Z, block);
 
+        public Block GetBlock(int x, int y, int z) => blocks[x, y, z];
+        public Block GetBlock(IntCoords coords) => GetBlock(coords.X, coords.Y, coords.Z);
+
+        //FIXME
+        public void AddEntity(Entity entity) {
+            throw new NotImplementedException("Currently there's not support for entities");
+        }
+        public NbtCompound GetStructureAsNbt() {
             return new NbtCompoundOrdered() {
                 { "format_version", (NbtInt) 1},
                 { "size", NbtList.FromInts(Size.X, Size.Y, Size.Z)},
@@ -55,35 +43,28 @@ namespace BedrockTools.Structure {
                 { "structure_world_origin", Origin.ToNbt()}
             };
         }
-        private void BuildPalette() {
-            palette = new BlockPalette();
-            entityData = new Dictionary<int, NbtCompound>();
+        private BlockPalette BuildPalette() {
+            BlockPalette palette = new BlockPalette();
             int index = 0;
             for (int i = 0; i < Size.X; i++) {
                 for (int j = 0; j < Size.Y; j++) {
                     for (int k = 0; k < Size.Z; k++) {
                         palette.getIndex(blocks[i, j, k]);
-                        if (blocks[i, j, k] is EntityBlock blockEntity) {
-                            entityData[index] = blockEntity.GetEntityData();
-                        }
+                       
                         index++;
                     }
                 }
             }
+            return palette;
         }
 
-
-        private int GetBaseBlock(int x, int y, int z) {
-            return palette.getIndex(blocks[x, y, z]);
-        }
-
-        private NbtList ParseBlockIndices() {
+        private NbtList ParseBlockIndices(BlockPalette palette) {
             NbtList block_indices = new NbtList(NbtTag.TAG_List);
             NbtList baseLayer = new NbtList(NbtTag.TAG_Int);
             for (int i = 0; i < Size.X; i++) {
                 for (int j = 0; j < Size.Y; j++) {
                     for (int k = 0; k < Size.Z; k++) {
-                        baseLayer.Add((NbtInt)GetBaseBlock(i, j, k));
+                        baseLayer.Add((NbtInt)palette.getIndex(blocks[i, j, k]));
                     }
                 }
             }
@@ -105,17 +86,15 @@ namespace BedrockTools.Structure {
         private NbtList ParseEntities() {
             return NbtList.Empty();
         }
-        private NbtCompound ParsePalette() {
-            return new NbtCompoundOrdered(){
-                { "default",palette.ToNbt() }
-            };
-        }
 
         private NbtCompound ParseStructure() {
+            BlockPalette palette = BuildPalette(); 
             NbtCompound structure = new NbtCompoundOrdered() {
-                {"block_indices", ParseBlockIndices()},
+                {"block_indices", ParseBlockIndices(palette)},
                 {"entities", ParseEntities()},
-                {"palette", ParsePalette()}
+                {"palette",  new NbtCompoundOrdered(){
+                    {"default", palette.ToNbt() }
+                }}
             };
             return structure;
         }

@@ -27,7 +27,6 @@
     <Folder Include="Objects\Blocks\Factory\" />
     <Folder Include="Objects\Blocks\Minecraft\" />
     <Folder Include="Registries\" />
-    <Folder Include="Objects\Minecraft\" />
   </ItemGroup>
 
 </Project>

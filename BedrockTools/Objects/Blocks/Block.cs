@@ -10,7 +10,7 @@ namespace BedrockTools.Objects.Blocks {
             Identifier = identifier;
         }
         public abstract NbtCompoundSorted GetBlockState();
-        public NbtCompoundOrdered GetStructureBlock() {
+        public virtual NbtCompoundOrdered GetStructureBlock() {
             return new NbtCompoundOrdered() {
                 { "name", (NbtString)Identifier},
                 { "states", GetBlockState()},

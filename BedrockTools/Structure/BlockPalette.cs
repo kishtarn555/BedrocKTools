@@ -7,6 +7,7 @@ using BedrockTools.Nbt.Extension;
 namespace BedrockTools.Structure {
     public class BlockPalette :INbtParsable<NbtCompoundOrdered> {
         Dictionary<Block, int> blocks;
+        Dictionary<int, NbtCompound> entityData = new Dictionary<int, NbtCompound>();
 
         public BlockPalette() {
             blocks = new Dictionary<Block, int>();
@@ -32,6 +33,9 @@ namespace BedrockTools.Structure {
         }
 
         NbtCompound GetEntityData() {
+            for (int i =0; i < blocks.Count; i++) {
+                if 
+            }
             return new NbtCompoundSorted();
         }
         public NbtCompoundOrdered ToNbt() => new NbtCompoundOrdered() {
