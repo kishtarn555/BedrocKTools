@@ -45,6 +45,12 @@ namespace BedrockTools.Nbt.IO {
                 writer.Write(c);
             }
         }
+
+        public void WriteRoot(NbtCompound rootCompound) {
+            writer.Write((byte)rootCompound.Tag);
+            writer.Write((short)0);
+            Write(rootCompound);
+        }
         public override void Close() => writer.Close();
     }
 }

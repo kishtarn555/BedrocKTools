@@ -1,21 +1,10 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using BedrockTools.Nbt.Util;
 
 namespace BedrockTools.Nbt.Elements {
     public abstract class NbtCompound : NbtElement, IDictionary<string, NbtElement> {
-        public override void WriteValue(BinaryWriter writer) {
-            foreach (KeyValuePair<string, NbtElement> kvp in this) {
-                kvp.Value.WriteTag(writer);
-                WriterUtil.WriteString(writer, kvp.Key);
-                kvp.Value.WriteValue(writer);
-            }
-            writer.Write((byte)NbtTag.TAG_End);
-            //writer.Write((byte)NbtTag.TAG_End);
-        }
+        
         public abstract NbtElement this[string key] { get; set; }
 
         public override NbtTag Tag => NbtTag.TAG_Compound;

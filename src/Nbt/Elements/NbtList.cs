@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 namespace BedrockTools.Nbt.Elements {
@@ -30,14 +29,6 @@ namespace BedrockTools.Nbt.Elements {
                 Validate(element);
             }
             this.elements = new List<NbtElement>(collection);
-        }
-
-        public override void WriteValue(BinaryWriter writer) {
-            writer.Write((byte)ElementsType);
-            writer.Write((int)elements.Count);
-            foreach (NbtElement element in elements) {
-                element.WriteValue(writer);
-            }
         }
 
         void Validate(NbtElement element) {

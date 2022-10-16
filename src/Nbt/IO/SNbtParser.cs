@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using BedrockTools.Nbt.Elements;
 
-namespace BedrockTools.Nbt.Util {
+namespace BedrockTools.Nbt.IO {
     public class SNbtParser<T>  where T : NbtCompound, new() {
         struct Token {
             public string value;

@@ -8,9 +8,7 @@ namespace BedrockTools.Nbt.Elements {
         public override long Value { get; protected set; }
         public override NbtTag Tag => NbtTag.TAG_Long;
         public  NbtLong(long value): base(value) { }
-        public override void WriteValue(BinaryWriter writer) {
-            writer.Write(Value);
-        }
+
         public override string ToString() {
             return $"{Value}L";
         }
