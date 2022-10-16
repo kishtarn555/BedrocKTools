@@ -18,5 +18,7 @@ namespace BedrockTools.Objects {
         public NbtList ToNbt() {
             return NbtList.FromInts(X, Y, Z);
         }
+
+        public static IntCoords Zero => new IntCoords(0, 0, 0);
     }
 }

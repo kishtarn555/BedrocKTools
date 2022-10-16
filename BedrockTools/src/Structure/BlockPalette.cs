@@ -33,9 +33,7 @@ namespace BedrockTools.Structure {
         }
 
         NbtCompound GetEntityData() {
-            for (int i =0; i < blocks.Count; i++) {
-                if 
-            }
+            
             return new NbtCompoundSorted();
         }
         public NbtCompoundOrdered ToNbt() => new NbtCompoundOrdered() {

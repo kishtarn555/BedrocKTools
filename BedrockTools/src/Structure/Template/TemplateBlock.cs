@@ -6,7 +6,8 @@ namespace BedrockTools.Structure.Template {
     public class TemplateBlock : Block {
         public readonly int TemplateIndex;
 
-        public TemplateBlock(int index) : base("bedrocktools:template") {
+        public static string StringIdentifier="bedrocktools:template";
+        public TemplateBlock(int index) : base(StringIdentifier) {
             TemplateIndex = index;
         }
 
@@ -15,7 +16,7 @@ namespace BedrockTools.Structure.Template {
         }
 
         public override NbtCompoundOrdered GetStructureBlock() {
-            throw new NotImplementedException();
+            throw new NotImplementedException("Template block is a aux block, it is not meant to be used as an actual block");
         }
         public override bool Equals(object obj) {
             if (obj is TemplateBlock template) {

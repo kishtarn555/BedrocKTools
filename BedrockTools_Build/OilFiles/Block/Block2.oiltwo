@@ -11,10 +11,10 @@
 		CrimsonPlanks					UnitBlock		minecraft:warped_planks
 		WarpedPlanks					UnitBlock		minecraft:warped_planks
 		MangrovePlanks					UnitBlock		minecraft:mangrove_planks
-	// Walls
-	// Fences
-	// Fence Gaes
-	//Stairs
+	// Walls .....................................................
+	// Fences.....................................................
+	// Fence Gates................................................
+	//Stairs......................................................
 		NormalStoneStairs				StairsBlock		minecraft:normal_stone_stairs
 		StoneStairs						StairsBlock		minecraft:stone_stairs
 		MossyCobblestoneStairs			StairsBlock		minecraft:mossy_cobblestone_stairs
@@ -37,19 +37,19 @@
 		EndBrickStairs					StairsBlock		minecraft:end_brick_stairs
 		CrimsonStairs					StairsBlock		minecraft:crimson_stairs
 		WarpedStairs					StairsBlock		minecraft:warped_stairs
-	// Doors
-	// Trapdoors
-	// Glass
+	// Doors....................................................
+	// Trapdoors................................................
+	// Glass....................................................
 		Glass							UnitBlock		minecraft:glass
 		StainedGlass					ColorBlock		minecraft:stained_glass
-	// Slab
+	// Slab.....................................................
 
 	BrickBlock						UnitBlock		minecraft:brick_block
 	QuartzBricks					UnitBlock		minecraft:quartz_bricks
 	ChiseledNetherBricks			UnitBlock		minecraft:chiseled_nether_bricks
 	CrackedNetherBricks				UnitBlock		minecraft:cracked_nether_bricks
 
-	// DecorativeStone
+	// DecorativeStone.........................................
 		StoneBricks						Variant			minecraft:stonebrick variant= stone_brick_type values= Default,Chiseled,Cracked,Mossy,Smooth
 		EndBricks						UnitBlock		minecraft:end_bricks
 		/// Prismarine is not here due to it being in multiple groups
@@ -60,29 +60,29 @@
 	MossyCobblestone				UnitBlock		minecraft:mossy_cobblestone
 	CobbledDeepslate				UnitBlock		minecraft:cobbled_deepslate
 	SmoothStone						UnitBlock		minecraft:smooth_stone
-	// Sandstone
+	// Sandstone...............................................
 
 	CoalBlock						UnitBlock		minecraft:coal_block
 	DriedKelpBlock					UnitBlock		minecraft:dried_kelp_block
-	//Copper
+	//Copper...................................................
 	Quartz							Variant			minecraft:quartz_block variant= chisel_type values= Default,Smooth,Chiseled,
 	// !!! QuartzBlock.Pilar		pending		 (double variant)
 	Prismarine						Variant			minecraft:prismarine variant= prismarine_block_type	values= Default,Dark,Bricks
 	NetherBrick						UnitBlock		minecraft:nether_brick
 	RedNetherBrick					UnitBlock		minecraft:red_nether_brick
-	// Wool
+	// Wool...................................................
 		Wool							ColorBlock		minecraft:wool
-	// Carpet
+	// Carpet.................................................
 		Carpet							ColorBlock		minecraft:carpet
-	// Concrete Powder
+	// Concrete Powder........................................
 		ConcretePowder					ColorBlock		minecraft:concrete_powder
-	// Concrete
+	// Concrete...............................................
 		Concrete						ColorBlock		minecraft:concrete
 	Clay							UnitBlock		minecraft:clay
-	// Terracotta
+	// Terracotta.............................................
 		HardenedClay					UnitBlock		minecraft:hardened_clay
 		StainedHardenedClay				ColorBlock		minecraft:stained_hardened_clay
-	// GlazedTerracotta
+	// GlazedTerracotta.......................................
 
 	Purpur								UnitBlock		minecraft:purpur_block
 	PackedMud							UnitBlock		minecraft:packed_mud
@@ -98,7 +98,7 @@ AncientDebris					UnitBlock		minecraft:ancient_debris
 	BlueIce							UnitBlock		minecraft:blue_ice
 	PackedIce						UnitBlock		minecraft:packed_ice
 
-//Planks
+//Planks.............................................
 
 //Stone
 	Stone							Variant			minecraft:stone	variant= stone_type values= Stone,Andesite,Andesite_Smooth,Diorite,Diorite_Smooth,Granite,Granite_Smooth

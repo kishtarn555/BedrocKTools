@@ -13,7 +13,7 @@ namespace TestConsole {
     class Program {
         static void Main(string[] args) {
             McStructure mcstructure = new McStructure(new Dimensions(5,8,7));
-            mcstructure.FillVoidWithAir();
+            //mcstructure.FillVoidWithAir();
                         for (int i =0; i < 5; i++) {
                 mcstructure.SetBlock(i, 0, 0, VanillaBlockFactory.StoneStairs(BlockOrientation.North));
                 mcstructure.SetBlock(i, 0, 2, VanillaBlockFactory.StoneStairs(BlockOrientation.East));
@@ -35,7 +35,7 @@ namespace TestConsole {
             BinaryWriter bw = new BinaryWriter(new FileStream(
                Path.Combine(MojangCom, @"development_behavior_packs\moveit\structures\moveit\delta.mcstructure"), FileMode.Create));
             
-            WriterUtil.WriteRootCompound(bw, mcstructure.ToNbt());
+            WriterUtil.WriteRootCompound(bw, mcstructure.GetStructureAsNbt());
             bw.Close();
             return;
         }
