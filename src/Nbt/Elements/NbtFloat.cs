@@ -2,7 +2,7 @@
 using System.IO;
 
 namespace BedrockTools.Nbt.Elements {
-    class NbtFloat : NbtPrimitive<float> {
+    public class NbtFloat : NbtPrimitive<float> {
         public override NbtTag Tag => NbtTag.TAG_Float;
         public override float Value { get; protected set; }
         public NbtFloat(float value) : base(value) { }
