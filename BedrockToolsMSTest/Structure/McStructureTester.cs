@@ -76,9 +76,55 @@ namespace BedrockToolsMSTest.Structure {
                 }},
                 {"structure_world_origin", NbtList.FromInts(0,0,0) }
             };
-
             NbtAssert.AssertNbt(root, mcStructure.GetStructureAsNbt(), "Nbt structure missmatch");
-
         }
+
+        [TestMethod]
+        public void TestBlockNbt() {
+            McStructure mcStructure = new McStructure(new Dimensions(2, 2, 2));
+            mcStructure.SetBlock(0, 0, 0, VanillaBlockFactory.Stone(BedrockTools.Objects.Blocks.Minecraft.StoneBlock.StoneType.Stone));
+            mcStructure.SetBlock(0, 0, 1, VanillaBlockFactory.Stone(BedrockTools.Objects.Blocks.Minecraft.StoneBlock.StoneType.Andesite));
+            mcStructure.SetBlock(0, 1, 0, VanillaBlockFactory.Glass());
+            NbtCompound root = new NbtCompoundOrdered() {
+                {"format_version", (NbtInt)1 },
+                {"size", NbtList.FromInts(2,2,2)},
+                {"structure", new NbtCompoundOrdered() {
+                    {"block_indices", NbtList.FromLists(
+                        NbtList.FromInts(new int[]{0,1,2,-1,-1,-1,-1,-1}),
+                        NbtList.FromInts(Enumerable.Repeat(-1, 8).ToArray())
+                    )},
+                    {"entities", NbtList.Empty() },
+                    {"palette", new NbtCompoundOrdered{
+                        {"default", new NbtCompoundOrdered() {
+                            {"block_palette", NbtList.FromCompounds(
+                                new NbtCompoundOrdered() {
+                                    { "name", (NbtString)"minecraft:stone"},
+                                    { "version", (NbtInt)Block.STRUCTURE_VERSION},
+                                    { "states", new NbtCompoundOrdered() {
+                                        {"stone_type", (NbtString)"stone" }
+                                    }},
+                                },
+                                new NbtCompoundOrdered() {
+                                    { "name", (NbtString)"minecraft:stone"},
+                                    { "version", (NbtInt)Block.STRUCTURE_VERSION},
+                                    { "states", new NbtCompoundOrdered() {
+                                        {"stone_type", (NbtString)"andesite" }
+                                    }},
+                                },
+                                new NbtCompoundOrdered() {
+                                    { "name", (NbtString)"minecraft:glass"},
+                                    { "version", (NbtInt)Block.STRUCTURE_VERSION},
+                                    { "states", new NbtCompoundOrdered() {}},
+                                }
+                            )},
+                            {"block_position_data", new NbtCompoundOrdered() }
+                        }}
+                    }},
+                }},
+                {"structure_world_origin", NbtList.FromInts(0,0,0) }
+            };
+            NbtAssert.AssertNbt(root, mcStructure.GetStructureAsNbt(), "Nbt structure missmatch");
+        }
+
     }
 }

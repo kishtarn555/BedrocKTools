@@ -10,20 +10,19 @@ namespace BedrockTools.Structure.Features.Util {
         public Axis(Dimensions Size) : base(Size) { }
         public Axis(int xLength, int yLength, int zLength) : base(xLength, yLength, zLength) { }
         public override Block GetBlock(int x, int y, int z) {
-            if (x == 0 && y == 0 && z == 0)
-                return VanillaBlockFactory.EndBricks();
             if (x * y * z != 0)
                 return null;
-            if (((x == 0) ^ (y == 0) ^ (z == 0)))
+            if (x == 0 && y == 0 && z == 0)
+                return VanillaBlockFactory.EndBricks();
+            else if (((x == 0) ^ (y == 0) ^ (z == 0)))
                 return null;
-
-            if (x != 0)
+            else if (x != 0)
                 return VanillaBlockFactory.Concrete(Objects.Blocks.Util.BlockColorValue.Red);
-            if (y != 0)
+            else if (y != 0)
                 return VanillaBlockFactory.Concrete(Objects.Blocks.Util.BlockColorValue.Green);
-            if (z != 0)
+            else if (z != 0)
                 return VanillaBlockFactory.Concrete(Objects.Blocks.Util.BlockColorValue.Blue);
-            return VanillaBlockFactory.EndBricks();
+            else return VanillaBlockFactory.EndBricks();
         }
     }
 }

@@ -19,12 +19,21 @@ namespace BedrockToolsMSTest.Utils {
                 AssertUnspecifiedNbt(expected[i], actual[i], message, path);
             }
         }
-
+        public static void AssertNbt(INbtValue expected, INbtValue actual, string message, string path = "") {
+            Assert.AreEqual(expected.Value, actual.Value, $"{message} in {path}: Different values");
+        }   
         private static void AssertUnspecifiedNbt(NbtElement a, NbtElement b, string message, string path) {
             if (a is NbtCompound comA && b is NbtCompound comB) {
                 AssertNbt(comA, comB, message, path);
-            } else if (a is NbtList listA && b is NbtList listB) {
+            }
+            else if (a is NbtList listA && b is NbtList listB) {
                 AssertNbt(listA, listB, message, path);
+            }
+            else if (a is INbtValue valA && b is INbtValue valB) {
+                AssertNbt(valA, valB, message, path);
+            }
+            else {
+                Assert.Fail($"{message} in {path}: ({a},{b}) Both elements are not of the sambe nbt type");
             }
         }
     }
