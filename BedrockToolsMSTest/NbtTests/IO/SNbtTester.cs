@@ -52,5 +52,18 @@ namespace BedrockToolsMSTest.NbtTests.IO {
             snbt.Close();
             Assert.AreEqual("{multiple:[4l,3l,2l,1l,2l,3l,4l],single:[-10l]}", stringWriter.ToString());
         }
+
+        [TestMethod]
+        public void TestFloatDouble() {
+            StringWriter stringWriter = new StringWriter();
+            SNbtWriter snbt = new SNbtWriter(stringWriter);
+            NbtCompound compound = new NbtCompoundOrdered() {
+                {"double", (NbtDouble)2.71828183 },
+                {"float", (NbtFloat)3.1415f }
+            };
+            snbt.Write(compound);
+            snbt.Close();
+            Assert.AreEqual("{double:2.71828183,float:3.1415f}", stringWriter.ToString());
+        }
     }
 }
