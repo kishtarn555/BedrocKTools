@@ -1,11 +1,32 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace BedrockTools.Nbt.Elements {
     public abstract class NbtCompound : NbtElement, IDictionary<string, NbtElement> {
-        
+
         public abstract NbtElement this[string key] { get; set; }
+        public NbtElement this[string key, string secondkey, params string[] childKeys] {
+            get {
+                NbtElement child = this[key];
+                if ((child is NbtCompound childSecond)) {
+                    child = childSecond[secondkey];
+                }
+                else {
+                    throw new Exception($"{child.Tag} is not NbtCompound");
+                }
+                foreach (string childKey in childKeys) {
+                    if ((child is NbtCompound childCompound)) {
+                        child = childCompound[childKey];
+                    }
+                    else {
+                        throw new Exception($"{child.Tag} is not NbtCompound");
+                    }
+                }
+                return child;
+            } 
+        }
 
         public override NbtTag Tag => NbtTag.TAG_Compound;
 

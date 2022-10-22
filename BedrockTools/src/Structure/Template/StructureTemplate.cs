@@ -29,11 +29,7 @@ namespace BedrockTools.Structure.Template {
         }
 
         public McStructure RenderStructure(Block[] palette) => RenderStructure((int x) => palette[x]);
-
-        public void SetBlock(int x, int y, int z, Block block) => blocks[x, y, z] = block;
-
-        public void SetBlock(IntCoords coords, Block block) => SetBlock(coords.X, coords.Y, coords.Z, block);
-
+                
         public void SetTemplateBlock(int x, int y, int z, int index) => blocks[x,y,z] = new TemplateBlock(index);
 
         public void SetTemplateBlock(IntCoords coords, int index) => SetTemplateBlock(coords.X, coords.Y, coords.Z, index);

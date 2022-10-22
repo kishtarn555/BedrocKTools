@@ -1,7 +1,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+
 using BedrockTools.Nbt;
 using BedrockTools.Nbt.Elements;
-using System.IO;
 
 namespace BedrockToolsMSTest.NbtTests {
     [TestClass]
@@ -38,6 +39,6 @@ namespace BedrockToolsMSTest.NbtTests {
             };
             Assert.AreEqual("{byte:-10B,short:123S,int:100050,long:1000000000000000L,string:\"teststring\",list:[1,3,2]}", root.ToString());
         }
-
+       
     }
 }
