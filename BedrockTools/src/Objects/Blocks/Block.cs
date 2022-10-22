@@ -17,6 +17,9 @@ namespace BedrockTools.Objects.Blocks {
                 { "version", (NbtInt)STRUCTURE_VERSION}
             };
         }
+        public virtual Block Transform(McTransform transformation) {
+            return this;
+        }
         
         public override string ToString() {            
             return $"{Identifier} {GetBlockState()}";
