@@ -1,7 +1,12 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using BedrockTools.Structure;
+
+using System.Linq;
+using BedrockToolsMSTest.Utils;
+
+using BedrockTools.Nbt.Elements;
 using BedrockTools.Objects;
 using BedrockTools.Objects.Blocks;
+using BedrockTools.Structure;
 
 namespace BedrockToolsMSTest.Structure {
     [TestClass]
@@ -47,6 +52,32 @@ namespace BedrockToolsMSTest.Structure {
             CollectionAssert.AreEqual(expected, structure.GetBlocks());
             expected[1, 8, 5] = VanillaBlockFactory.Air();
             structure.SetBlock(new IntCoords(1, 8, 5), VanillaBlockFactory.Air());
+        }
+
+
+        [TestMethod]
+        public void TestEmptyNbt() {
+            McStructure mcStructure = new McStructure(new Dimensions(2,3,4));
+            NbtCompound root = new NbtCompoundOrdered() {
+                {"format_version", (NbtInt)1 },
+                {"size", NbtList.FromInts(2,3,4)},
+                {"structure", new NbtCompoundOrdered() {
+                    {"block_indices", NbtList.FromLists(
+                        NbtList.FromInts(Enumerable.Repeat(-1, 24).ToArray()),
+                        NbtList.FromInts(Enumerable.Repeat(-1, 24).ToArray())
+                    )},
+                    {"entities", NbtList.Empty() },
+                    {"palette", new NbtCompoundOrdered{
+                        {"default", new NbtCompoundOrdered() {
+                            {"block_palette", NbtList.Empty() },
+                            {"block_position_data", new NbtCompoundOrdered() }
+                        }}
+                    }},
+                }},
+                {"structure_world_origin", NbtList.FromInts(0,0,0) }
+            };
+
+            NbtAssert.AssertNbt(root, mcStructure.GetStructureAsNbt(), "Nbt structure missmatch");
 
         }
     }

@@ -36,9 +36,12 @@ namespace BedrockTools.Structure {
             
             return new NbtCompoundSorted();
         }
-        public NbtCompoundOrdered ToNbt() => new NbtCompoundOrdered() {
-                {"block_palette", NbtList.Compounds(GetNbtCompounds())},
+        public NbtCompoundOrdered ToNbt() {
+            List<NbtCompound> compounds = GetNbtCompounds();
+            return new NbtCompoundOrdered() {
+                {"block_palette", compounds.Count > 0?NbtList.Compounds(GetNbtCompounds()):NbtList.Empty()  },
                 {"block_position_data", GetEntityData()}
             };
+        }
     }
 }

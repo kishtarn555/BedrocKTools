@@ -113,7 +113,7 @@ namespace BedrockTools.Nbt.Elements {
         public static NbtList Strings(IEnumerable<string> collection)
             => new NbtList(NbtTag.TAG_String, collection.Select(str => new NbtString(str)));
         public static NbtList Lists(IEnumerable<NbtList> collection)
-            => new NbtList(NbtTag.TAG_Compound, collection);
+            => new NbtList(NbtTag.TAG_List, collection);
         public static NbtList Compounds(IEnumerable<NbtCompound> collection)
             => new NbtList(NbtTag.TAG_Compound, collection);
 
