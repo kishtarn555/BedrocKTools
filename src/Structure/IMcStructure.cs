@@ -13,5 +13,7 @@ namespace BedrockTools.Structure {
         public void AddEntity(Entity entity);
         public Block GetBlock(int x, int y, int z);
         public Block GetBlock(IntCoords coords);
+        public Block[,,] GetBlocks();
+        public void SetBlocks(Block[,,] blocks);
     }
 }

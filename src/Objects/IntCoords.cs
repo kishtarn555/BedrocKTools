@@ -20,5 +20,9 @@ namespace BedrockTools.Objects {
         }
 
         public static IntCoords Zero => new IntCoords(0, 0, 0);
+
+        public static IntCoords operator + (IntCoords a, IntCoords b) {
+            return new IntCoords(a.X + b.X, a.Y + b.Y, a.Z + b.Z);
+        }
     }
 }

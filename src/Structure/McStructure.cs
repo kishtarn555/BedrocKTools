@@ -6,35 +6,11 @@ using BedrockTools.Objects.Blocks;
 using BedrockTools.Objects.Entities;
 
 namespace BedrockTools.Structure {
-    public class McStructure : IMcStructure {
-        public Dimensions Size { get; }
-        public IntCoords Origin { get; }
-        protected Block[,,] blocks;
+    public class McStructure : BaseStructure {        
+        public McStructure(Dimensions size) : base(size) {}
 
+        public McStructure(Dimensions size, IntCoords origin): base(size, origin) {}
 
-        public McStructure(Dimensions size) {
-            Size = size;
-            blocks = new Block[Size.X, Size.Y, Size.Z];
-            Origin = new IntCoords(0, 0, 0);
-        }
-
-        public McStructure(Dimensions size, IntCoords origin) {
-            Size = size;
-            blocks = new Block[Size.X, Size.Y, Size.Z];
-            Origin = origin;
-        }
-
-        public void SetBlock(int x, int y, int z, Block block) => blocks[x, y, z] = block;
-
-        public void SetBlock(IntCoords coords, Block block) => SetBlock(coords.X, coords.Y, coords.Z, block);
-
-        public Block GetBlock(int x, int y, int z) => blocks[x, y, z];
-        public Block GetBlock(IntCoords coords) => GetBlock(coords.X, coords.Y, coords.Z);
-
-        //FIXME
-        public void AddEntity(Entity entity) {
-            throw new NotImplementedException("Currently there's not support for entities");
-        }
         public NbtCompound GetStructureAsNbt() {
             return new NbtCompoundOrdered() {
                 { "format_version", (NbtInt) 1},

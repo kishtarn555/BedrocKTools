@@ -5,22 +5,9 @@ using BedrockTools.Objects;
 using BedrockTools.Objects.Entities;
 
 namespace BedrockTools.Structure.Template {
-    public class StructureTemplate : IMcStructure {
-        public Dimensions Size { get; }
-
-        public IntCoords Origin => IntCoords.Zero;
-
-        Block[,,] blocks;
-        List<Entity> entities;
-        public StructureTemplate(Dimensions size) {
-            Size = size;
-            blocks = new Block[size.X, size.Y, size.Z];
-            entities = new List<Entity>();
-        }
-
-        public void AddEntity(Entity entity) => throw new NotImplementedException();
-        public Block GetBlock(int x, int y, int z) => blocks[x, y, z];
-        public Block GetBlock(IntCoords coords) => GetBlock(coords.X, coords.Y, coords.Z);
+    public class StructureTemplate : BaseStructure {
+       
+        public StructureTemplate(Dimensions size):base(size) {}
 
         public McStructure RenderStructure(Func<int, Block> BlockMap) {
             McStructure response = new McStructure(Size);
