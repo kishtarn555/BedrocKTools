@@ -35,7 +35,7 @@ namespace BedrockTools.Nbt.Elements {
             if (element == null)
                 throw new ArgumentNullException("NbtList cannot contain null NbtElements");
             if (element.Tag != ElementsType)
-                throw new ArgumentException($"Cannot use NBT of type '{element.Tag}' for a NbtList of type '{ElementsType}'");
+                throw new ArrayTypeMismatchException($"Cannot use NBT of type '{element.Tag}' for a NbtList of type '{ElementsType}'");
         }
 
         
@@ -80,11 +80,11 @@ namespace BedrockTools.Nbt.Elements {
         public static NbtList Bytes() 
             => new NbtList(NbtTag.TAG_Byte);
         public static NbtList Shorts() 
-            => new NbtList(NbtTag.TAG_Int);
+            => new NbtList(NbtTag.TAG_Short);
         public static NbtList Ints() 
             => new NbtList(NbtTag.TAG_Int);
         public static NbtList Longs() 
-            => new NbtList(NbtTag.TAG_Int);
+            => new NbtList(NbtTag.TAG_Long);
         public static NbtList Floats() 
             => new NbtList(NbtTag.TAG_Float);
         public static NbtList Doubles() 
@@ -92,7 +92,7 @@ namespace BedrockTools.Nbt.Elements {
         public static NbtList Strings() 
             => new NbtList(NbtTag.TAG_String);
         public static NbtList Lists() 
-            => new NbtList(NbtTag.TAG_Double);
+            => new NbtList(NbtTag.TAG_List);
         public static NbtList Compounds() 
             => new NbtList(NbtTag.TAG_Compound);
         public static NbtList Empty() 

@@ -6,7 +6,7 @@ using BedrockTools.Nbt.Elements;
 
 namespace BedrockToolsMSTest.Utils {
     public class NbtAssert {
-        public static void AssertNbt(NbtCompound expected, NbtCompound actual, string message, string path="/") {
+        public static void AssertNbt(NbtCompound expected, NbtCompound actual, string message, string path="") {
             CollectionAssert.AreEquivalent((ICollection)expected.Keys, (ICollection)actual.Keys, $"{message} in {path}: miss match in keys");
             foreach (KeyValuePair<string, NbtElement> kvp in expected) {
                 AssertUnspecifiedNbt(kvp.Value, actual[kvp.Key], message+ "", path + kvp.Key+"/");
@@ -22,7 +22,7 @@ namespace BedrockToolsMSTest.Utils {
         public static void AssertNbt(INbtValue expected, INbtValue actual, string message, string path = "") {
             Assert.AreEqual(expected.Value, actual.Value, $"{message} in {path}: Different values");
         }   
-        private static void AssertUnspecifiedNbt(NbtElement a, NbtElement b, string message, string path) {
+        public static void AssertUnspecifiedNbt(NbtElement a, NbtElement b, string message, string path = "") {
             if (a is NbtCompound comA && b is NbtCompound comB) {
                 AssertNbt(comA, comB, message, path);
             }

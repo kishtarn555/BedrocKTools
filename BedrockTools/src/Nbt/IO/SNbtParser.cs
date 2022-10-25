@@ -13,6 +13,8 @@ namespace BedrockTools.Nbt.IO {
                 this.value = value;
                 this.tokentype = tokentype;
             }
+
+            public override string ToString() => $"Token[{tokentype}, {value}]";
         }
 
         string rawCode;
@@ -24,13 +26,14 @@ namespace BedrockTools.Nbt.IO {
             List<Token> tokenList = new List<Token>();
             string txt = code;
             Token[] primitives = new Token[] {
-                new Token(@"^\w+", "identifier"),
                 new Token("^\"[^\"]+\"", "string"),
-                new Token(@"^(-)?\d+(\.\d+)?f", "float"),
-                new Token(@"^(-)?\d+(\.\d+)?d", "double"),
-                new Token(@"^(-)?\d+L", "long"),
-                new Token(@"^(-)?\d+s", "short"),
+                new Token(@"^(-)?\d+(\.\d+)?[Ff]", "float"),
+                new Token(@"^(-)?((\d+(\.\d+)?[Dd])|(\d+(\.\d+)))", "double"),
+                new Token(@"^(-)?\d+[Bb]", "byte"),
+                new Token(@"^(-)?\d+[Ss]", "short"),
+                new Token(@"^(-)?\d+[Ll]", "long"),
                 new Token(@"^(-)?\d+", "int"),
+                new Token(@"^\w+", "identifier"),
                 new Token(@"^,", ","),
                 new Token(@"^\{", "{"),
                 new Token(@"^\}", "}"),
@@ -72,7 +75,7 @@ namespace BedrockTools.Nbt.IO {
         Token Eat(string tokenType) {
             Token ctoken = Next();
             if (tokenType != ctoken.tokentype)
-                throw new Exception(String.Format("Unexpected token type, got: {0}, expected: {1}", ctoken.tokentype, tokenType));
+                throw new Exception(String.Format("Unexpected token type, got: {0}, expected: {1}\nFull token gotten {2}\nCode: {3}", ctoken.tokentype, tokenType,ctoken,rawCode));
             return ctoken;
         }
         NbtList NextList() {
@@ -85,6 +88,7 @@ namespace BedrockTools.Nbt.IO {
                 first = false;
                 ls.Add(NextNameless());
             }
+            Next(); //Remove last ]
             NbtTag nbtType = ls.Count > 0 ? ls[0].Tag : NbtTag.TAG_End;
             NbtList response = new NbtList(nbtType);
             foreach (NbtElement el in ls) {
@@ -108,16 +112,26 @@ namespace BedrockTools.Nbt.IO {
         NbtElement NextNameless() {
             Token ctoken = Peek();
             switch (ctoken.tokentype) {
-                case "string":
-                    return new NbtString(Next().value.Trim('"'));
+                case "byte":
+                    return new NbtByte(SByte.Parse(Next().value.Trim('b','B')));
+                case "short":
+                    return new NbtShort(Int16.Parse(Next().value.Trim('s', 'S')));
                 case "int":
                     return new NbtInt(Int32.Parse(Next().value));
+                case "long":
+                    return new NbtLong(Int64.Parse(Next().value.Trim('l', 'L')));
+                case "float":
+                    return new NbtFloat(float.Parse(Next().value.Trim('f', 'F')));
+                case "double":
+                    return new NbtDouble(double.Parse(Next().value.Trim('d', 'D')));
+                case "string":
+                    return new NbtString(Next().value.Trim('"'));
                 case "[":
                     return NextList();
                 case "{":
                     return NextCompound();
                 default:
-                    throw new Exception("Expected token, expected Value");
+                    throw new Exception($"Unexpected token type {ctoken.tokentype}, expecting one that indicates a value\n{ctoken}");
             }
 
         }

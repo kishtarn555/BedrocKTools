@@ -5,10 +5,10 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace BedrockTools.Structure.Features.Util {
-    public class Axis : Feature {
+    public class AxisFeature : Feature {
 
-        public Axis(Dimensions Size) : base(Size) { }
-        public Axis(int xLength, int yLength, int zLength) : base(xLength, yLength, zLength) { }
+        public AxisFeature(Dimensions Size) : base(Size) { }
+        public AxisFeature(int xLength, int yLength, int zLength) : base(xLength, yLength, zLength) { }
         public override Block GetBlock(int x, int y, int z) {
             if (x * y * z != 0)
                 return null;
@@ -20,9 +20,9 @@ namespace BedrockTools.Structure.Features.Util {
                 return VanillaBlockFactory.Concrete(Objects.Blocks.Util.BlockColorValue.Red);
             else if (y != 0)
                 return VanillaBlockFactory.Concrete(Objects.Blocks.Util.BlockColorValue.Green);
-            else if (z != 0)
+            else // if(z != 0)
                 return VanillaBlockFactory.Concrete(Objects.Blocks.Util.BlockColorValue.Blue);
-            else return VanillaBlockFactory.EndBricks();
+
         }
     }
 }

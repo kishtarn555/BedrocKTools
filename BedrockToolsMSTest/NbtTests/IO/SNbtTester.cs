@@ -1,7 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.IO;
+using BedrockToolsMSTest.Utils;
+
 using BedrockTools.Nbt.Elements;
 using BedrockTools.Nbt.IO;
-using System.IO;
 
 namespace BedrockToolsMSTest.NbtTests.IO {
     [TestClass]
@@ -27,6 +29,8 @@ namespace BedrockToolsMSTest.NbtTests.IO {
             snbt.Write(compound);
             snbt.Close();
             Assert.AreEqual("{byte:1b,short:2s,int:3,long:4l}", stringWriter.ToString());
+            SNbtParser<NbtCompoundOrdered> parser = new SNbtParser<NbtCompoundOrdered>(stringWriter.ToString());
+            NbtAssert.AssertUnspecifiedNbt(compound, parser.Parse(), "Bad parse");
         }
 
         [TestMethod]
@@ -39,6 +43,8 @@ namespace BedrockToolsMSTest.NbtTests.IO {
             snbt.Write(compound);
             snbt.Close();
             Assert.AreEqual("{str:\"message\"}", stringWriter.ToString());
+            SNbtParser<NbtCompoundOrdered> parser = new SNbtParser<NbtCompoundOrdered>(stringWriter.ToString());
+            NbtAssert.AssertUnspecifiedNbt(compound, parser.Parse(), "Bad parse");
         }
         [TestMethod]
         public void TestList() {
@@ -51,6 +57,8 @@ namespace BedrockToolsMSTest.NbtTests.IO {
             snbt.Write(compound);
             snbt.Close();
             Assert.AreEqual("{multiple:[4l,3l,2l,1l,2l,3l,4l],single:[-10l]}", stringWriter.ToString());
+            SNbtParser<NbtCompoundOrdered> parser = new SNbtParser<NbtCompoundOrdered>(stringWriter.ToString());
+            NbtAssert.AssertUnspecifiedNbt(compound, parser.Parse(), "Bad parse");
         }
 
         [TestMethod]
@@ -64,6 +72,10 @@ namespace BedrockToolsMSTest.NbtTests.IO {
             snbt.Write(compound);
             snbt.Close();
             Assert.AreEqual("{double:2.71828183,float:3.1415f}", stringWriter.ToString());
+            SNbtParser<NbtCompoundOrdered> parser = new SNbtParser<NbtCompoundOrdered>(stringWriter.ToString());
+            NbtAssert.AssertUnspecifiedNbt(compound, parser.Parse(), "Bad parse");
         }
+
+
     }
 }

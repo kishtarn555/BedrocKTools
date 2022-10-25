@@ -5,5 +5,6 @@ using System.Text;
 namespace BedrockTools.Nbt.Elements {
     public interface INbtValue {
         public object Value { get; }
+        public NbtTag Tag { get; }
     }
 }

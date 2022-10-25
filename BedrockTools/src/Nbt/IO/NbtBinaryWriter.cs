@@ -15,6 +15,9 @@ namespace BedrockTools.Nbt.IO {
             writer = new BinaryWriter(stream);
         }
 
+        ~NbtBinaryWriter() {
+            Close();
+        }
         public override void Write(NbtByte nbt) => writer.Write(nbt.Value);
         public override void Write(NbtShort nbt) => writer.Write(nbt.Value);
         public override void Write(NbtInt nbt) => writer.Write(nbt.Value);

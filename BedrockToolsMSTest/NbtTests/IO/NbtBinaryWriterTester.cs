@@ -16,7 +16,10 @@ namespace BedrockToolsMSTest.NbtTests.IO {
             NbtCompoundOrdered root = new NbtCompoundOrdered();
             NbtCompoundOrdered dummy = new NbtCompoundOrdered();
             root.Add("dummy", dummy);
-            root.Add("index", new NbtInt(123));
+            root.Add("index", new NbtInt(1000000000));
+            root.Add("bt", new NbtByte(-12));
+            root.Add("st", new NbtShort(1300));
+            root.Add("ln", new NbtLong(14000000000000000));
             NbtList version = new NbtList(NbtTag.TAG_Int);
             version.Add(new NbtInt(1));
             version.Add(new NbtInt(19));
@@ -41,13 +44,37 @@ namespace BedrockToolsMSTest.NbtTests.IO {
             Assert.AreEqual(3, reader.ReadInt32());
             Assert.AreEqual(0, reader.ReadInt32());
             Assert.AreEqual(0x00, reader.ReadByte());//Compound end
-            Assert.AreEqual((byte)3, reader.ReadByte());//TAG_int
-            Assert.AreEqual((short)5, reader.ReadInt16());
-            char[] read = reader.ReadChars(5);
-            CollectionAssert.AreEqual("index".ToCharArray(), read);
-            Assert.AreEqual(123, reader.ReadInt32());
+            {
+                Assert.AreEqual((byte)3, reader.ReadByte());//TAG_int
+                Assert.AreEqual((short)5, reader.ReadInt16());
+                char[] read = reader.ReadChars(5);
+                CollectionAssert.AreEqual("index".ToCharArray(), read);
+                Assert.AreEqual(1000000000, reader.ReadInt32());
+            }
+            {
+                Assert.AreEqual((byte)1, reader.ReadByte());//TAG_byte
+                Assert.AreEqual((short)2, reader.ReadInt16());
+                char[] read = reader.ReadChars(2);
+                CollectionAssert.AreEqual("bt".ToCharArray(), read);
+                Assert.AreEqual(-12, reader.ReadSByte());
+            }
+            {
+                Assert.AreEqual((byte)2, reader.ReadByte());//TAG_short
+                Assert.AreEqual((short)2, reader.ReadInt16());
+                char[] read = reader.ReadChars(2);
+                CollectionAssert.AreEqual("st".ToCharArray(), read);
+                Assert.AreEqual(1300, reader.ReadInt16());
+            }
+            {
+                Assert.AreEqual((byte)4, reader.ReadByte());//TAG_long
+                Assert.AreEqual((short)2, reader.ReadInt16());
+                char[] read = reader.ReadChars(2);
+                CollectionAssert.AreEqual("ln".ToCharArray(), read);
+                Assert.AreEqual(14000000000000000, reader.ReadInt64());
+            }
             Assert.AreEqual(0x00, reader.ReadByte());//Compound end
             Assert.AreEqual(reader.BaseStream.Length, reader.BaseStream.Position, "there was more data than expected");
+            
         }
     }
 }
