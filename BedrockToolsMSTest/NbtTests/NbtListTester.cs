@@ -12,20 +12,22 @@ namespace BedrockToolsMSTest.NbtTests {
     public class NbtListTester {
         [TestMethod]
         public void TestList() {
-            NbtList list = new NbtList(NbtTag.TAG_Byte);
-            list.Add((NbtByte)1);
-            list.Add((NbtByte)3);
-            list.Add((NbtByte)0);
+            NbtList list = new NbtList(NbtTag.TAG_Byte) {
+                (NbtByte)1,
+                (NbtByte)3,
+                (NbtByte)0
+            };
             sbyte[] expected_list = new sbyte[] { 1, 3, 0 };
             CollectionAssert.AreEqual(expected_list, list.Select(bt => ((NbtByte)bt).Value).ToArray<sbyte>());
         }
 
         [TestMethod]
         public void TestSNBT() {
-            NbtList list = new NbtList(NbtTag.TAG_Byte);
-            list.Add((NbtByte)1);
-            list.Add((NbtByte)3);
-            list.Add((NbtByte)0);
+            NbtList list = new NbtList(NbtTag.TAG_Byte) {
+                (NbtByte)1,
+                (NbtByte)3,
+                (NbtByte)0
+            };
             Assert.AreEqual("[1B,3B,0B]", list.ToString());
         }
         [TestMethod]
