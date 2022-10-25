@@ -38,6 +38,6 @@ namespace BedrockTools.Structure {
 
         public void SetBlock(IntCoords coords, Block block) => SetBlock(coords.X, coords.Y, coords.Z, block);
 
-        public void SetBlocks(Block[,,] blocks) => blocks = (Block[,,])blocks.Clone();
+        public void SetBlocks(Block[,,] blocks) => this.blocks = (Block[,,])blocks.Clone();
     }
 }
