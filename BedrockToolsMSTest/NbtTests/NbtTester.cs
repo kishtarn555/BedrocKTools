@@ -1,6 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-
 using BedrockTools.Nbt;
 using BedrockTools.Nbt.Elements;
 
@@ -26,7 +25,23 @@ namespace BedrockToolsMSTest.NbtTests {
             Assert.AreEqual(NbtTag.TAG_Long, nlong.Tag);
         }
 
-        
+        [TestMethod]
+        public void TestPrimitiveEquality() {
+            NbtByte byteA = new NbtByte(5);
+            NbtByte byteB = new NbtByte(5);
+            NbtByte byteC = new NbtByte(10);
+            NbtInt intA = new NbtInt(10);
+            NbtInt intB = new NbtInt(10);
+            string str = "sup";
+            Assert.IsTrue(byteA.Equals(byteB));
+            Assert.IsTrue(intB.Equals(intA));
+            Assert.IsFalse(byteA.Equals(byteC));
+            Assert.IsFalse(intA.Equals(byteC));
+            Assert.IsFalse(byteA.Equals(byteC));
+            Assert.IsFalse(intA.Equals(str));
+        }
+
+
         [TestMethod]
         public void TestSNBT() {
             NbtCompound root = new NbtCompoundOrdered() {

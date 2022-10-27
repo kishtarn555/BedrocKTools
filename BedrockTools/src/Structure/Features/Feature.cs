@@ -26,7 +26,7 @@ namespace BedrockTools.Structure.Features {
                         if (GetBlock(x, y, z) == null) continue;
                         target.SetBlock(
                             transform.GetCoords(Size,x,y,z),
-                            GetBlock(x, y, z)
+                            GetBlock(x, y, z).Transform(transform)
                         );
                     }
                 }

@@ -71,6 +71,14 @@ namespace BedrockTools.Objects {
             Rotation = (McRotation)r;
             return this;
         }
+        public McTransform MirrorX() {
+            FlipX = !FlipX;
+            return this;
+        }
+        public McTransform MirrorZ() {
+            FlipZ = !FlipZ;
+            return this;
+        }
 
         public static McTransform Identity => new McTransform(IntCoords.Zero, McRotation.n0, false, false);
 
