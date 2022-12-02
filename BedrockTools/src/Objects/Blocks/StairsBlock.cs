@@ -62,7 +62,6 @@ namespace BedrockTools.Objects.Blocks {
             return new StairsBlock(Identifier, orientations[direction], IsUpsideDown);          
         }
         public bool Equals(StairsBlock other) {
-            return false;
             return Identifier == other.Identifier
             && Orientation == other.Orientation
             && IsUpsideDown == other.IsUpsideDown;
