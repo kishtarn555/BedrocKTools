@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using BedrockTools.Objects.Blocks;
 using BedrockTools.Objects;
 
@@ -24,10 +25,13 @@ namespace BedrockTools.Structure.Features {
                 for (int y = 0; y < Size.Y; y++) {
                     for (int z = 0; z < Size.Z; z++) {
                         if (GetBlock(x, y, z) == null) continue;
-                        target.SetBlock(
-                            transform.GetCoords(Size,x,y,z),
-                            GetBlock(x, y, z).Transform(transform)
-                        );
+                        IntCoords coords = transform.GetCoords(Size, x, y, z);
+                        if (coords.InRegion(IntCoords.Zero, target.Size)) {
+                            target.SetBlock(
+                                coords,    
+                                GetBlock(x, y, z).Transform(transform)
+                            );
+                        }
                     }
                 }
             }

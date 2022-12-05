@@ -24,5 +24,18 @@ namespace BedrockTools.Objects {
         public static IntCoords operator + (IntCoords a, IntCoords b) {
             return new IntCoords(a.X + b.X, a.Y + b.Y, a.Z + b.Z);
         }
+
+        public bool InRegion(IntCoords origin, Dimensions size) {
+            int nx = X - origin.X;
+            int ny = Y - origin.Y;
+            int nz = Z - origin.Z;
+            if (nx < 0 || ny < 0 || nz < 0) {
+                return false;
+            }
+            if (nx >= size.X || ny >= size.Y || nz >= size.Z ) {
+                return false;
+            }
+            return true;
+        }
     }
 }

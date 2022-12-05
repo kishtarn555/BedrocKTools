@@ -16,7 +16,7 @@ namespace BedrockTools.Objects.Blocks {
             return new PlanksBlock ("minecraft:planks", variation);
         }
         public static UnitBlock CrimsonPlanks () {
-            return new UnitBlock ("minecraft:warped_planks");
+            return new UnitBlock ("minecraft:crimson_planks");
         }
         public static UnitBlock WarpedPlanks () {
             return new UnitBlock ("minecraft:warped_planks");

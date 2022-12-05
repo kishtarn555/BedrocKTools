@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="src\Structures\" />
     <Folder Include="src\Objects\Blocks\Advanced\" />
     <Folder Include="src\Registries\" />
   </ItemGroup>

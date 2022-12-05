@@ -8,7 +8,7 @@
 //============================= Construction ============================
 	// Planks
 		Planks							Variant			minecraft:planks	variant= wood_type values= Oak,Acacia,Birch,Jungle,Dark_Oak,Spruce
-		CrimsonPlanks					UnitBlock		minecraft:warped_planks
+		CrimsonPlanks					UnitBlock		minecraft:crimson_planks
 		WarpedPlanks					UnitBlock		minecraft:warped_planks
 		MangrovePlanks					UnitBlock		minecraft:mangrove_planks
 	// Walls .....................................................

@@ -79,9 +79,27 @@ namespace BedrockTools.Objects {
             FlipZ = !FlipZ;
             return this;
         }
+        /// <summary>
+        /// Calculates the Inverse transform
+        /// </summary>
+        /// <returns>The inverse transform</returns>
+        public McTransform GetInverse() {
+            return new McTransform(
+                new IntCoords(-Offset.X, -Offset.Y, -Offset.Z),
+                (McRotation)((4-(int)Rotation)%4),
+                FlipX,
+                FlipZ
+                ) ;
+        }
 
         public static McTransform Identity => new McTransform(IntCoords.Zero, McRotation.n0, false, false);
 
+        /// <summary>
+        /// Calculates the transform after applying two of them
+        /// </summary>
+        /// <param name="first">First transform</param>
+        /// <param name="second">Second transform</param>
+        /// <returns>The result of both trasnforms</returns>
         public static McTransform Combine(McTransform first, McTransform second) {
             McTransform mc = new McTransform {
                 Offset = first.Offset + second.Offset,
@@ -91,6 +109,12 @@ namespace BedrockTools.Objects {
             };
             return mc;
         }
+        /// <summary>
+        /// Calculates the flip equivalent to a rotation and modifies flip x and flip z accordingly
+        /// </summary>
+        /// <param name="rotation">Which rotation we want</param>
+        /// <param name="fx">flip x</param>
+        /// <param name="fz">flip z</param>
         public static void DoFlipRotation(McRotation rotation, ref bool fx, ref bool fz) {
             if (rotation == McRotation.n270) 
                 fz = !fz;
@@ -101,7 +125,15 @@ namespace BedrockTools.Objects {
                 fz = !fz;
             }
         }
-
+        /// <summary>
+        /// Calculates the global transform that needs to be applyied to an object that knows the local transform
+        /// 
+        /// </summary>
+        /// <param name="parent">The transform of the parent object</param>
+        /// <param name="parentDim">The size of the parent object</param>
+        /// <param name="child">The local transform of the child object</param>
+        /// <param name="childDim">The size of the child</param>
+        /// <returns>The global tranform of the parent object</returns>
         public static McTransform NestedCalculation(McTransform parent, Dimensions parentDim, McTransform child, Dimensions childDim) {
             McTransform mc = new McTransform {
                 Offset = parent.GetCoords(parentDim, child.Offset),
@@ -123,7 +155,6 @@ namespace BedrockTools.Objects {
             return mc;
         }
 
-        
         
     }
 }
