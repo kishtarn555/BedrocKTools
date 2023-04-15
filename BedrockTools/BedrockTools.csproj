@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <PackageId>kishtarn.BedrockTools.basic</PackageId>
     <Authors>Hector Fernando Ricardez Lara</Authors>
     <Description>Library that provides support for creating minecraft content:</Description>
