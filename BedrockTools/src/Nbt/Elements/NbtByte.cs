@@ -11,5 +11,13 @@ namespace BedrockTools.Nbt.Elements {
 
         public static explicit operator NbtByte(sbyte val)
             => new NbtByte(val);
+
+        public static explicit operator NbtByte(bool val) {
+            if (val) {
+                return new NbtByte(1);
+            } else {
+                return new NbtByte(0);
+            }
+        }
     }
 }

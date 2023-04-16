@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace BedrockTools.Nbt.Elements {
     public class NbtString : NbtPrimitive<string> {        
         public override NbtTag Tag => NbtTag.TAG_String;
@@ -10,5 +12,9 @@ namespace BedrockTools.Nbt.Elements {
         }
         public static explicit operator NbtString(string val)
             => new NbtString(val);
+
+
+        public static explicit operator NbtString(Enum val)
+            => new NbtString(val.ToString().ToLower());
     }
 }
