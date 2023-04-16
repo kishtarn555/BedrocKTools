@@ -14,7 +14,7 @@
 	// Walls .....................................................
 	// Fences.....................................................
 	// Fence Gates................................................
-	//Stairs......................................................
+	// Stairs......................................................
 		NormalStoneStairs				StairsBlock		minecraft:normal_stone_stairs
 		StoneStairs						StairsBlock		minecraft:stone_stairs
 		MossyCobblestoneStairs			StairsBlock		minecraft:mossy_cobblestone_stairs
@@ -98,12 +98,12 @@ AncientDebris					UnitBlock		minecraft:ancient_debris
 	BlueIce							UnitBlock		minecraft:blue_ice
 	PackedIce						UnitBlock		minecraft:packed_ice
 
-//Planks.............................................
+// Planks.............................................
 
-//Stone
+// Stone
 	Stone							Variant			minecraft:stone	variant= stone_type values= Stone,Andesite,Andesite_Smooth,Diorite,Diorite_Smooth,Granite,Granite_Smooth
 
-//EndStone
+// EndStone
 	EndStone						UnitBlock		minecraft:end_stone
 
 
