@@ -210,5 +210,8 @@ namespace BedrockTools.Objects.Blocks {
         public static UnitBlock Grass () {
             return new UnitBlock ("minecraft:grass");
         }
+        public static WoodBlock Wood (PillarAxis pillarAxis, WoodType woodType, bool strippedBit = false) {
+            return new WoodBlock ("minecraft:wood", pillarAxis, woodType, strippedBit);
+        }
     }
 }

@@ -109,6 +109,12 @@ AncientDebris					UnitBlock		minecraft:ancient_debris
 
 BlackStone						UnitBlock		minecraft:blackstone
 Concrete						ColorBlock		minecraft:concrete
-Dirt							Variant			minecraft:dirt		variant= dirt_type	values=	Normal,Coarse
-Grass							UnitBlock		minecraft:grass
 
+//============================= Nature ============================
+	Dirt							Variant			minecraft:dirt		variant= dirt_type	values=	Normal,Coarse
+	Grass							UnitBlock		minecraft:grass
+
+	// Logs
+		
+	// Woods
+		Wood						WoodBlock			minecraft:wood

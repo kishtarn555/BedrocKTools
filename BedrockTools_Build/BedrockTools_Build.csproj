@@ -6,9 +6,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Update="OilFiles\Block\Block2.oiltwo">
+    <None Remove="OilFiles\Block\Block2.oiltwo" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="OilFiles\Block\Block2.oiltwo">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="OilFiles\Block\minecraft_simple_blocks.blockoil">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

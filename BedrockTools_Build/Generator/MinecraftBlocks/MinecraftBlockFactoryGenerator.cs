@@ -42,10 +42,15 @@ namespace BedrockTools_Build.Generator.MinecraftBlocks {
                     result.Add(new CodeCs.CsParameter { Type="BlockOrientation", Name="orientation" });
                     result.Add(new CodeCs.CsParameter { Type="bool", Name="isUpsideDown", DefaultValue="false" });
                     break;
+                case "WoodBlock":
+                    result.Add(new CodeCs.CsParameter { Type="PillarAxis", Name="pillarAxis" });
+                    result.Add(new CodeCs.CsParameter { Type="WoodType", Name="woodType"});
+                    result.Add(new CodeCs.CsParameter { Type="bool", Name="strippedBit", DefaultValue="false" });
+                    break;
                 case "Variant":
-                    result.Add(new CodeCs.CsParameter { 
+                    result.Add(new CodeCs.CsParameter {
                         Type=oilObject.Key+"Block."+ oilObject.Key+"Type",
-                        Name="variation" 
+                        Name="variation"
                     });
                     break;
             }
