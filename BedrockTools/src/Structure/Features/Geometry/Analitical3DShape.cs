@@ -4,17 +4,23 @@ using System;
 using System.Linq;
 
 namespace BedrockTools.Structure.Features.Geometry {
-    public abstract class Analitical3DShape : Feature{
+    public class Analitical3DShape : Feature{
         public FillMode FillingMode { get; }
         public Block FillingBlock { get; }
       
-        public Analitical3DShape(Dimensions Size, FillMode fillMode,  Block fillBlock) : base(Size) {
+        protected Func<int, int, int, bool> IsPointInsideRegion;
+
+        public Analitical3DShape(Dimensions Size, FillMode fillMode, Block fillBlock, Func<int, int, int, bool> regionTestFunction) : base(Size) {
+            FillingMode = fillMode;
+            FillingBlock = fillBlock;
+            IsPointInsideRegion = regionTestFunction;
+        }
+        protected Analitical3DShape(Dimensions Size, FillMode fillMode, Block fillBlock) : base(Size) {
             FillingMode = fillMode;
             FillingBlock = fillBlock;
         }
-        protected abstract bool IsPointInsideRegion(int a, int b, int c);
-        
-        
+
+
         public override Block GetBlock(int x, int y, int z) {            
             if (!IsPointInsideRegion(x, y, z) ) {
                 return null;

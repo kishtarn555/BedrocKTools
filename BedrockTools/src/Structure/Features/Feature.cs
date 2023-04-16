@@ -18,11 +18,11 @@ namespace BedrockTools.Structure.Features {
         }
         public abstract Block GetBlock(int x, int y, int z);
 
-        public virtual IEnumerable<(IntCoords coords, Block block)> AllBlocks() {
+        public virtual IEnumerable<CoordBlockPair> AllBlocks() {
             for (int x = 0; x < Size.X; x++) {
                 for (int y = 0; y < Size.Y; y++) {
                     for (int z = 0; z < Size.Z; z++) {
-                        yield return (new IntCoords(x, y, z), GetBlock(x, y, z));
+                        yield return new CoordBlockPair(new IntCoords(x, y, z), GetBlock(x, y, z));
                     }
                 }
             }
@@ -32,12 +32,12 @@ namespace BedrockTools.Structure.Features {
 
         public void PlaceInStructure(McTransform transform, IMcStructure target) {
             foreach (var kvp in AllBlocks()) { 
-                if (kvp.block == null) continue;
-                IntCoords coords = transform.GetCoords(Size, kvp.coords);
+                if (kvp.Block == null) continue;
+                IntCoords coords = transform.GetCoords(Size, kvp.Coords);
                 if (coords.InRegion(IntCoords.Zero, target.Size)) {
                     target.SetBlock(
                         coords,    
-                        kvp.block.Transform(transform)
+                        kvp.Block.Transform(transform)
                     );
                         
                 }

@@ -6,9 +6,9 @@ namespace BedrockTools.Structure.Features.Geometry {
     public class CircleFeature : Analitical2DShape {
 
         public CircleFeature(Dimensions Size, FillMode fillMode, PlaneType plane, Block fillBlock) : base(Size, fillMode, plane, fillBlock) {
-
+            IsPointInsideRegion = TestInside;
         }
-        protected override bool IsPointInsideRegion(int a, int b) {
+        protected  bool TestInside(int a, int b) {
             (double w, double h) = Plane.GetABCoords(Size.X, Size.Y, Size.Z);
             w /= 2;
             h /= 2;

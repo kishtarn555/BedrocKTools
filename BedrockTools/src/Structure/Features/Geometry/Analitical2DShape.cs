@@ -5,24 +5,32 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace BedrockTools.Structure.Features.Geometry {
-    public abstract class Analitical2DShape : Feature{
+    public class Analitical2DShape : Feature {
         public FillMode FillingMode { get; }
         public Block FillingBlock { get; }
         public PlaneType Plane { get; }
-        public Analitical2DShape (Dimensions Size, FillMode fillMode, Block fillBlock): base(Size) {
+        protected Func<int, int, bool> IsPointInsideRegion;
+        public Analitical2DShape (Dimensions Size, FillMode fillMode, Block fillBlock, Func<int, int, bool> pointInsideTest): base(Size) {
             FillingMode = fillMode;
             FillingBlock = fillBlock;
             Plane = PlaneType.XY;
+            IsPointInsideRegion = pointInsideTest;
         }
 
-        public Analitical2DShape(Dimensions Size, FillMode fillMode, PlaneType plane, Block fillBlock) : base(Size) {
+        public Analitical2DShape(Dimensions Size, FillMode fillMode, PlaneType plane, Block fillBlock, Func<int, int, bool> pointInsideTest) : base(Size) {
+            FillingMode = fillMode;
+            FillingBlock = fillBlock;
+            Plane = plane;
+            IsPointInsideRegion = pointInsideTest;
+        }
+        protected Analitical2DShape(Dimensions Size, FillMode fillMode, PlaneType plane, Block fillBlock) : base(Size) {
             FillingMode = fillMode;
             FillingBlock = fillBlock;
             Plane = plane;
         }
-        protected abstract bool IsPointInsideRegion(int a, int b);
-        
-        
+
+
+
         public override Block GetBlock(int x, int y, int z) {
             (int a, int b) = Plane.GetABCoords(x,y,z);
             if (!Plane.IsPointInPlane(x,y,z) || !IsPointInsideRegion(a, b) ) {

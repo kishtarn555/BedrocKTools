@@ -7,9 +7,10 @@ using System.Text;
 namespace BedrockTools.Structure.Features.Geometry {
     public class SphereFeature : Analitical3DShape {
         public SphereFeature(Dimensions Size, FillMode fillMode, Block fillBlock) : base(Size, fillMode, fillBlock) {
+            IsPointInsideRegion = TestRegion;
         }
 
-        protected override bool IsPointInsideRegion(int a, int b, int c) {
+        protected bool TestRegion(int a, int b, int c) {
             double x = a,
                 y = b,
                 z = c,
