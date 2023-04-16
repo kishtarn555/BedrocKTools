@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32802.440
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestConsole", "TestConsole\TestConsole.csproj", "{2DA89BA6-C523-4B28-89FB-9347624305CC}"
 EndProject
@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BedrockToolsMSTest", "Bedro
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BedrockTools", "BedrockTools\BedrockTools.csproj", "{9A4BD47E-21FA-4DF1-9061-DDFA313DB087}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BedrockTools_Build", "BedrockTools_Build\BedrockTools_Build.csproj", "{5010AC29-9089-48EA-97A3-2FDD20F42C3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BedrockTools_Build", "BedrockTools_Build\BedrockTools_Build.csproj", "{5010AC29-9089-48EA-97A3-2FDD20F42C3C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -37,5 +37,13 @@ namespace BedrockTools.Objects {
             }
             return true;
         }
+
+        public static IntCoords operator - (IntCoords a, IntCoords b) {
+            return new IntCoords(
+                a.X - b.X,
+                a.Y - b.Y,
+                a.Z - b.Z
+            );
+        }
     }
 }

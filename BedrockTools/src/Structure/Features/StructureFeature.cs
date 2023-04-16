@@ -5,7 +5,7 @@ using BedrockTools.Objects.Entities;
 
 namespace BedrockTools.Structure.Features {
     // FIXME: THIS DONT WORK
-    public class StructureFeature: BaseStructure, IMcStructure {
+    public class StructureFeature: McStructure, IMcStructure {
         
         public StructureFeature(Dimensions size) : base(size) { }
         public StructureFeature(Block[,,] blocks) : base(

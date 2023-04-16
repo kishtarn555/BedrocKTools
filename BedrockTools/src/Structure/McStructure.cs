@@ -1,78 +1,43 @@
 ﻿using System;
-using BedrockTools.Nbt;
-using BedrockTools.Nbt.Elements;
 using BedrockTools.Objects;
 using BedrockTools.Objects.Blocks;
 using BedrockTools.Objects.Entities;
 
 namespace BedrockTools.Structure {
-    public class McStructure : BaseStructure {        
-        public McStructure(Dimensions size) : base(size) {}
+    public class McStructure : IMcStructure {
+        public Dimensions Size { get; protected set; }
 
-        public McStructure(Dimensions size, IntCoords origin): base(size, origin) {}
+        public IntCoords Origin { get; protected set; }
+        protected Block[,,] blocks;
 
-        public NbtCompound GetStructureAsNbt() {
-            return new NbtCompoundOrdered() {
-                { "format_version", (NbtInt) 1},
-                { "size", NbtList.FromInts(Size.X, Size.Y, Size.Z)},
-                { "structure", ParseStructure()},
-                { "structure_world_origin", Origin.ToNbt()}
-            };
+        public McStructure(Dimensions size) {
+            Size = size;
+            blocks = new Block[size.X, size.Y, size.Z];
+            Origin = IntCoords.Zero;
         }
-        private BlockPalette BuildPalette() {
-            BlockPalette palette = new BlockPalette();
-            int index = 0;
-            for (int i = 0; i < Size.X; i++) {
-                for (int j = 0; j < Size.Y; j++) {
-                    for (int k = 0; k < Size.Z; k++) {
-                        palette.getIndex(blocks[i, j, k]);
-                       
-                        index++;
-                    }
-                }
-            }
-            return palette;
+        public McStructure(Dimensions size, IntCoords origin) {
+            Size = size;
+            blocks = new Block[size.X, size.Y, size.Z];
+            Origin = origin;
+        }
+        public McStructure(Dimensions size, Block[,,] blocks) {
+            Size = size;
+            this.blocks = (Block[,,])blocks.Clone();
+            Origin = IntCoords.Zero;
         }
 
-        private NbtList ParseBlockIndices(BlockPalette palette) {
-            NbtList block_indices = new NbtList(NbtTag.TAG_List);
-            NbtList baseLayer = new NbtList(NbtTag.TAG_Int);
-            for (int i = 0; i < Size.X; i++) {
-                for (int j = 0; j < Size.Y; j++) {
-                    for (int k = 0; k < Size.Z; k++) {
-                        baseLayer.Add((NbtInt)palette.getIndex(blocks[i, j, k]));
-                    }
-                }
-            }
-            NbtList upperLayer = new NbtList(NbtTag.TAG_Int);
-            for (int i = 0; i < Size.X; i++) {
-                for (int j = 0; j < Size.Y; j++) {
-                    for (int k = 0; k < Size.Z; k++) {
-                        upperLayer.Add((NbtInt)(-1));
-                    }
-                }
-            }
-            block_indices.Add(baseLayer);
-            block_indices.Add(upperLayer);
-            return block_indices;
+        public void AddEntity(Entity entity) => throw new NotImplementedException();
 
-        }
+        public Block GetBlock(int x, int y, int z) => blocks[x, y, z];
 
-        //TODO: Support entities
-        private NbtList ParseEntities() {
-            return NbtList.Empty();
-        }
+        public Block GetBlock(IntCoords coords) => GetBlock(coords.X, coords.Y, coords.Z);
 
-        private NbtCompound ParseStructure() {
-            BlockPalette palette = BuildPalette(); 
-            NbtCompound structure = new NbtCompoundOrdered() {
-                {"block_indices", ParseBlockIndices(palette)},
-                {"entities", ParseEntities()},
-                {"palette",  new NbtCompoundOrdered(){
-                    {"default", palette.ToNbt() }
-                }}
-            };
-            return structure;
-        }
+        public Block[,,] GetBlocks() => (Block[,,])blocks.Clone();
+
+        public void SetBlock(int x, int y, int z, Block block) => blocks[x, y, z] = block;
+
+        public void SetBlock(IntCoords coords, Block block) => SetBlock(coords.X, coords.Y, coords.Z, block);
+
+        public void SetBlocks(Block[,,] blocks) => this.blocks = (Block[,,])blocks.Clone();
     }
 }

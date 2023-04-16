@@ -148,8 +148,8 @@ namespace TestConsole {
                     );
             BinaryWriter bw = new BinaryWriter(new FileStream(
                Path.Combine(MojangCom, @"development_behavior_packs\moveit\structures\moveit\hf.mcstructure"), FileMode.Create));
-            
-            new NbtBinaryWriter(bw).WriteRoot(mcstructure.GetStructureAsNbt());
+            McStructureSerializer serializer = new McStructureSerializer(mcstructure);
+            new NbtBinaryWriter(bw).WriteRoot(serializer.GetStructureAsNbt());
             bw.Close();
             return;
         }

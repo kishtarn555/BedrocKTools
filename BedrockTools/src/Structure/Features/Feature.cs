@@ -7,7 +7,7 @@ namespace BedrockTools.Structure.Features {
     public abstract class Feature {
         public Dimensions Size { get; protected set; }
         protected List<PairTransformFeature> SubFeatures;
-        public Feature(int x,int y, int z) {
+        public Feature(int x, int y, int z) {
             Size = new Dimensions(x, y, z);
             SubFeatures = new List<PairTransformFeature>();
         }
@@ -18,21 +18,28 @@ namespace BedrockTools.Structure.Features {
         }
         public abstract Block GetBlock(int x, int y, int z);
 
-        public Block GetBlock(IntCoords coords) => GetBlock(coords.X, coords.Y, coords.Z); 
-
-        public void PlaceInStructure(McTransform transform, IMcStructure target) {
+        public virtual IEnumerable<(IntCoords coords, Block block)> AllBlocks() {
             for (int x = 0; x < Size.X; x++) {
                 for (int y = 0; y < Size.Y; y++) {
                     for (int z = 0; z < Size.Z; z++) {
-                        if (GetBlock(x, y, z) == null) continue;
-                        IntCoords coords = transform.GetCoords(Size, x, y, z);
-                        if (coords.InRegion(IntCoords.Zero, target.Size)) {
-                            target.SetBlock(
-                                coords,    
-                                GetBlock(x, y, z).Transform(transform)
-                            );
-                        }
+                        yield return (new IntCoords(x, y, z), GetBlock(x, y, z));
                     }
+                }
+            }
+        }
+
+        public Block GetBlock(IntCoords coords) => GetBlock(coords.X, coords.Y, coords.Z); 
+
+        public void PlaceInStructure(McTransform transform, IMcStructure target) {
+            foreach (var kvp in AllBlocks()) { 
+                if (kvp.block == null) continue;
+                IntCoords coords = transform.GetCoords(Size, kvp.coords);
+                if (coords.InRegion(IntCoords.Zero, target.Size)) {
+                    target.SetBlock(
+                        coords,    
+                        kvp.block.Transform(transform)
+                    );
+                        
                 }
             }
             foreach (PairTransformFeature subFeature in SubFeatures) {

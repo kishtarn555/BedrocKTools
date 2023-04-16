@@ -5,7 +5,7 @@ using BedrockTools.Objects;
 using BedrockTools.Objects.Entities;
 
 namespace BedrockTools.Structure.Template {
-    public class StructureTemplate : BaseStructure {
+    public class StructureTemplate : McStructure {
        
         public StructureTemplate(Dimensions size):base(size) {}
 
