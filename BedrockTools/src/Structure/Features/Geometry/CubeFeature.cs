@@ -15,7 +15,7 @@ namespace BedrockTools.Structure.Features.Geometry {
             IsPointInsideRegion = TestRegion;
         }
 
-        protected bool TestRegion(int a, int b, int c) => (
+        protected bool TestRegion(float a, float b, float c) => (
                 0 <= a && a < Size.X &&
                 0 <= b && b < Size.Y &&
                 0 <= c && c < Size.Z 

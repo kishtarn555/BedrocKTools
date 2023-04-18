@@ -27,10 +27,12 @@ namespace BedrockTools.src.Structure {
         public DynamicMcStructure() {
             Origin = IntCoords.Zero;
             mininamlBoundingBox = maximalBoundingBox = IntCoords.Zero;
+            blocks = new Dictionary<IntCoords, Block>();
         }
         public DynamicMcStructure(IntCoords origin) {
             Origin = origin;
             mininamlBoundingBox = maximalBoundingBox = IntCoords.Zero;
+            blocks = new Dictionary<IntCoords, Block>();
         }
 
         void addPointToBoundingBox(IntCoords coords) {

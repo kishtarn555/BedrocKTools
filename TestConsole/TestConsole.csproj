@@ -6,6 +6,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="teapot.obj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="teapot.obj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BedrockTools\BedrockTools.csproj" />
   </ItemGroup>
 

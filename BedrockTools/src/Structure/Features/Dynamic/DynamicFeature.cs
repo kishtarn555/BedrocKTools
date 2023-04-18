@@ -7,6 +7,7 @@ namespace BedrockTools.Structure.Features.Dynamic {
     public class DynamicFeature : Feature {
         Dictionary<IntCoords, Block> Cache;
         public DynamicFeature() :base(1,1,1) {
+            Cache = new Dictionary<IntCoords, Block>();
         }
 
         public override IEnumerable<CoordBlockPair> AllBlocks() {

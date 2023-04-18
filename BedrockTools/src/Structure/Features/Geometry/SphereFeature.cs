@@ -10,7 +10,7 @@ namespace BedrockTools.Structure.Features.Geometry {
             IsPointInsideRegion = TestRegion;
         }
 
-        protected bool TestRegion(int a, int b, int c) {
+        protected bool TestRegion(float a, float b, float c) {
             double x = a,
                 y = b,
                 z = c,
