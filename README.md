@@ -15,3 +15,15 @@ Make sure to read the wiki for the documentation [link](https://github.com/kisht
 | BedrockTools_Build | Contains code for autogenerating certain files in BedrockTools, mainly the minecraft blocks . |
 | TestConsole | Contains a project for testing the library, from time to time it contains code by Kishtarn.  |
 | OLDCODE | Contains image processing code incompatible with the new library.  |
+
+
+Current features:
+
+| Feature | Short desription |
+| --- | --- |
+| Nbt support | Support for creation of uncompressed nbt files |
+| Mcstructure | Support for creation of .mcstructures |
+| Obj to Mcstructure | Simple 3d obj to mcstructure |
+| Feature | Features are objects that can be placed in mcstructures, such as cubes, circles, etc. |
+
+
