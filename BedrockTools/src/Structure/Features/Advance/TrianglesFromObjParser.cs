@@ -239,9 +239,7 @@ namespace BedrockTools.Structure.Features.Advance {
                     for (int y = int.Max(0, (int)lo.Y-1); y < int.Min(size.Y, (int)hi.Y+1); y++) {
                         for (int z = int.Max(0, ( int)lo.Z-1); z < int.Min(size.Z, (int)hi.Z+1); z++) {
                             if (TestCubeTriangleIntersection(triangle, new Vector3(x,y,z), new Vector3(x, y, z)+Vector3.One)) {
-                                structure.SetBlock(x, y, z, 
-                                    VanillaBlockFactory.Wool((Objects.Blocks.Util.BlockColorValue)rand.Next(0, 16))
-                                    );
+                                structure.SetBlock(x, y, z, block);
                             }
                         }
                     }
