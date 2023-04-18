@@ -171,14 +171,6 @@ namespace BedrockTools.Structure.Features.Advance {
                 if (!anyInside) return false;
             }
             return true;
-
-
-
-
-
-
-
-
         }
 
         //FIXE: This do be too slow

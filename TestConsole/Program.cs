@@ -251,12 +251,12 @@ namespace TestConsole {
 
 
         static McStructure TeapotTest2() {
-            Dimensions size = new Dimensions(100, 100, 100);
+            Dimensions size = new Dimensions(200, 100, 160);
             return TrianglesFromObjParser.IntersectionTriangleObjToStruct(
                 "teapot.obj",
                 size,
                 VanillaBlockFactory.Quartz(BedrockTools.Objects.Blocks.Minecraft.QuartzBlock.QuartzType.Default),
-                15f
+                30f
             );
 
         }
