@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Drawing;
 //using MinecraftBedrockStructureBlock.structure;
 //using MinecraftBedrockStructureBlock.types;
 //using MinecraftBedrockStructureBlock.image;
@@ -14,10 +13,10 @@ using BedrockTools.Structure.Features.Geometry;
 using BedrockTools.Structure.Features.Modifier;
 using BedrockTools.Structure.Features.Patterns;
 using BedrockTools.Structure.Features;
-using System.Net.Http.Headers;
 using System.Numerics;
 using BedrockTools.src.Structure.Features.Geometry;
-using BedrockTools.Structure.Features.Advance;
+using BedrockTools.Structure.Advanced.Obj;
+using BedrockTools.Objects.Blocks.Util;
 
 namespace TestConsole {
     class Program {
@@ -261,8 +260,67 @@ namespace TestConsole {
 
         }
 
+        static McStructure CowTest() {
+            Dimensions size = new Dimensions(200, 200, 200);
+            var triangles = TrianglesFromObjParser.ParseObjFileTo3DTriangles(
+                "cow.obj",
+                size,
+                FillMode.Solid,
+                VanillaBlockFactory.Quartz(BedrockTools.Objects.Blocks.Minecraft.QuartzBlock.QuartzType.Default),
+                2f,
+                19f
+            );
+            McStructure mcstructure = new McStructure(size);
+            triangles.ForEach(triangle => {
+                McTransform r = triangle.ResizeToBoundingBox();
+                triangle.PlaceInStructure(r, mcstructure);
+            });
+            return mcstructure;
+
+        }
+
+        static McStructure CowTest2() {
+            Dimensions size = new Dimensions(200, 130, 80);
+            return TrianglesFromObjParser.IntersectionTriangleObjToStruct(
+                "cow.obj",
+                size,
+                VanillaBlockFactory.Quartz(BedrockTools.Objects.Blocks.Minecraft.QuartzBlock.QuartzType.Default),
+                19f
+            );
+
+        }
+        static McStructure ObjTextureTest() {
+            Dimensions size = new Dimensions(100, 130, 80);
+            Block[,] blocks = new Block[8,8];
+            for (int i =0; i < 8; i++) {
+                for (int j=0; j < 8; j++) {
+                    blocks[i,j] = VanillaBlockFactory.Wool((BlockColorValue)((i * 8 + j)%16));
+                }
+            }
+            return TrianglesFromObjParser.IntersectionTriangleObjToStruct(
+                "test.obj",
+                size,
+                new UVBlockPalette(
+                    blocks,8,8),
+                12f
+            );
+
+        }
+
+
+        public static McStructure CastleTest() {
+            Dimensions size = new Dimensions(300, 130, 300);
+            
+            return TrianglesFromObjParser.IntersectionTriangleObjToStruct(
+                "castle.obj",
+                size,
+                     VanillaBlockFactory.Stone(StoneBlock.StoneType.Stone),
+                0.25f
+            );
+        }
+
         static void Main(string[] args) {
-            McStructure mcstructure = TeapotTest2();
+            McStructure mcstructure = CastleTest();
             string MojangCom =
                 Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),

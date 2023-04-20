@@ -6,12 +6,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="castle.obj" />
+    <None Remove="cow.obj" />
     <None Remove="teapot.obj" />
+    <None Remove="test.obj" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="castle.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="cow.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="teapot.obj">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="test.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
 

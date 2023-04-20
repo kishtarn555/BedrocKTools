@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 namespace BedrockTools.Geometry {
     public struct Triangle {
         public Vector3 A, B, C;
+        public Vector2 TextCoords;
+
         public Vector3 normal {
             get {
                 Vector3 u = Vector3.Normalize(B - A);
@@ -32,6 +34,14 @@ namespace BedrockTools.Geometry {
             this.B = B;
             this.C = C;
 
+            this.TextCoords = Vector2.Zero;
+        }
+        public Triangle(Vector3 A, Vector3 B, Vector3 C, Vector2 TextCoords) {
+            this.A = A;
+            this.B = B;
+            this.C = C;
+
+            this.TextCoords = TextCoords;
         }
 
     }
