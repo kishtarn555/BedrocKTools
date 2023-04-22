@@ -89,4 +89,3 @@ namespace BedrockTools.Structure.Advanced.Vox {
         }
     }
 }
-w
