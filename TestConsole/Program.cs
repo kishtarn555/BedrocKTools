@@ -17,6 +17,9 @@ using System.Numerics;
 using BedrockTools.src.Structure.Features.Geometry;
 using BedrockTools.Structure.Advanced.Obj;
 using BedrockTools.Objects.Blocks.Util;
+using BedrockTools.Structure.Advanced.Vox;
+using System.Collections.Generic;
+using BedrockTools.Structure.Advanced;
 
 namespace TestConsole {
     class Program {
@@ -319,8 +322,49 @@ namespace TestConsole {
             );
         }
 
+
+        static IBlockPalette DefaultPalette() {
+            return new BlockPaletteDictionary(new Dictionary<int, Block>() {
+                    { 1, VanillaBlockFactory.Planks(PlanksBlock.PlanksType.Oak)},
+                    { 2, VanillaBlockFactory.Planks(PlanksBlock.PlanksType.Birch)},
+                    { 3, VanillaBlockFactory.Planks(PlanksBlock.PlanksType.Jungle)},
+                    { 4, VanillaBlockFactory.Planks(PlanksBlock.PlanksType.Spruce)},
+                    { 5, VanillaBlockFactory.Planks(PlanksBlock.PlanksType.Acacia)},
+                    { 6, VanillaBlockFactory.Planks(PlanksBlock.PlanksType.Dark_Oak)},
+                    { 7, VanillaBlockFactory.CrimsonPlanks()},
+                    { 8, VanillaBlockFactory.WarpedPlanks() }, 
+
+                    { 9, VanillaBlockFactory.Concrete(BlockColorValue.White ) }, 
+                    { 10, VanillaBlockFactory.Concrete(BlockColorValue.Orange ) }, 
+                    { 11, VanillaBlockFactory.Concrete(BlockColorValue.Magneta ) }, 
+                    { 12, VanillaBlockFactory.Concrete(BlockColorValue.Light_Blue ) }, 
+                    { 13, VanillaBlockFactory.Concrete(BlockColorValue.Yellow ) }, 
+                    { 14, VanillaBlockFactory.Concrete(BlockColorValue.Lime ) }, 
+                    { 15, VanillaBlockFactory.Concrete(BlockColorValue.Pink ) }, 
+                    { 16, VanillaBlockFactory.Concrete(BlockColorValue.Gray ) }, 
+                    { 17, VanillaBlockFactory.Concrete(BlockColorValue.Silver) }, 
+                    { 18, VanillaBlockFactory.Concrete(BlockColorValue.Cyan) }, 
+                    { 19, VanillaBlockFactory.Concrete(BlockColorValue.Purple) }, 
+                    { 20, VanillaBlockFactory.Concrete(BlockColorValue.Blue) }, 
+                    { 21, VanillaBlockFactory.Concrete(BlockColorValue.Brown) }, 
+                    { 22, VanillaBlockFactory.Concrete(BlockColorValue.Green) }, 
+                    { 23, VanillaBlockFactory.Concrete(BlockColorValue.Red) }, 
+                    { 24, VanillaBlockFactory.Concrete(BlockColorValue.Black) }, 
+
+                    { 25, VanillaBlockFactory.Glass() },
+                    { 26, VanillaBlockFactory.Grass() },
+                });
+        }
+
+        static McStructure VoxTest() {
+            MagicaVoxImporter magicaVoxImporter = new MagicaVoxImporter(
+                DefaultPalette()
+            ) ;
+            return magicaVoxImporter.Import("house.vox");
+        }
+
         static void Main(string[] args) {
-            McStructure mcstructure = CastleTest();
+            McStructure mcstructure = VoxTest();
             string MojangCom =
                 Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),

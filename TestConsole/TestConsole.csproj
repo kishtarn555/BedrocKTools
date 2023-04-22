@@ -7,7 +7,9 @@
 
   <ItemGroup>
     <None Remove="castle.obj" />
+    <None Remove="chr_knight.vox" />
     <None Remove="cow.obj" />
+    <None Remove="house.vox" />
     <None Remove="teapot.obj" />
     <None Remove="test.obj" />
   </ItemGroup>
@@ -16,7 +18,13 @@
     <EmbeddedResource Include="castle.obj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="chr_knight.vox">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="cow.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="house.vox">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="teapot.obj">

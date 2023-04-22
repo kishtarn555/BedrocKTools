@@ -19,6 +19,7 @@ namespace BedrockTools.Objects.Blocks.Util {
         Brown,
         Green,
         Red,
+        Black,
 
     }
 }
