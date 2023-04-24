@@ -20,6 +20,7 @@ using BedrockTools.Objects.Blocks.Util;
 using BedrockTools.Structure.Advanced.Vox;
 using System.Collections.Generic;
 using BedrockTools.Structure.Advanced;
+using BedrockTools.Structure.Features.Raster;
 
 namespace TestConsole {
     class Program {
@@ -363,8 +364,15 @@ namespace TestConsole {
             return magicaVoxImporter.Import("house.vox");
         }
 
+        static McStructure BesenhamLineTest() {
+            BesenhamLineFeature line = new BesenhamLineFeature(new Dimensions(40, 40, 40), new IntCoords(3, 1, 2), new IntCoords(40, 1, 12), VanillaBlockFactory.Clay());
+            McStructure structure = new McStructure(new Dimensions(100, 100, 100));
+            line.PlaceInStructure(McTransform.Identity, structure);
+            return structure;
+        }
+
         static void Main(string[] args) {
-            McStructure mcstructure = VoxTest();
+            McStructure mcstructure = BesenhamLineTest();
             string MojangCom =
                 Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
