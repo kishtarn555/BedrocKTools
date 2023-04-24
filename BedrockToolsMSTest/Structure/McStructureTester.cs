@@ -76,7 +76,8 @@ namespace BedrockToolsMSTest.Structure {
                 }},
                 {"structure_world_origin", NbtList.FromInts(0,0,0) }
             };
-            NbtAssert.AssertNbt(root, mcStructure.GetStructureAsNbt(), "Nbt structure missmatch");
+            McStructureSerializer serializer = new McStructureSerializer(mcStructure);
+            NbtAssert.AssertNbt(root, serializer.GetStructureAsNbt(), "Nbt structure missmatch");
         }
 
         [TestMethod]
@@ -123,7 +124,8 @@ namespace BedrockToolsMSTest.Structure {
                 }},
                 {"structure_world_origin", NbtList.FromInts(0,0,0) }
             };
-            NbtAssert.AssertNbt(root, mcStructure.GetStructureAsNbt(), "Nbt structure missmatch");
+            McStructureSerializer serializer = new McStructureSerializer(mcStructure);
+            NbtAssert.AssertNbt(root, serializer.GetStructureAsNbt(), "Nbt structure missmatch");
         }
 
     }
