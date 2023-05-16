@@ -30,5 +30,37 @@ namespace BedrockTools.Geometry {
         }
 
         internal static bool PointInTrianlge(Triangle triangle, Vector3 point) => TestLinealConvexPointInPolygon(new Vector3[] {triangle.A, triangle.B, triangle.C}, point, true);
+
+        public static Vector3 GenerateRandomUnitVector() {
+            Random random = new Random();
+            float x = (float)(random.NextDouble() * 2 - 1);
+            float y = (float)(random.NextDouble() * 2 - 1);
+            float z = (float)(random.NextDouble() * 2 - 1);
+
+            Vector3 vector = new Vector3(x, y, z);
+            vector = Vector3.Normalize(vector);
+            return vector;
+        }
+        public  static Vector3 RotateVector(Vector3 vector, Vector3 axis, float angle) {
+            float cosTheta = (float)Math.Cos(angle);
+            float sinTheta = (float)Math.Sin(angle);
+
+            Vector3 u = axis;
+
+            float x = vector.X * (cosTheta + u.X * u.X * (1 - cosTheta)) +
+                      vector.Y * (u.X * u.Y * (1 - cosTheta) - u.Z * sinTheta) +
+                      vector.Z * (u.X * u.Z * (1 - cosTheta) + u.Y * sinTheta);
+
+            float y = vector.X * (u.Y * u.X * (1 - cosTheta) + u.Z * sinTheta) +
+                      vector.Y * (cosTheta + u.Y * u.Y * (1 - cosTheta)) +
+                      vector.Z * (u.Y * u.Z * (1 - cosTheta) - u.X * sinTheta);
+
+            float z = vector.X * (u.Z * u.X * (1 - cosTheta) - u.Y * sinTheta) +
+                      vector.Y * (u.Z * u.Y * (1 - cosTheta) + u.X * sinTheta) +
+                      vector.Z * (cosTheta + u.Z * u.Z * (1 - cosTheta));
+
+            return new Vector3(x, y, z);
+        }
+
     }
 }

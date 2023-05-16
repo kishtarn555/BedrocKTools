@@ -21,6 +21,8 @@ using BedrockTools.Structure.Advanced.Vox;
 using System.Collections.Generic;
 using BedrockTools.Structure.Advanced;
 using BedrockTools.Structure.Features.Raster;
+using BedrockTools.Structure.Features.Nature.TreeA;
+using BedrockTools.Nbt.Elements;
 
 namespace TestConsole {
     class Program {
@@ -127,13 +129,13 @@ namespace TestConsole {
                 new Dimensions(100, 100, 100),
                 FillMode.Solid,
                 VanillaBlockFactory.Stone(StoneBlock.StoneType.Stone)
-            ) ;
+            );
             SphereFeature sphere2 = new SphereFeature(
-                new Dimensions(50, 50,50),
+                new Dimensions(50, 50, 50),
                 FillMode.Solid,
                 VanillaBlockFactory.CrimsonPlanks()
             );
-            SubstractModifier substract = new SubstractModifier(sphere, sphere2, McTransform.Identity.Translate(65,65,65));
+            SubstractModifier substract = new SubstractModifier(sphere, sphere2, McTransform.Identity.Translate(65, 65, 65));
             substract.PlaceInStructure(new McTransform(new IntCoords(0, 0, 0)), mcstructure);
             return mcstructure;
         }
@@ -144,7 +146,7 @@ namespace TestConsole {
                 FillMode.Solid,
                 VanillaBlockFactory.Air()
             );
-           
+
             cube.PlaceInStructure(new McTransform(new IntCoords(0, 0, 0)), mcstructure);
             return mcstructure;
         }
@@ -153,19 +155,19 @@ namespace TestConsole {
             Dimensions size = new Dimensions(100, 100, 100);
             McStructure mcstructure = new McStructure(size);
             Analitical3DShape shape = new Analitical3DShape(
-                size, 
+                size,
                 FillMode.Solid,
                 VanillaBlockFactory.Quartz(BedrockTools.Objects.Blocks.Minecraft.QuartzBlock.QuartzType.Default),
                 (float x, float y, float z) => {
                     double dx = x / (double)size.X;
                     dx -= 0.5;
                     double dy = y / (double)size.Y;
-                    double dz = z / (double)size.Z-0.5;
+                    double dz = z / (double)size.Z - 0.5;
 
                     double a = 0.1;
-                    double val = 1.0-a*Math.Cosh(dx/a);
+                    double val = 1.0 - a * Math.Cosh(dx / a);
                     if (dy > val) return false;
-                    
+
                     return true;
 
                 }
@@ -177,20 +179,20 @@ namespace TestConsole {
                 VanillaBlockFactory.Clay(),
                 new Vector3(-5f, -100f, -100f),
                 new Vector3(5f, 100f, 100f)
-            ) ;
+            );
 
             Plane3DFeature omask = new Plane3DFeature(
                 new Dimensions(100, 100, 100),
                 FillMode.Solid,
                 VanillaBlockFactory.Clay(),
-                new Vector3(0f,0f,0f),
+                new Vector3(0f, 0f, 0f),
                 new Vector3(100f, 0f, 100f),
                 new Vector3(100f, 100f, 100f),
                 5f
             );
 
-            Matrix4x4 maskMatrix = Matrix4x4.CreateTranslation(new Vector3(0f, 0f, 0f)) * Matrix4x4.CreateRotationY(-(float)Math.PI / 4.0f) ;
-            
+            Matrix4x4 maskMatrix = Matrix4x4.CreateTranslation(new Vector3(0f, 0f, 0f)) * Matrix4x4.CreateRotationY(-(float)Math.PI / 4.0f);
+
             mask.SetTransformation(maskMatrix);
             shape.SetTransformation(Matrix4x4.CreateRotationY((float)Math.PI / 4.0f));
             SubstractModifier substract = new SubstractModifier(shape, shape, McTransform.Identity.Translate(0, -5, 0));
@@ -207,11 +209,11 @@ namespace TestConsole {
                 new Dimensions(100, 100, 100),
                 FillMode.Solid,
                 VanillaBlockFactory.Quartz(BedrockTools.Objects.Blocks.Minecraft.QuartzBlock.QuartzType.Default),
-                new Vector3(0, 0,0),
+                new Vector3(0, 0, 0),
                 new Vector3(40, 77, 20),
                 2f
             );
-            line.PlaceInStructure(McTransform.Identity,mcstructure);
+            line.PlaceInStructure(McTransform.Identity, mcstructure);
             return mcstructure;
         }
 
@@ -288,24 +290,24 @@ namespace TestConsole {
             return TrianglesFromObjParser.IntersectionTriangleObjToStruct(
                 "cow.obj",
                 size,
-                VanillaBlockFactory.Quartz(BedrockTools.Objects.Blocks.Minecraft.QuartzBlock.QuartzType.Default),
+                VanillaBlockFactory.Quartz(QuartzBlock.QuartzType.Default),
                 19f
             );
 
         }
         static McStructure ObjTextureTest() {
             Dimensions size = new Dimensions(100, 130, 80);
-            Block[,] blocks = new Block[8,8];
-            for (int i =0; i < 8; i++) {
-                for (int j=0; j < 8; j++) {
-                    blocks[i,j] = VanillaBlockFactory.Wool((BlockColorValue)((i * 8 + j)%16));
+            Block[,] blocks = new Block[8, 8];
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
+                    blocks[i, j] = VanillaBlockFactory.Wool((BlockColorValue)((i * 8 + j) % 16));
                 }
             }
             return TrianglesFromObjParser.IntersectionTriangleObjToStruct(
                 "test.obj",
                 size,
                 new UVBlockPalette(
-                    blocks,8,8),
+                    blocks, 8, 8),
                 12f
             );
 
@@ -314,7 +316,7 @@ namespace TestConsole {
 
         public static McStructure CastleTest() {
             Dimensions size = new Dimensions(300, 130, 300);
-            
+
             return TrianglesFromObjParser.IntersectionTriangleObjToStruct(
                 "castle.obj",
                 size,
@@ -333,24 +335,24 @@ namespace TestConsole {
                     { 5, VanillaBlockFactory.Planks(PlanksBlock.PlanksType.Acacia)},
                     { 6, VanillaBlockFactory.Planks(PlanksBlock.PlanksType.Dark_Oak)},
                     { 7, VanillaBlockFactory.CrimsonPlanks()},
-                    { 8, VanillaBlockFactory.WarpedPlanks() }, 
+                    { 8, VanillaBlockFactory.WarpedPlanks() },
 
-                    { 9, VanillaBlockFactory.Concrete(BlockColorValue.White ) }, 
-                    { 10, VanillaBlockFactory.Concrete(BlockColorValue.Orange ) }, 
-                    { 11, VanillaBlockFactory.Concrete(BlockColorValue.Magneta ) }, 
-                    { 12, VanillaBlockFactory.Concrete(BlockColorValue.Light_Blue ) }, 
-                    { 13, VanillaBlockFactory.Concrete(BlockColorValue.Yellow ) }, 
-                    { 14, VanillaBlockFactory.Concrete(BlockColorValue.Lime ) }, 
-                    { 15, VanillaBlockFactory.Concrete(BlockColorValue.Pink ) }, 
-                    { 16, VanillaBlockFactory.Concrete(BlockColorValue.Gray ) }, 
-                    { 17, VanillaBlockFactory.Concrete(BlockColorValue.Silver) }, 
-                    { 18, VanillaBlockFactory.Concrete(BlockColorValue.Cyan) }, 
-                    { 19, VanillaBlockFactory.Concrete(BlockColorValue.Purple) }, 
-                    { 20, VanillaBlockFactory.Concrete(BlockColorValue.Blue) }, 
-                    { 21, VanillaBlockFactory.Concrete(BlockColorValue.Brown) }, 
-                    { 22, VanillaBlockFactory.Concrete(BlockColorValue.Green) }, 
-                    { 23, VanillaBlockFactory.Concrete(BlockColorValue.Red) }, 
-                    { 24, VanillaBlockFactory.Concrete(BlockColorValue.Black) }, 
+                    { 9, VanillaBlockFactory.Concrete(BlockColorValue.White ) },
+                    { 10, VanillaBlockFactory.Concrete(BlockColorValue.Orange ) },
+                    { 11, VanillaBlockFactory.Concrete(BlockColorValue.Magneta ) },
+                    { 12, VanillaBlockFactory.Concrete(BlockColorValue.Light_Blue ) },
+                    { 13, VanillaBlockFactory.Concrete(BlockColorValue.Yellow ) },
+                    { 14, VanillaBlockFactory.Concrete(BlockColorValue.Lime ) },
+                    { 15, VanillaBlockFactory.Concrete(BlockColorValue.Pink ) },
+                    { 16, VanillaBlockFactory.Concrete(BlockColorValue.Gray ) },
+                    { 17, VanillaBlockFactory.Concrete(BlockColorValue.Silver) },
+                    { 18, VanillaBlockFactory.Concrete(BlockColorValue.Cyan) },
+                    { 19, VanillaBlockFactory.Concrete(BlockColorValue.Purple) },
+                    { 20, VanillaBlockFactory.Concrete(BlockColorValue.Blue) },
+                    { 21, VanillaBlockFactory.Concrete(BlockColorValue.Brown) },
+                    { 22, VanillaBlockFactory.Concrete(BlockColorValue.Green) },
+                    { 23, VanillaBlockFactory.Concrete(BlockColorValue.Red) },
+                    { 24, VanillaBlockFactory.Concrete(BlockColorValue.Black) },
 
                     { 25, VanillaBlockFactory.Glass() },
                     { 26, VanillaBlockFactory.Grass() },
@@ -360,7 +362,7 @@ namespace TestConsole {
         static McStructure VoxTest() {
             MagicaVoxImporter magicaVoxImporter = new MagicaVoxImporter(
                 DefaultPalette()
-            ) ;
+            );
             return magicaVoxImporter.Import("house.vox");
         }
 
@@ -371,8 +373,58 @@ namespace TestConsole {
             return structure;
         }
 
+        class LeaveBlockHacked : Block {
+            public LeaveBlockHacked(string identifier) : base(identifier) {
+            }
+
+            public override NbtCompoundSorted GetBlockState() {
+                return new NbtCompoundSorted() {
+                    {"old_leaf_type", (NbtString)("oak") },
+                    {"persistent_bit", (NbtByte)(1) },
+                    {"update_bit", (NbtByte)(0) },
+                };
+            }
+        }
+
+        static McStructure Tree1Test() {
+            Feature line = new Tree(
+                VanillaBlockFactory.Wood(PillarAxis.Y, WoodType.Oak),
+                new LeaveBlockHacked("minecraft:leaves"),
+                new Dimensions(75, 75, 75),
+                new Tree.TreeParams() {
+                    rootHeight = 10,
+                    rootWidth = 10f,
+                    rootSegmentHeight = 4,
+                    trunkHeight = 40,
+                    trunkWidth = 8f,
+                    trunkSegments = 3,
+                    trunkDeviation = 2f,
+                    branches = 6,
+                    branchLength=4f,
+                    branchWidth=2.5f,
+                    branchMinWidthDecay = 0.90f,
+                    branchMaxWidthDecay = 0.95f,
+                    branchExtendChance = 0.95f,
+                    branchTwist= 0.261799f,
+
+                    splitProbability = 0.3f,
+                    splitMinAngle= 0.261799f*3f,
+                    splitMaxAngle = 0.261799f*5f,
+
+                    leaveCount=7,
+                    leaveLenght= 9,
+                    leaveWidth =1f,
+                    leaveAngle=MathF.PI*3f/2f
+
+                }
+            ); ;
+            McStructure structure = new McStructure(new Dimensions(150, 150, 150));
+            line.PlaceInStructure(McTransform.Identity.Translate(75, 0, 75), structure);
+            return structure;
+        }
+
         static void Main(string[] args) {
-            McStructure mcstructure = BesenhamLineTest();
+            McStructure mcstructure = Tree1Test();
             string MojangCom =
                 Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
