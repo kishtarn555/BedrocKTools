@@ -47,6 +47,10 @@ namespace BedrockTools_Build.Generator.MinecraftBlocks {
                     result.Add(new CodeCs.CsParameter { Type="WoodType", Name="woodType"});
                     result.Add(new CodeCs.CsParameter { Type="bool", Name="strippedBit", DefaultValue="false" });
                     break;
+                case "DoublePlantBlock":
+                    result.Add(new CodeCs.CsParameter { Type="DoublePlantType", Name="plantType" });
+                    result.Add(new CodeCs.CsParameter { Type="bool", Name="upperBlockBit" , DefaultValue="false"});
+                    break;
                 case "Variant":
                     result.Add(new CodeCs.CsParameter {
                         Type=oilObject.Key+"Block."+ oilObject.Key+"Type",

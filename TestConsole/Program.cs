@@ -14,7 +14,6 @@ using BedrockTools.Structure.Features.Modifier;
 using BedrockTools.Structure.Features.Patterns;
 using BedrockTools.Structure.Features;
 using System.Numerics;
-using BedrockTools.src.Structure.Features.Geometry;
 using BedrockTools.Structure.Advanced.Obj;
 using BedrockTools.Objects.Blocks.Util;
 using BedrockTools.Structure.Advanced.Vox;
@@ -430,8 +429,10 @@ namespace TestConsole {
                     Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
                     @"Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\LocalState\games\com.mojang"
                     );
+            //BinaryWriter bw = new BinaryWriter(new FileStream(
+            //   Path.Combine(MojangCom, @"development_behavior_packs\moveit\structures\moveit\hf.mcstructure"), FileMode.Create));
             BinaryWriter bw = new BinaryWriter(new FileStream(
-               Path.Combine(MojangCom, @"development_behavior_packs\moveit\structures\moveit\hf.mcstructure"), FileMode.Create));
+               "C:\\Users\\hecto\\source\\repos\\MC\\hf.mcstructure", FileMode.Create));
             McStructureSerializer serializer = new McStructureSerializer(mcstructure);
             new NbtBinaryWriter(bw).WriteRoot(serializer.GetStructureAsNbt());
             bw.Close();

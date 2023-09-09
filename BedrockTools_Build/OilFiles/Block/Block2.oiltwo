@@ -118,3 +118,9 @@ Concrete						ColorBlock		minecraft:concrete
 		
 	// Woods
 		Wood						WoodBlock			minecraft:wood
+	
+	// GroundCover
+		DoublePlant					DoublePlantBlock			minecraft:double_plant
+		TallGrass					Variant						minecraft:tallgrass variant= tall_grass_type values= Default,Tall,Fern,Snow
+	// Flowers
+		RedFlower					Variant						minecraft:red_flower variant= flower_type values= poppy,orchid,allium,houstonia,tulip_red,tulip_orange,tulip_white,tulip_pink,oxeye,cornflower,lily_of_the_valley
