@@ -213,5 +213,14 @@ namespace BedrockTools.Objects.Blocks {
         public static WoodBlock Wood (PillarAxis pillarAxis, WoodType woodType, bool strippedBit = false) {
             return new WoodBlock ("minecraft:wood", pillarAxis, woodType, strippedBit);
         }
+        public static DoublePlantBlock DoublePlant (DoublePlantType plantType, bool upperBlockBit = false) {
+            return new DoublePlantBlock ("minecraft:double_plant", plantType, upperBlockBit);
+        }
+        public static TallGrassBlock TallGrass (TallGrassBlock.TallGrassType variation) {
+            return new TallGrassBlock ("minecraft:tallgrass", variation);
+        }
+        public static RedFlowerBlock RedFlower (RedFlowerBlock.RedFlowerType variation) {
+            return new RedFlowerBlock ("minecraft:red_flower", variation);
+        }
     }
 }
