@@ -5,7 +5,7 @@ using BedrockTools.Objects.Blocks;
 using BedrockTools.Structure.Features.Geometry;
 
 
-namespace BedrockTools.src.Structure.Features.Geometry {
+namespace BedrockTools.Structure.Features.Geometry {
     public class Line3DFeature : Analitical3DShape {
         Vector3 A;
         Vector3 B;
