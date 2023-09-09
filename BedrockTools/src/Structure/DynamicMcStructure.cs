@@ -9,7 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BedrockTools.src.Structure {
+namespace BedrockTools.Structure {
     public class DynamicMcStructure : IMcStructure {
         Dictionary<IntCoords, Block> blocks;
         IntCoords mininamlBoundingBox;
