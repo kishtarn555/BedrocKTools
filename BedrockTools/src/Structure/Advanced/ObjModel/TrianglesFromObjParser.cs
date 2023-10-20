@@ -5,6 +5,7 @@ using BedrockTools.Structure;
 using BedrockTools.Structure.Features.Geometry;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Numerics;
@@ -70,13 +71,66 @@ namespace BedrockTools.Structure.Advanced.Obj
             return triangles;
         }
 
+        static bool TestAABBTriangleIntersection(Triangle triangle, Vector3 minima, Vector3 maxima) {
+            Vector3 center = (minima + maxima) / 2f;
+            Vector3 extends = (maxima - minima) / 2f;
 
+            Vector3 v0 = triangle.A - center;
+            Vector3 v1 = triangle.B - center;
+            Vector3 v2 = triangle.C - center;
 
+            Vector3 f0 = v1 - v0;
+            Vector3 f1 = v2 - v1;
+            Vector3 f2 = v0 - v2;
 
+            Vector3 u0 = Vector3.UnitX;
+            Vector3 u1 = Vector3.UnitY;
+            Vector3 u2 = Vector3.UnitZ;
 
+            Vector3[] Axes = new Vector3[]
+            {
+                Vector3.Cross(f0, u0),
+                Vector3.Cross(f0, u1),
+                Vector3.Cross(f0, u2),
 
+                Vector3.Cross(f1, u0),
+                Vector3.Cross(f1, u1),
+                Vector3.Cross(f1, u2),
 
+                Vector3.Cross(f2, u0),
+                Vector3.Cross(f2, u1),
+                Vector3.Cross(f2, u2),
 
+                u0,
+                u1,
+                u2,
+
+                triangle.normal
+            };
+
+            foreach (Vector3 axis in Axes) {
+                float p0 = Vector3.Dot(v0, axis);
+                float p1 = Vector3.Dot(v1, axis);
+                float p2 = Vector3.Dot(v2, axis);
+
+                float r = extends.X * Math.Abs(Vector3.Dot(u0, axis)) +
+                    extends.Y * Math.Abs(Vector3.Dot(u1, axis)) +
+                    extends.Z * Math.Abs(Vector3.Dot(u2, axis));
+
+                float Max(float a, float b, float c) {
+                    return Math.Max(a, Math.Max(b, c));
+                }
+                float Min(float a, float b, float c) {
+                    return Math.Min(a, Math.Min(b, c));
+                }
+
+                if (Math.Max(-Max(p0,p1,p2),Min(p0,p1,p2)  ) > r) {
+                    return false;
+                }
+            }
+            return true;
+
+        }
 
         static bool TestCubeTriangleIntersection(Triangle triangle, Vector3 minima, Vector3 maxima)
         {
@@ -186,8 +240,13 @@ namespace BedrockTools.Structure.Advanced.Obj
             }
             return true;
         }
+
         public static McStructure IntersectionTriangleObjToStruct(string filePath, Dimensions size, Block block, float scale) => IntersectionTriangleObjToStruct(
             filePath, size, new UVBlockPalette(new Block[,] { { block } }, 1, 1), scale);
+        
+        
+
+        
         //FIXE: This do be too slow
         public static McStructure IntersectionTriangleObjToStruct(string filePath, Dimensions size, UVBlockPalette palette, float scale)
         {
@@ -267,28 +326,28 @@ namespace BedrockTools.Structure.Advanced.Obj
                     triangles[i].TextCoords
                 );
             }
+            return IntersectionTrianglesToStructure(triangles, size, palette);
+        }
+
+
+        public static McStructure IntersectionTrianglesToStructure(List<Triangle> triangles, Dimensions size, UVBlockPalette palette) {
             McStructure structure = new McStructure(size);
             Random rand = new Random();
-            foreach (Triangle triangle in triangles)
-            {
+            foreach (Triangle triangle in triangles) {
                 Vector3 lo = triangle.low;
                 Vector3 hi = triangle.hi;
-                for (int x = int.Max(0, (int)lo.X - 1); x < int.Min(size.X, (int)hi.X + 1); x++)
-                {
-                    for (int y = int.Max(0, (int)lo.Y - 1); y < int.Min(size.Y, (int)hi.Y + 1); y++)
-                    {
-                        for (int z = int.Max(0, (int)lo.Z - 1); z < int.Min(size.Z, (int)hi.Z + 1); z++)
-                        {
-                            if (TestCubeTriangleIntersection(triangle, new Vector3(x, y, z), new Vector3(x, y, z) + Vector3.One))
-                            {
+                for (int x = int.Max(0, (int)lo.X - 2); x < int.Min(size.X, (int)hi.X + 2); x++) {
+                    for (int y = int.Max(0, (int)lo.Y - 2); y < int.Min(size.Y, (int)hi.Y + 2); y++) {
+                        for (int z = int.Max(0, (int)lo.Z - 2); z < int.Min(size.Z, (int)hi.Z + 2); z++) {
+                            if (TestAABBTriangleIntersection(triangle, new Vector3(x, y, z)- Vector3.One / 2f, new Vector3(x, y, z) + Vector3.One/2f)) {
                                 structure.SetBlock(x, y, z, palette[triangle.TextCoords.X, triangle.TextCoords.Y]);
                             }
                         }
                     }
                 }
             }
-
             return structure;
+
         }
 
     }
