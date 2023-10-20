@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BedrockTools", "BedrockTool
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BedrockTools_Build", "BedrockTools_Build\BedrockTools_Build.csproj", "{5010AC29-9089-48EA-97A3-2FDD20F42C3C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BedrockToolsServer", "BedrockToolsServer\BedrockToolsServer.csproj", "{373A3167-E2DE-409C-8224-572115C87EBA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{5010AC29-9089-48EA-97A3-2FDD20F42C3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5010AC29-9089-48EA-97A3-2FDD20F42C3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5010AC29-9089-48EA-97A3-2FDD20F42C3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{373A3167-E2DE-409C-8224-572115C87EBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{373A3167-E2DE-409C-8224-572115C87EBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{373A3167-E2DE-409C-8224-572115C87EBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{373A3167-E2DE-409C-8224-572115C87EBA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
