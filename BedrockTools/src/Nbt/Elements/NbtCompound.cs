@@ -60,5 +60,13 @@ namespace BedrockTools.Nbt.Elements {
             answer += "}";
             return answer;
         }
+
+        public NbtElement Extract(params string[] route) {
+            NbtCompound target = this;
+            for (int i=0; i < route.Length-1; i++) {
+                target = (NbtCompound)target[route[i]];
+            }
+            return target[route[route.Length-1]];
+        }
     }
 }
