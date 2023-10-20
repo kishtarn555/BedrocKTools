@@ -8,10 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BedrockTools.Structure.Features.Raster {
-    public class BesenhamLineFeature : Feature {
+    public class BresenhamLineFeature : Feature {
         IntCoords A, B;
         Block block;
-        public BesenhamLineFeature(Dimensions size, IntCoords A, IntCoords B, Block block) : base(size) {
+        public BresenhamLineFeature(Dimensions size, IntCoords A, IntCoords B, Block block) : base(size) {
             this.A = A;
             this.B = B;
             this.block = block;
