@@ -1,0 +1,1 @@
+A block is considered to have the latice point in it's center. Meaning that a block with coords (x,y,z) have vertices at $(x \pm 0.5, y \pm 0.5, z \pm + 0.5)$
