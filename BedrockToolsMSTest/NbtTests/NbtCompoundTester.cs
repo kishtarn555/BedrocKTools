@@ -80,5 +80,25 @@ namespace BedrockToolsMSTest.NbtTests {
             Assert.AreEqual(0, compound.Count, "Element count was not the expected value after clearing");
             CollectionAssert.AreEqual(new string[] { }, (ICollection)compound.Keys);
         }
+
+        [TestMethod]
+        public void TestExtractMethod() {
+            NbtInt value = new NbtInt(24);
+            NbtString dummy = new NbtString("hello");
+            NbtCompound compound = new NbtCompoundOrdered()
+            {
+                { "child", new  NbtCompoundOrdered() {
+                    { "value", value }
+                }},
+                { "dummy", dummy }
+            };
+            NbtElement expected_dummy = compound.Extract("dummy");
+
+            Assert.IsTrue(expected_dummy is NbtString, "Expected and NbtString under compound.extract('dummy')");
+            Assert.AreEqual(expected_dummy as NbtString, dummy, "Got another element under compound.extract('dummy')");
+            NbtElement expected_value = compound.Extract("child", "value");
+            Assert.IsTrue(expected_value is NbtInt, "Expected and NbtString under compound.extract('child', 'value')");
+            Assert.AreEqual(expected_value as NbtInt, value, "Got another nbt element under compound.extract('child', 'value')");
+        }
     }
 }

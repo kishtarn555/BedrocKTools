@@ -64,9 +64,6 @@ namespace BedrockTools.Nbt.IO {
             tokens = tokenList.ToArray();
             pointer = 0;
         }
-        bool hasEnded() {
-            return pointer == tokens.Length;
-        }
 
         Token Peek() {
             return tokens[pointer];
@@ -88,8 +85,17 @@ namespace BedrockTools.Nbt.IO {
         }
         Token Eat(string tokenType) {
             Token ctoken = Next();
-            if (tokenType != ctoken.tokentype)
-                throw new Exception(String.Format("Unexpected token type, got: {0}, expected: {1}\nFull token gotten {2}\nTree:{4} \nCode: {3}", ctoken.tokentype, tokenType, ctoken, rawCode, DumpStack()));
+            if (tokenType != ctoken.tokentype) {
+
+                string sterr = $"Unexpected token type. Got '{ctoken.tokentype}', but expected '{tokenType}' @ {pointer - 1}\n";
+                sterr += "Last tokens:\n";
+                int start = pointer - 10 >= 0 ? pointer - 10 : 0;
+                for (int i = start; i < pointer; i++) {
+                    sterr += $"  '{tokens[i].value}'\n";
+                }
+                sterr += "\n Stack:\n" + DumpStack();
+                throw new Exception(sterr);
+            }
             return ctoken;
         }
         NbtList NextList() {
@@ -120,6 +126,7 @@ namespace BedrockTools.Nbt.IO {
                 first = false;
                 nbtCompound.Add(NextNamed());
             }
+            Next();//Remove closing bracket
 
             return nbtCompound;
         }
@@ -164,7 +171,7 @@ namespace BedrockTools.Nbt.IO {
                     response = NextCompound();
                     break;
                 default:
-                    string sterr = $"Unexpected token type {ctoken.tokentype}, expecting one that indicates a value\n{ctoken} @ {pointer}\n";
+                    string sterr = $"Unexpected token type '{ctoken.tokentype}', expecting one that indicates a value\n{ctoken} @ {pointer}\n";
                     sterr += DumpStack();
                     throw new Exception(sterr);
             }
