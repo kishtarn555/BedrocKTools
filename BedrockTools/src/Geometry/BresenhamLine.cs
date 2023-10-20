@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BedrockTools.Geometry {
-    public static class BresenhamLine {
+    internal static class BresenhamLine {
 
 
 
