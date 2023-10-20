@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using BedrockTools.Nbt.Elements;
 
 namespace BedrockTools.Nbt.IO {
-    public class SNbtParser<T>  where T : NbtCompound, new() {
+    public class SNbtParser<T> where T : NbtCompound, new() {
+
+        Stack<string> currentPath;
         struct Token {
             public string value;
             public string tokentype;
@@ -72,10 +74,22 @@ namespace BedrockTools.Nbt.IO {
         Token Next() {
             return tokens[pointer++];
         }
+
+
+        string DumpStack() {
+            List<string> sterr = new List<string>();
+            while (currentPath.Count > 0) {
+                string path = currentPath.Pop();
+                sterr.Add(path);
+            }
+            sterr.Reverse();
+            return string.Join('\n', sterr);
+
+        }
         Token Eat(string tokenType) {
             Token ctoken = Next();
             if (tokenType != ctoken.tokentype)
-                throw new Exception(String.Format("Unexpected token type, got: {0}, expected: {1}\nFull token gotten {2}\nCode: {3}", ctoken.tokentype, tokenType,ctoken,rawCode));
+                throw new Exception(String.Format("Unexpected token type, got: {0}, expected: {1}\nFull token gotten {2}\nTree:{4} \nCode: {3}", ctoken.tokentype, tokenType, ctoken, rawCode, DumpStack()));
             return ctoken;
         }
         NbtList NextList() {
@@ -111,38 +125,66 @@ namespace BedrockTools.Nbt.IO {
         }
         NbtElement NextNameless() {
             Token ctoken = Peek();
+            NbtElement response = null;
             switch (ctoken.tokentype) {
                 case "byte":
-                    return new NbtByte(SByte.Parse(Next().value.Trim('b','B')));
+                    currentPath.Push("[Nameless byte]");
+                    response = new NbtByte(SByte.Parse(Next().value.Trim('b', 'B')));
+                    break;
                 case "short":
-                    return new NbtShort(Int16.Parse(Next().value.Trim('s', 'S')));
+                    currentPath.Push("[Nameless short]");
+                    response = new NbtShort(Int16.Parse(Next().value.Trim('s', 'S')));
+                    break;
                 case "int":
-                    return new NbtInt(Int32.Parse(Next().value));
+                    currentPath.Push("[Nameless int]");
+                    response = new NbtInt(Int32.Parse(Next().value));
+                    break;
                 case "long":
-                    return new NbtLong(Int64.Parse(Next().value.Trim('l', 'L')));
+                    currentPath.Push("[Nameless long]");
+                    response = new NbtLong(Int64.Parse(Next().value.Trim('l', 'L')));
+                    break;
                 case "float":
-                    return new NbtFloat(float.Parse(Next().value.Trim('f', 'F')));
+                    currentPath.Push("[Nameless float]");
+                    response = new NbtFloat(float.Parse(Next().value.Trim('f', 'F')));
+                    break;
                 case "double":
-                    return new NbtDouble(double.Parse(Next().value.Trim('d', 'D')));
+                    currentPath.Push("[Nameless double]");
+                    response = new NbtDouble(double.Parse(Next().value.Trim('d', 'D')));
+                    break;
                 case "string":
-                    return new NbtString(Next().value.Trim('"'));
+                    currentPath.Push("[Nameless string]");
+                    response = new NbtString(Next().value.Trim('"'));
+                    break;
                 case "[":
-                    return NextList();
+                    currentPath.Push("[Nameless List]");
+                    response = NextList();
+                    break;
                 case "{":
-                    return NextCompound();
+                    currentPath.Push("[Nameless compound]");
+                    response = NextCompound();
+                    break;
                 default:
-                    throw new Exception($"Unexpected token type {ctoken.tokentype}, expecting one that indicates a value\n{ctoken}");
+                    string sterr = $"Unexpected token type {ctoken.tokentype}, expecting one that indicates a value\n{ctoken} @ {pointer}\n";
+                    sterr += DumpStack();
+                    throw new Exception(sterr);
             }
+            currentPath.Pop();
+            return response;
 
         }
         KeyValuePair<string, NbtElement> NextNamed() {
             Token identifier = Eat("identifier");
+            currentPath.Push(identifier.value);
             Eat(":");
-            return new KeyValuePair<string, NbtElement>(identifier.value, NextNameless());
+            var response = new KeyValuePair<string, NbtElement>(identifier.value, NextNameless());
+            currentPath.Pop();
+            return response;
         }
         public NbtElement Parse() {
             pointer = 0;
-            return NextNameless();            
+            currentPath = new Stack<string>();
+            currentPath.Push("[root]");
+            return NextNameless();
         }
     }
 }
