@@ -12,15 +12,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace TestConsole {
     internal class Test3D {
 
 
-        static McStructure TeapotTest() {
+        public static McStructure TeapotTest() {
             Dimensions size = new Dimensions(200, 200, 200);
             var triangles = TrianglesFromObjParser.ParseObjFileTo3DTriangles(
-                "teapot.obj",
+                File.ReadLines("teapot.obj"),
                 size,
                 FillMode.Solid,
                 VanillaBlockFactory.Quartz(BedrockTools.Objects.Blocks.Minecraft.QuartzBlock.QuartzType.Default),
@@ -38,21 +39,22 @@ namespace TestConsole {
 
 
 
-        static McStructure TeapotTest2() {
+        public static McStructure TeapotTest2() {
             Dimensions size = new Dimensions(200, 100, 160);
             return TrianglesFromObjParser.IntersectionTriangleObjToStruct(
-                "teapot.obj",
+                File.ReadLines("teapot.obj"),
                 size,
                 VanillaBlockFactory.Quartz(BedrockTools.Objects.Blocks.Minecraft.QuartzBlock.QuartzType.Default),
-                30f
+                30f,
+                true
             );
 
         }
 
-        static McStructure CowTest() {
+        public static McStructure CowTest() {
             Dimensions size = new Dimensions(200, 200, 200);
             var triangles = TrianglesFromObjParser.ParseObjFileTo3DTriangles(
-                "cow.obj",
+                File.ReadLines("cow.obj"),
                 size,
                 FillMode.Solid,
                 VanillaBlockFactory.Quartz(BedrockTools.Objects.Blocks.Minecraft.QuartzBlock.QuartzType.Default),
@@ -68,17 +70,17 @@ namespace TestConsole {
 
         }
 
-        static McStructure CowTest2() {
+        public static McStructure CowTest2() {
             Dimensions size = new Dimensions(200, 130, 80);
             return TrianglesFromObjParser.IntersectionTriangleObjToStruct(
-                "cow.obj",
+                File.ReadLines("cow.obj"),
                 size,
                 VanillaBlockFactory.Quartz(QuartzBlock.QuartzType.Default),
                 19f
             );
 
         }
-        static McStructure ObjTextureTest() {
+        public static McStructure ObjTextureTest() {
             Dimensions size = new Dimensions(100, 130, 80);
             Block[,] blocks = new Block[8, 8];
             for (int i = 0; i < 8; i++) {
@@ -87,7 +89,7 @@ namespace TestConsole {
                 }
             }
             return TrianglesFromObjParser.IntersectionTriangleObjToStruct(
-                "test.obj",
+                File.ReadLines("test.obj"),
                 size,
                 new UVBlockPalette(
                     blocks, 8, 8),
@@ -101,7 +103,7 @@ namespace TestConsole {
             Dimensions size = new Dimensions(300, 130, 300);
 
             return TrianglesFromObjParser.IntersectionTriangleObjToStruct(
-                "castle.obj",
+                File.ReadLines("castle.obj"),
                 size,
                      VanillaBlockFactory.Stone(StoneBlock.StoneType.Stone),
                 0.25f
@@ -142,7 +144,7 @@ namespace TestConsole {
                 });
         }
 
-        static McStructure VoxTest() {
+        public static McStructure VoxTest() {
             MagicaVoxImporter magicaVoxImporter = new MagicaVoxImporter(
                 DefaultPalette()
             );

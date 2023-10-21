@@ -216,7 +216,7 @@ namespace TestConsole {
 
 
         static McStructure BesenhamLineTest() {
-            BesenhamLineFeature line = new BesenhamLineFeature(new Dimensions(40, 40, 40), new IntCoords(3, 1, 2), new IntCoords(40, 1, 12), VanillaBlockFactory.Clay());
+            BresenhamLineFeature line = new BresenhamLineFeature(new Dimensions(40, 40, 40), new IntCoords(3, 1, 2), new IntCoords(40, 1, 12), VanillaBlockFactory.Clay());
             McStructure structure = new McStructure(new Dimensions(100, 100, 100));
             line.PlaceInStructure(McTransform.Identity, structure);
             return structure;
