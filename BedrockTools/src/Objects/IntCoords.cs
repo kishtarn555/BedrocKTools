@@ -45,5 +45,7 @@ namespace BedrockTools.Objects {
                 a.Z - b.Z
             );
         }
+
+        public override string ToString() => $"IntCoords({X}, {Y}, {Z})";
     }
 }

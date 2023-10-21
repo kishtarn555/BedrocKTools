@@ -6,69 +6,47 @@ using BedrockTools.Structure.Features.Geometry;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Numerics;
 
 namespace BedrockTools.Structure.Advanced.Obj
 {
-    public class TrianglesFromObjParser
+    public partial class TrianglesFromObjParser
     {
 
-        public static List<Triangle3DFeature> ParseObjFileTo3DTriangles(string filePath, Dimensions size, FillMode fillMode, Block block, float width, float scale)
-        {
+        public static McStructure IntersectionTriangleObjToStruct(IEnumerable<string> objLines, Dimensions size, Block block, float scale, bool shrinkTriangles=false) => IntersectionTriangleObjToStruct(
+            objLines, size, new UVBlockPalette(new Block[,] { { block } }, 1, 1), scale,shrinkTriangles);
 
-
-            // Create a list to store the triangles
-            List<Triangle3DFeature> triangles = new List<Triangle3DFeature>();
-            List<Vector3> vertices = new List<Vector3>();
-            float mx = float.PositiveInfinity;
-            float my = float.PositiveInfinity;
-            float mz = float.PositiveInfinity;
-            // Read the file line by line
-            foreach (string line in File.ReadLines(filePath))
-            {
-                string[] parts = line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                if (parts.Length == 0 || parts[0].StartsWith("#"))
-                {
-                    // Skip comments and empty lines
-                    continue;
-                }
-                else if (parts[0] == "v")
-                {
-                    // Parse vertex positions
-                    float x = float.Parse(parts[1]) * scale;
-                    float y = float.Parse(parts[2]) * scale;
-                    float z = float.Parse(parts[3]) * scale;
-                    mx = float.Min(mx, x);
-                    my = float.Min(my, y);
-                    mz = float.Min(mz, z);
-
-                    vertices.Add(new Vector3(x, y, z));
-                }
-                else if (parts[0] == "f")
-                {
-                    // Parse face indices
-                    int[] indices = parts.Skip(1).Select(s => int.Parse(s.Split('/')[0])).ToArray();
-                    Vector3 A = new Vector3(vertices[indices[0] - 1].X, vertices[indices[0] - 1].Y, vertices[indices[0] - 1].Z);
-                    Vector3 B = new Vector3(vertices[indices[1] - 1].X, vertices[indices[1] - 1].Y, vertices[indices[1] - 1].Z);
-                    Vector3 C = new Vector3(vertices[indices[2] - 1].X, vertices[indices[2] - 1].Y, vertices[indices[2] - 1].Z);
-                    Triangle3DFeature triangle = new Triangle3DFeature(size, fillMode, block, A, B, C, width);
-                    triangles.Add(triangle);
+        
+        public static McStructure IntersectionTriangleObjToStruct(IEnumerable<string> objLines, Dimensions size, UVBlockPalette palette, float scale, bool shrinkTriangles=false) {
+            var triangles = GetTrianglesFromObj(objLines, scale);
+            if (shrinkTriangles) {
+                //Shrink to avoid triangles from touching border blocks(voxels)
+                for (int i = 0; i < triangles.Count; i++) {
+                    triangles[i] = Triangle.Shrink(triangles[i]);
                 }
             }
-
-            Vector3 low = new Vector3(mx, my, mz);
-            Vector3 lowTarget = new Vector3(0, 0, 0);
-
-            triangles.ForEach(triangle =>
-            {
-                triangle.SetTransformation(Matrix4x4.CreateTranslation(low - lowTarget));
-            });
+            return IntersectionTrianglesToStructure(triangles, size, palette);
+        }
 
 
+        public static McStructure IntersectionTrianglesToStructure(List<Triangle> triangles, Dimensions size, UVBlockPalette palette) {
+            McStructure structure = new McStructure(size);
+            foreach (Triangle triangle in triangles) {
+                Vector3 lo = triangle.low;
+                Vector3 hi = triangle.hi;
+                for (int x = int.Max(0, (int)lo.X - 2); x < int.Min(size.X, (int)hi.X + 2); x++) {
+                    for (int y = int.Max(0, (int)lo.Y - 2); y < int.Min(size.Y, (int)hi.Y + 2); y++) {
+                        for (int z = int.Max(0, (int)lo.Z - 2); z < int.Min(size.Z, (int)hi.Z + 2); z++) {
+                            if (TestAABBTriangleIntersection(triangle, new Vector3(x, y, z) - Vector3.One / 2f, new Vector3(x, y, z) + Vector3.One / 2f)) {
+                                structure.SetBlock(x, y, z, palette[triangle.TextCoords.X, triangle.TextCoords.Y]);
+                            }
+                        }
+                    }
+                }
+            }
+            return structure;
 
-            return triangles;
         }
 
         static bool TestAABBTriangleIntersection(Triangle triangle, Vector3 minima, Vector3 maxima) {
@@ -192,19 +170,6 @@ namespace BedrockTools.Structure.Advanced.Obj
             {
                 return GeometryUtil.PointInTrianlge(triangle, polygon[0]);
             }
-            ////Sort Polygon points
-            //for (int i = 0; i < Polygon.Length-2; i++) {
-            //    for (int j = i+2; j < Polygon.Length; j++) {
-            //        Vector3 a = Polygon[i + 1] - Polygon[i];
-            //        Vector3 b = Polygon[j] - Polygon[i];
-            //        float dir = GeometryUtil.GetCrossSignedMagnitude(a, b, n);
-            //        if (dir < 0) {
-            //            Vector3 tmp = Polygon[i + 1];
-            //            Polygon[i+1] = Polygon[j];
-            //            Polygon[j] = tmp;
-            //        }
-            //    }
-            //}
 
             int insideSgn = Math.Sign(
                 GeometryUtil.GetCrossSignedMagnitude(
@@ -241,35 +206,23 @@ namespace BedrockTools.Structure.Advanced.Obj
             return true;
         }
 
-        public static McStructure IntersectionTriangleObjToStruct(string filePath, Dimensions size, Block block, float scale) => IntersectionTriangleObjToStruct(
-            filePath, size, new UVBlockPalette(new Block[,] { { block } }, 1, 1), scale);
-        
-        
-
-        
-        //FIXE: This do be too slow
-        public static McStructure IntersectionTriangleObjToStruct(string filePath, Dimensions size, UVBlockPalette palette, float scale)
-        {
-
-
+        static List<Triangle> GetTrianglesFromObj(IEnumerable<string> objLines, float scale) {
             // Create a list to store the triangles
             List<Triangle> triangles = new List<Triangle>();
             List<Vector3> vertices = new List<Vector3>();
             List<Vector2> UVcoords = new List<Vector2>();
+            List<Vector3> vertexNormals = new List<Vector3>();
             float mx = float.PositiveInfinity;
             float my = float.PositiveInfinity;
             float mz = float.PositiveInfinity;
             // Read the file line by line
-            foreach (string line in File.ReadLines(filePath))
-            {
+            foreach (string line in objLines) {
                 string[] parts = line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                if (parts.Length == 0 || parts[0].StartsWith("#"))
-                {
+                if (parts.Length == 0 || parts[0].StartsWith("#")) {
                     // Skip comments and empty lines
                     continue;
                 }
-                else if (parts[0] == "v")
-                {
+                else if (parts[0] == "v") {
                     // Parse vertex positions
                     float x = float.Parse(parts[1]) * scale;
                     float y = float.Parse(parts[2]) * scale;
@@ -280,35 +233,46 @@ namespace BedrockTools.Structure.Advanced.Obj
 
                     vertices.Add(new Vector3(x, y, z));
                 }
-                else if (parts[0] == "vt")
-                {
+                else if (parts[0] == "vn") {
+                    // Parse vertex positions
+                    float x = float.Parse(parts[1]) * scale;
+                    float y = float.Parse(parts[2]) * scale;
+                    float z = float.Parse(parts[3]) * scale;
+                    mx = float.Min(mx, x);
+                    my = float.Min(my, y);
+                    mz = float.Min(mz, z);
+
+                    vertexNormals.Add(new Vector3(x, y, z));
+                }
+                else if (parts[0] == "vt") {
                     float u = float.Parse(parts[1]);
                     float v;
-                    if (parts.Length > 2)
-                    {
+                    if (parts.Length > 2) {
                         v = float.Parse(parts[2]);
                     }
-                    else
-                    {
+                    else {
                         v = 0;
                     }
                     UVcoords.Add(new Vector2(u, v));
                 }
-                else if (parts[0] == "f")
-                {
+                else if (parts[0] == "f") {
                     // Parse face indices
-                    int[] indices = parts.Skip(1).Select(s => int.Parse(s.Split('/')[0])).ToArray();
-                    Vector3 A = new Vector3(vertices[indices[0] - 1].X, vertices[indices[0] - 1].Y, vertices[indices[0] - 1].Z);
-                    Vector3 B = new Vector3(vertices[indices[1] - 1].X, vertices[indices[1] - 1].Y, vertices[indices[1] - 1].Z);
-                    Vector3 C = new Vector3(vertices[indices[2] - 1].X, vertices[indices[2] - 1].Y, vertices[indices[2] - 1].Z);
+                    int[] indices = parts.Skip(1).Select(s => int.Parse(s.Split('/')[0]) - 1).ToArray();
+                    Vector3 A = new Vector3(vertices[indices[0] ].X, vertices[indices[0]].Y, vertices[indices[0]].Z);
+                    Vector3 B = new Vector3(vertices[indices[1] ].X, vertices[indices[1]].Y, vertices[indices[1]].Z);
+                    Vector3 C = new Vector3(vertices[indices[2] ].X, vertices[indices[2]].Y, vertices[indices[2]].Z);
                     Triangle triangle = new Triangle(A, B, C);
-                    if (parts[1].Split("/").Length > 1)
-                    {
+                    string[] vertexArgs = parts[1].Split("/");
+                    if (vertexArgs.Length > 1 && vertexArgs[1] != "") {
                         triangle.TextCoords = UVcoords[
-                            int.Parse(parts[1].Split("/")[1])
+                            int.Parse(vertexArgs[1])
                         - 1];
-
-
+                    }
+                    if (vertexArgs.Length > 2 && vertexArgs[2] != "") {
+                        int[] normalIndices = parts.Skip(1).Select(s => int.Parse(s.Split('/')[2]) - 1).ToArray();
+                        triangle.normalA = vertexNormals[normalIndices[0]];
+                        triangle.normalB = vertexNormals[normalIndices[1]];
+                        triangle.normalC = vertexNormals[normalIndices[2]];
                     }
                     triangles.Add(triangle);
                 }
@@ -317,8 +281,7 @@ namespace BedrockTools.Structure.Advanced.Obj
             Vector3 low = new Vector3(mx, my, mz);
             Vector3 lowTarget = new Vector3(0, 0, 0);
             Vector3 translation = lowTarget - low;
-            for (int i = 0; i < triangles.Count; i++)
-            {
+            for (int i = 0; i < triangles.Count; i++) {
                 triangles[i] = new Triangle(
                     triangles[i].A + translation,
                     triangles[i].B + translation,
@@ -326,29 +289,8 @@ namespace BedrockTools.Structure.Advanced.Obj
                     triangles[i].TextCoords
                 );
             }
-            return IntersectionTrianglesToStructure(triangles, size, palette);
+
+            return triangles;
         }
-
-
-        public static McStructure IntersectionTrianglesToStructure(List<Triangle> triangles, Dimensions size, UVBlockPalette palette) {
-            McStructure structure = new McStructure(size);
-            Random rand = new Random();
-            foreach (Triangle triangle in triangles) {
-                Vector3 lo = triangle.low;
-                Vector3 hi = triangle.hi;
-                for (int x = int.Max(0, (int)lo.X - 2); x < int.Min(size.X, (int)hi.X + 2); x++) {
-                    for (int y = int.Max(0, (int)lo.Y - 2); y < int.Min(size.Y, (int)hi.Y + 2); y++) {
-                        for (int z = int.Max(0, (int)lo.Z - 2); z < int.Min(size.Z, (int)hi.Z + 2); z++) {
-                            if (TestAABBTriangleIntersection(triangle, new Vector3(x, y, z)- Vector3.One / 2f, new Vector3(x, y, z) + Vector3.One/2f)) {
-                                structure.SetBlock(x, y, z, palette[triangle.TextCoords.X, triangle.TextCoords.Y]);
-                            }
-                        }
-                    }
-                }
-            }
-            return structure;
-
-        }
-
     }
 }
